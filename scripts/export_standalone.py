@@ -75,6 +75,7 @@ POST_INVENTORY_LOCAL_ONLY = {
     "research_notes/LEAN_MATHLIB_REPRODUCIBILITY_QA.md",
     "research_notes/CLEAN_CLONE_REPRODUCIBILITY_QA.md",
     "research_notes/MANUSCRIPT_VERIFICATION_LINK_QA.md",
+    "research_notes/STANDALONE_REPOSITORY_PUBLICATION_QA.md",
     "research_notes/REPRODUCIBLE_REPOSITORY_RESUME.md",
 }
 
