@@ -27,6 +27,12 @@ trees and compares their hashes.  Hosted CI covers the portable Python, Lean,
 LaTeX, source-policy, and mapping layers; it deliberately does not claim to run
 licensed Wolfram software.
 
+After cloning the standalone repository, run `bash scripts/verify_clean_clone.sh`.
+The runner validates export metadata when it is present in a local staging tree;
+in a fresh Git clone that intentionally excludes `.standalone/`, it instead
+checks the Git-tree mode before running the same portable source-policy, Python,
+Lean, and LaTeX gates.
+
 ## Deterministic export
 
 Create a temporary standalone staging tree outside this source tree:

@@ -33,3 +33,13 @@ def test_source_policy_and_export_self_check() -> None:
         check=True,
     )
     assert "PUBLIC_SOURCE_POLICY_OK" in policy.stdout
+
+
+def test_clean_clone_runner_distinguishes_export_metadata_from_a_git_clone() -> None:
+    script = (ROOT / "scripts/verify_clean_clone.sh").read_text(encoding="utf-8")
+    assert ".standalone/file-manifest.json" in script
+    assert "verify_standalone_export.py --export" in script
+    assert "git rev-parse --is-inside-work-tree" in script
+    assert "CLEAN_CLONE_GIT_METADATA_OK" in script
+    assert "TREE_MODE=export_staging_tree" in script
+    assert "TREE_MODE=fresh_git_clone" in script
