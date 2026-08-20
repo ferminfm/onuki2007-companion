@@ -13,8 +13,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: make verify-source-policy
-      - run: make export OUT=/tmp/onuki-export-a
-      - run: python3 scripts/verify_standalone_export.py --export /tmp/onuki-export-a
+      - run: python3 scripts/verify_standalone_export.py --self-check
   python:
     runs-on: ubuntu-latest
     steps:
@@ -29,12 +28,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: leanprover/lean4@v4.29.0
+      - uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: formal/korteweg1901_mathlib
+          build: true
+          test: false
+          lint: false
       - run: make verify-formal
   latex:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - run: python3 scripts/generate_manuscript_link_macros.py
       - uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex

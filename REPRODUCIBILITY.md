@@ -21,11 +21,12 @@ verify-wolfram` is a local optional layer that requires an installed
 WolframKernel. `make verify-lean` builds the finite Mathlib kernels. None of
 these commands reproduces simulations or proves the continuum model.
 
-For a packaging check, use `make verify-source-policy` and `make
-verify-clean-export`.  The latter produces two independent allowlisted staging
-trees and compares their hashes.  Hosted CI covers the portable Python, Lean,
-LaTeX, source-policy, and mapping layers; it deliberately does not claim to run
-licensed Wolfram software.
+For a public-tree check, use `make verify-source-policy`.  The canonical source
+repository alone runs `make verify-clean-export`: that operation needs its
+non-public export inventory to construct two independent allowlisted staging
+trees and compare their hashes.  Hosted CI covers the standalone portable
+Python, Lean, LaTeX, source-policy, and mapping layers; it deliberately does
+not claim to run licensed Wolfram software.
 
 After cloning the standalone repository, run `bash scripts/verify_clean_clone.sh`.
 The runner validates export metadata when it is present in a local staging tree;
