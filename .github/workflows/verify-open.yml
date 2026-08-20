@@ -1,0 +1,51 @@
+name: reproducibility
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  source-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: make verify-source-policy
+      - run: make export OUT=/tmp/onuki-export-a
+      - run: python3 scripts/verify_standalone_export.py --export /tmp/onuki-export-a
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pytest sympy pint
+      - run: make verify-open
+      - run: python3 scripts/verify_standalone_export.py --self-check
+  lean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: leanprover/lean4@v4.29.0
+      - run: make verify-formal
+  latex:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+          working_directory: .
+  mapping-and-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install pytest sympy pint
+      - run: python3 scripts/verify_standalone_export.py --self-check
+      - run: python3 -m pytest -q tests/test_clean_clone_reproducibility.py tests/test_formal_reproducibility.py

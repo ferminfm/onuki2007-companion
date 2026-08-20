@@ -1,0 +1,178 @@
+\section{Korteweg 1901 Primary-Source Crosswalk}
+\label{app:korteweg-primary-crosswalk}
+
+\sourceeqrange{Korteweg Eqs. (1), (20), (34), (36), and (57)--(58); Onuki Eqs. (2.47)--(2.50)}
+
+\subsection*{Scope and evidence order}
+
+The inspected 24-page Korteweg source addresses capillary forces in fluid
+motion and gives its definitive component stress in Eq.~(20)
+\citep{Korteweg1901}.  Onuki explicitly cites Korteweg in the historical
+introduction to the dynamic van der Waals model \citep{Onuki2007PRE}.  The
+evidence used here is ordered as follows: page-image source anchoring,
+explicit separation of source and modern notation, the displayed
+reconstruction, finite symbolic and dimensional checks, and only then a
+comparison with Onuki. Bibliographic uncertainties about the inspected copy are
+recorded in the source catalog rather than used as mathematical premises here.
+
+Korteweg's source uses a pressure-positive component convention: the stress
+divergence enters the momentum equation with a minus sign.  Onuki's pressure
+tensor uses the same force orientation.  A modern tension-positive Cauchy stress
+would instead be \(\sigma_{ij}=-p_{ij}\); inserting that optional sign map is
+unnecessary when the two source tensors are compared directly.
+
+\begin{center}
+\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+Source object & Modern symbol & Type & Comparison caution \\
+\midrule
+\(\rho\) & \(\rho\) & mass density & \(\rho=m_0n\), not \(\rho=n\) \\
+\(\tau\) & \(T\) & temperature & state variable \\
+\(p_{ij}\) & \(P_{ij}\) & pressure-positive stress & force \(-\partial_jP_{ij}\) \\
+\(\alpha,\beta,\gamma,\delta\) & \(\alpha_K,\beta_K,\gamma_K,\delta_K\) & state functions & independent in Eq.~(20) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Modern reconstruction of the capillary tensor}
+
+Let \(\Omega\subset\mathbb R^d\), let \(\rho,T\in C^2(\Omega)\), and write
+\(q=\partial_k\rho\,\partial_k\rho\) and
+\(\ell=\partial_k\partial_k\rho\).  The capillary block transcribed from
+Korteweg's Eq.~(20), printed page 12, is
+\begin{equation}
+ P^K_{ij}
+ =\left(\alpha_K q-\gamma_K\ell\right)\delta_{ij}
+  +\beta_K(\partial_i\rho)(\partial_j\rho)
+  -\delta_K\partial_i\partial_j\rho .
+ \label{eq:korteweg-capillary-tensor}
+\end{equation}
+The four coefficients may depend on \((\rho,T)\).  Equation
+\eqref{eq:korteweg-capillary-tensor} is a modern tensor arrangement of the
+source components, not a quotation of modern notation from 1901.
+
+For \(\rho,T\in C^3(\Omega)\), differentiate before collecting:
+\begin{align}
+ \partial_jP^K_{ij}
+ &=\partial_i(\alpha_K q)-\partial_i(\gamma_K\ell)
+   +\partial_j(\beta_K\rho_i\rho_j)
+   -\partial_j(\delta_K\rho_{ij}) \nonumber\\
+ &=q\,\partial_i\alpha_K-\ell\,\partial_i\gamma_K
+   +\rho_i\rho_j\partial_j\beta_K-\rho_{ij}\partial_j\delta_K
+   +(2\alpha_K+\beta_K)\rho_{ij}\rho_j \nonumber\\
+ &\quad+\beta_K\rho_i\ell
+   -(\gamma_K+\delta_K)\partial_i\ell .
+ \label{eq:korteweg-capillary-divergence}
+\end{align}
+Here, for example,
+\(\partial_i\alpha_K=(\partial\alpha_K/\partial\rho)_T\rho_i
++(\partial\alpha_K/\partial T)_\rho T_i\).  Dropping the second term is an
+isothermal restriction, not an identity.
+
+\subsection*{Conditional local map to Onuki}
+
+With \(\rho=m_0n\), Onuki's capillary tensor from Eqs.~(2.47)--(2.48) may be
+written
+\begin{align}
+ \Pi^G_{ij}
+ &=p_1\delta_{ij}+M(\partial_in)(\partial_jn), \\
+ p_1
+ &=-\frac{M+nM_n|_T}{2}|\grad n|^2-Mn\Delta n
+   +\frac{nK}{T}\grad n\cdot\grad T,
+ \label{eq:onuki-capillary-expanded-for-korteweg}
+\end{align}
+where the second line uses \(M=CT+K\).  Select the Korteweg subfamily
+and write
+\[
+ M_n|_T:=\left(\frac{\partial M}{\partial n}\right)_T .
+\]
+This is a thermodynamic partial derivative at fixed temperature, not a spatial
+or material derivative of the composite field \(M(n(\boldsymbol{x}),T(\boldsymbol{x}))\).
+The coefficient restrictions are
+\begin{equation}
+ \alpha_K=-\frac{M+nM_n|_T}{2m_0^2},\qquad
+ \beta_K=\frac{M}{m_0^2},\qquad
+ \gamma_K=\frac{Mn}{m_0},\qquad
+ \delta_K=0 .
+ \label{eq:korteweg-onuki-map}
+\end{equation}
+Independent substitution into both tensors then gives
+\begin{equation}
+ \Pi^G_{ij}-P^K_{ij}
+ =\frac{nK}{T}(\grad n\cdot\grad T)\delta_{ij}.
+ \label{eq:korteweg-onuki-residual}
+\end{equation}
+Thus the source tensors are literally equal as local fields only under a
+restriction that makes the right-hand side vanish.  Two sufficient,
+source-supported cases emphasized here are an isothermal field and \(K=0\).
+They are not an exhaustive list of pointwise zeros: for example,
+\(\grad n\cdot\grad T=0\) at a field configuration is a kinematic condition,
+not a constitutive model branch.  The \(K=0\) case includes Onuki's dimensional
+simulation specialization \(K=0\), constant \(C\), but it does not identify the
+printed Appendix-B B3 branch or unpublished simulation code.  For general
+nonisothermal \(K\ne0\), the residual is generically nonzero; absorbing it into
+pressure would require a separate equation-of-state and boundary audit.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/tikz/korteweg_onuki_tensor_map}
+\caption{Bounded Korteweg--Onuki tensor map.  Solid arrows feed the two source
+tensors into the audit-defined comparison schema; they denote neither
+historical influence nor unrestricted equality.  Dashed arrows mark sufficient
+restrictions, non-equivalences, and source-dependent
+objects.}
+\label{fig:korteweg-onuki-tensor-map}
+\end{figure}
+
+\subsection*{What the map does not establish}
+
+Korteweg's Eq.~(20) permits four independent coefficient functions and an
+independent Hessian term; Onuki's mapped tensor is therefore a restricted
+subfamily, not the whole Korteweg family.  No counterpart was found in the
+inspected Korteweg source for Onuki's gradient entropy/energy functional,
+generalized chemical potential, reversible entropy flux, alternative capillary
+energy flux, wall functional, or global entropy balance.  Korteweg's static
+wall data and Onuki's wall-transfer model are not interchangeable.  Local
+tensor equality also does not establish an integrated balance or historical
+derivation.  Korteweg's one-dimensional static relations in Eqs.~(34) and
+(36), printed page 17, and the thin-layer reduction in Eqs.~(57)--(58), printed
+pages 23--24, remain restricted structural comparisons unless pressure
+normalization and boundary data are matched.
+
+\subsection*{Executable verification and proof limits}
+
+The explicit Wolfram transition trace
+\path{scripts/wolfram/korteweg1901_tensor_trace.wls} records steps
+\texttt{KT01--KT14}: component reconstruction, every product-rule block,
+collected divergence, state-function chain rule, sign conversion, and negative
+controls.  The crosswalk script
+\path{scripts/wolfram/korteweg_onuki_crosswalk_checks.wls} records
+\texttt{KO01--KO11}, including the source-form pressure expansion, general
+residual, restricted zeros, and negative controls.  Both Wolfram files emit
+complete transition rows rather than only final residuals.
+SymPy mirrors both suites, and Pint checks the stress, coefficient, and force
+dimensions.
+
+The target-local Mathlib module
+\begin{quote}
+\footnotesize\raggedright
+\path{formal/korteweg1901_mathlib/Korteweg1901/TensorKernels.lean}
+\end{quote}
+builds finite component and implication theorems.  Representative names are
+\begin{itemize}[leftmargin=2em]
+\item \path{capillary_divergence_collection_kernel};
+\item \path{pressure_to_cauchy_force_bridge};
+\item \path{divergence_match_not_literal_tensor_match}.
+\end{itemize}
+These checks do not prove a continuum PDE, constitutive law, global balance, or
+physical validity.  The exact finite hypotheses and corresponding hand proofs
+are collected in \path{docs/formal/theorem-index.md};
+\path{scripts/verify_formal_project.sh} rebuilds the pinned project and audits
+the companion's own Lean source for prohibited placeholders.
+
+\subsection*{Tagged verification complement}
+
+\OnukiLinkAppendixE{The tagged Appendix E complement} supplies the conditional
+crosswalk's hand route, finite code mirrors, and formal-scope statement. It does
+not promote the local comparison to historical influence or model equivalence.

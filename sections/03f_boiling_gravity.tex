@@ -1,0 +1,86 @@
+\section{Source Section III.F: Boiling in Gravity}
+\label{sec:boiling-gravity}
+
+\sourceeqrange{Eq. (3.20), figures 11--13}
+
+\subsection*{Purpose}
+
+This subsection records the gravity parameters needed to read the boiling
+examples, while keeping those finite estimates separate from the computed bubble
+dynamics.
+
+\subsection*{Reading Guide}
+
+The gravity parameter \(g^*=mg\ell/\epsilon\) is introduced in Section III.A and
+appears in the scaled total-energy equation in Appendix B.  The boiling scenario
+uses a nonzero gravity branch together with the bottom/top temperature boundary
+branch.  Equation (3.20) gives a bulk adiabatic temperature-gradient estimate;
+in this companion it is used only as a dimensional and interpretive check.
+
+The two finite quantities carried into this reading guide are
+\[
+\begin{array}{c|c|c}
+\text{source anchor} & \text{quantity} & \text{typed role} \\
+\hline
+\text{Eq. (3.7)} & g^*=mg\ell/\epsilon
+  & \text{dimensionless body-force branch parameter} \\
+\text{Eq. (3.20)} &
+  \rho g\left(\partial T/\partial p\right)_s
+  & \text{adiabatic temperature-gradient estimate}
+\end{array}
+\]
+The first quantity enters the scaled balance equations.  The second tells the
+reader what units and sign information to expect from a bulk adiabatic-gradient
+estimate.  Neither one determines a boiling onset criterion by itself.
+
+\subsection*{Finite Checks}
+
+The checkable statements are that \(g^*\) is dimensionless and that the product
+\(\rho g(\partial T/\partial p)_s\) has the units of a temperature gradient.
+The companion does not compute bubble periods, Reynolds numbers, or heat-flux
+peaks.
+
+The adiabatic-gradient estimate starts with hydrostatic pressure balance in the
+vertical coordinate \(z\):
+\begin{equation}
+  \frac{\dd p}{\dd z}=-\rho g.
+\end{equation}
+Along an adiabatic bulk displacement,
+\begin{equation}
+  \frac{\dd T}{\dd z}
+  =\left(\frac{\partial T}{\partial p}\right)_s
+   \frac{\dd p}{\dd z},
+\end{equation}
+so
+\begin{equation}
+  \left(\frac{\dd T}{\dd z}\right)_{\rm bulk}
+  =-\rho g\left(\frac{\partial T}{\partial p}\right)_s.
+  \sourceeqbadge{3.20}
+  \label{eq:iii-adiabatic-gradient-derived}
+\end{equation}
+Here \(\rho g\) has pressure-gradient units and
+\((\partial T/\partial p)_s\) converts pressure to temperature at fixed entropy.
+The product is therefore a temperature gradient.
+
+For the order estimate printed with Eq. (3.20), use \(\rho=mn\),
+\(g^*=mg\ell/\epsilon\), a pressure scale \(p_c\sim\epsilon/v_0\), and
+\(n\sim1/v_0\).  Then
+\begin{equation}
+  \rho g\left(\frac{\partial T}{\partial p}\right)_s
+  \sim \frac{mngT_c}{p_c}
+  \sim \frac{mg\ell}{\epsilon}\frac{T_c}{\ell}
+  =g^*\frac{T_c}{\ell}.
+\end{equation}
+Thus the source order statement is a scale estimate, not an exact equality.
+It does not determine a boiling threshold or a bubble trajectory.  Its role is
+to give the reader a bulk scale against which source temperature fields can be
+interpreted when the gravity branch is active.
+The gravity and adiabatic-gradient dimensional checks are covered by the
+Section III mirror pair listed in Section~\ref{sec:numerical-results-overview}.
+They are not boiling onset calculations.
+
+\subsection*{Limitations}
+
+Boiling onset, transition between weak and strong boiling, and fully developed
+boiling are simulation observations.  They are outside the verification scope of
+this guide.

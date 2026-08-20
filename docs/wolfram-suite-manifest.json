@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "suite_count": 14,
+  "notebook_generator": "scripts/wolfram/generate_literate_notebook.wl",
+  "suites": [
+    {"id":"IIA","script":"scripts/wolfram/section_iia_vdw_baseline_checks.wls","topic":"local van der Waals thermodynamics","anchor":"Onuki Eqs. (2.1)--(2.11)"},
+    {"id":"IIB","script":"scripts/wolfram/section_iib_gradient_entropy_checks.wls","topic":"gradient entropy and energy","anchor":"Onuki Eqs. (2.12)--(2.20)"},
+    {"id":"IIC","script":"scripts/wolfram/section_iic_equilibrium_wall_checks.wls","topic":"equilibrium and wall branch","anchor":"Onuki Eqs. (2.21)--(2.34)"},
+    {"id":"APPENDIX_A","script":"scripts/wolfram/appendix_a_reversible_stress_checks.wls","topic":"reversible stress","anchor":"Onuki Appendix A and Eq. (2.47)"},
+    {"id":"IID_BALANCE","script":"scripts/wolfram/section_iid_hydrodynamic_balance_checks.wls","topic":"hydrodynamic balances","anchor":"Onuki Eqs. (2.35)--(2.53)"},
+    {"id":"IID_P1","script":"scripts/wolfram/section_iid_p1_pressure_expansion_checks.wls","topic":"diagonal pressure expansion","anchor":"Onuki Eq. (2.48)"},
+    {"id":"B_SCALING","script":"scripts/wolfram/appendix_b_scaling_definitions_checks.wls","topic":"Appendix B scaling definitions","anchor":"Onuki Appendix B"},
+    {"id":"B_MOMENTUM","script":"scripts/wolfram/appendix_b_momentum_b3_checks.wls","topic":"scaled momentum branches","anchor":"Onuki Eq. (B3)"},
+    {"id":"B_B3","script":"scripts/wolfram/appendix_b_b3_typo_candidate_checks.wls","topic":"B3 diagonal factor","anchor":"Onuki Eq. (B3)"},
+    {"id":"B_ENERGY","script":"scripts/wolfram/appendix_b_energy_boundary_checks.wls","topic":"scaled energy and boundary terms","anchor":"Onuki Eqs. (B4)--(B6)"},
+    {"id":"B_TRACE","script":"scripts/wolfram/appendix_b_transition_trace.wls","topic":"Appendix B transition trace","anchor":"Onuki Eqs. (B1)--(B6)"},
+    {"id":"III","script":"scripts/wolfram/section_iii_simulation_estimates_checks.wls","topic":"Section III finite estimates","anchor":"Onuki Eqs. (3.5)--(3.20)"},
+    {"id":"KORTEWEG","script":"scripts/wolfram/korteweg1901_tensor_trace.wls","topic":"Korteweg tensor reconstruction","anchor":"Korteweg Eq. (20)"},
+    {"id":"CROSSWALK","script":"scripts/wolfram/korteweg_onuki_crosswalk_checks.wls","topic":"Korteweg--Onuki local crosswalk","anchor":"Korteweg Eq. (20); Onuki Eqs. (2.47)--(2.48)"}
+  ]
+}

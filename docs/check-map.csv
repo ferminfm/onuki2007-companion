@@ -1,0 +1,7 @@
+check_id,topic,entry_point,scope_limit
+IIA_VDW_BASELINE,Section II.A,scripts/python/section_iia_vdw_baseline_sympy.py,finite symbolic thermodynamic algebra only
+IIB_GRADIENT_VARIATION,Section II.B,scripts/python/section_iib_gradient_entropy_sympy.py,finite variation and boundary-term identities only
+IIC_WALL_BRANCH,Section II.C,scripts/python/section_iic_equilibrium_wall_sympy.py,selected equilibrium and wall branch only
+IID_BALANCE_BOOKKEEPING,Section II.D,scripts/python/section_iid_hydrodynamic_balance_sympy.py,local representative bookkeeping only
+APPENDIX_B_B3,Appendix B,scripts/python/appendix_b_b3_typo_candidate_sympy.py,dimensional-source scaling branch only
+KORTEWEG_TENSOR_KERNEL,Appendix E,scripts/python/korteweg_onuki_crosswalk_sympy.py,finite tensor crosswalk only

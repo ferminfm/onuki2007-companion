@@ -1,0 +1,29 @@
+\begin{tikzpicture}[
+  font=\small,
+  node distance=8mm and 8mm,
+  box/.style={draw=black, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=32mm, minimum height=10mm, fill=gray!8},
+  source/.style={draw=black, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=33mm, minimum height=10mm, fill=gray!16},
+  open/.style={draw=black, dashed, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=36mm, minimum height=10mm, fill=white},
+  arrow/.style={-{Latex[length=2.2mm]}, line width=0.5pt},
+  darrow/.style={-{Latex[length=2.2mm]}, dashed, line width=0.5pt}
+]
+\node[source] (page) {source PDF\\page image or text anchor};
+\node[box, right=of page] (eq) {source equation\\number or passage};
+\node[box, right=of eq] (badge) {companion equation\\source badge};
+\node[box, below=of eq] (derive) {visible derivation\\or status classification};
+\node[box, right=of derive] (code) {finite code mirror\\when applicable};
+\node[box, below=of derive] (matrix) {provenance ledger\\and source classification};
+\node[open, right=of matrix] (open) {bounded gaps:\\literature, boundary,\\or source discrepancy};
+
+\draw[arrow] (page) -- (eq);
+\draw[arrow] (eq) -- (badge);
+\draw[arrow] (eq) -- (derive);
+\draw[arrow] (badge) -- (derive);
+\draw[arrow] (derive) -- (code);
+\draw[arrow] (derive) -- (matrix);
+\draw[arrow] (code) -- (matrix);
+\draw[darrow] (matrix) -- (open);
+\end{tikzpicture}

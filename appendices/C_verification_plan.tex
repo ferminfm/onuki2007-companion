@@ -1,0 +1,137 @@
+\section{Verification Plan}
+\label{app:verification-plan}
+
+\sourceeqrange{finite identities only}
+
+\subsection*{Purpose}
+
+This appendix describes the verification layer. It is not evidence that the PDE
+model, constitutive laws, simulations, or physical conclusions are proved by
+software.  The verification scripts check algebraic, dimensional, and ledger
+claims that are finite enough to be independently reconstructed.
+
+\subsection*{Tool Layers}
+
+\begin{itemize}
+\item Wolfram: primary symbolic residuals for finite tensor/component identities.
+\item SymPy: open-source mirrors for fragile symbolic rows.
+\item Pint: dimensional consistency for scales, fluxes, and estimate variables.
+\item pytest: ledger, source-scope, and regression checks.
+\item Lean/Mathlib: finite algebraic and logical kernels for the inspected
+  Korteweg tensor; these kernels do not differentiate fields or prove a
+  continuum model.  Maxima remains available for later scalar third-witness
+  checks if needed.
+\end{itemize}
+
+\subsection*{Central Runner}
+
+The command
+\[
+\texttt{bash scripts/run\_verification.sh}
+\]
+runs the companion integrity checks, all implemented SymPy/Pint scripts, all
+pytest regression files, and the available Wolfram scripts.  Generated summaries
+are written under \texttt{generated/} and remain untracked.
+
+For a script-by-script map from code to the companion text, see the CSV file
+\begin{center}
+\small\texttt{research\_notes/}\\
+\texttt{onuki\_companion\_code\_to\_paper\_map.csv}.
+\end{center}
+This public verification index records script paths, tool layers, companion locations,
+source-equation anchors, checked identities, generated summary paths when
+available, and proof-scope limits.  It is a reader-facing index for the
+verification code; the scripts themselves keep the full executable details.
+Two specialized row indexes are
+\path{research_notes/visible_derivation_code_to_equation_map.csv} and
+\path{research_notes/source_fidelity_code_to_equation_map.csv}.  They record,
+respectively, the public derivation links and the highest-risk source-fidelity
+checks without changing the proof scope of the scripts.
+The exhaustive coauthor-review join is
+\path{research_notes/coauthor_readiness_code_to_paper_map.csv}.  It gives every
+public relation an explicit finite-evidence status or an explicit
+nonalgebraic/contextual not-applicable status.  It does not convert grouped
+residual checks into proofs of continuum statements.  Its check identifiers
+name either a direct relation-specific match or the exact enclosing displayed
+derivation step, and its separate source-fidelity columns preserve bounded
+source discrepancies even when the finite algebraic check passes.
+
+\subsection*{Current Implemented Checks}
+
+\begin{itemize}
+\item Section II.A: local thermodynamic identities, coexistence conditions,
+  interface first integral, surface-tension density, and fragile-term negative
+  controls.
+\item Section II.B: coefficient identities, the temperature-correction identity,
+  the diagnostic term-removal test expression, and a one-dimensional boundary
+  integration-by-parts identity.
+\item Section II.C: equilibrium integration by parts, natural wall-boundary
+  cancellation, quadratic wall derivative, planar surface-tension check, and
+  expected nonzero omitted-wall residual.
+\item Appendix A: virtual-displacement density variation, product-rule
+  expansion, one-dimensional gradient integration by parts, stress-power
+  component contraction, off-diagonal stress symmetry, and expected nonzero
+  omitted-off-diagonal residual.
+\item Section II.D: kinetic-energy bookkeeping, internal-energy balance as total
+  energy minus kinetic energy, stress-flux product rule, simplified viscous
+  production proxy, local entropy-flux gauge relation, derivative-expanded
+  \(p_1\), expected nonzero omitted-reversible-flux and derivative-misuse
+  residuals, and a boundary-transfer regression.
+\item Appendix B: scale definitions, B2 momentum scaling, branchwise B3 pressure
+  tensor residual, B4 energy density, B5 local total-energy equation, B6 density
+  boundary condition, and expected nonzero omitted wall/global-transfer
+  residual.
+\item Section III: finite reading-guide estimates only: \(\sigma\), \(g^*\), the
+  sound scale, latent-heat velocity units, effective-conductivity and Nusselt
+  definitions, the adiabatic temperature-gradient units, and a regression that
+  simulations are not reproduced.
+\item Korteweg 1901: component reconstruction of Eq.~(20), its local divergence,
+  state-coefficient chain rules, pressure-to-Cauchy sign conversion, dimensions,
+  and negative controls for omitted coefficient derivatives and unsupported
+  scalar gauges.  A second finite suite checks the conditional Korteweg--Onuki
+  local-stress map and its general nonisothermal residual.
+\end{itemize}
+
+The primary traces are
+\path{scripts/wolfram/korteweg1901_tensor_trace.wls}, steps
+\texttt{KT01--KT14}, and
+\path{scripts/wolfram/korteweg_onuki_crosswalk_checks.wls}, steps
+\texttt{KO01--KO11}.  Both files emit explicit transition traces with source
+or prior-step anchors, premises, transformations, assumptions, outputs, and
+residuals.  Independent mirrors are
+\begin{quote}
+\footnotesize\raggedright
+\path{scripts/python/korteweg1901_tensor_sympy.py};\par
+\path{scripts/python/korteweg1901_tensor_units.py};\par
+\path{scripts/python/korteweg_onuki_crosswalk_sympy.py}.
+\end{quote}
+
+The finite Lean file is
+\begin{quote}
+\footnotesize\raggedright
+\path{formal/korteweg1901_mathlib/Korteweg1901/TensorKernels.lean}.
+\end{quote}
+It contains these theorems:
+\begin{itemize}[leftmargin=2em]
+\item \path{dyadic_gradient_stress_symmetric};
+\item \path{finite_stress_contraction_two_dim};
+\item \path{capillary_divergence_collection_kernel};
+\item \path{density_gradient_coefficient_map};
+\item \path{density_hessian_coefficient_map};
+\item \path{pressure_to_cauchy_force_bridge};
+\item \path{divergence_match_not_literal_tensor_match};
+\item \path{dyadic_quadratic_nonnegative}.
+\end{itemize}
+They formalize only finite component and implication kernels under explicit
+hypotheses.
+Their exact declarations, finite hand proofs, and scope limits are indexed in
+\path{docs/formal/theorem-index.md}; the portable audited build route is
+\path{scripts/verify_formal_project.sh}.  The research audit remains recorded
+in \path{research_notes/COAUTHOR_READINESS_FORMAL_SCOPE_AUDIT.md}.
+
+\subsection*{What Is Not Verified}
+
+The checks do not prove continuum PDE equivalence, the second law,
+well-posedness, numerical convergence, empirical validity, published figure
+values, or the unpublished simulation-code branch.  Local flux identities remain
+local unless boundary and wall-transfer terms are supplied.

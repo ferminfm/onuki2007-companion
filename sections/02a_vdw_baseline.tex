@@ -1,0 +1,590 @@
+\section{Source Section II.A: Equilibrium van der Waals Baseline}
+\label{sec:vdw-baseline}
+
+\sourceeqrange{Eqs. (2.1)--(2.11)}
+
+\subsection{Purpose and Scope}
+
+This section gives the equilibrium thermodynamic baseline used later in the
+companion.  The source begins with a one-component van der Waals fluid and then
+adds a square-gradient free-energy term for an equilibrium interface.  The role
+of this companion section is to make the local variables, partial derivatives,
+and one-dimensional interface bookkeeping explicit before the nonequilibrium
+entropy and energy functionals are introduced in Section~\ref{sec:gradient-entropy-energy}.
+
+The scope is equilibrium and local.  We derive the bulk pressure, entropy,
+internal-energy, spinodal, and sound-speed identities from the stated Helmholtz
+free-energy density.  We then record how the equilibrium gradient term leads to
+the chemical-potential and surface-tension formulas used as the capillarity
+baseline.  We do not derive the dynamic stress tensor here, do not choose the
+Appendix-B printed/scaled branch, and do not make any numerical or PDE
+well-posedness claim.
+
+\subsection{Typed Objects and Assumptions}
+
+Let \(n>0\) be the number density and \(T>0\) the absolute temperature.  The
+baseline is a local equilibrium model, so the independent variables in this
+subsection are \((n,T)\), except in the final one-dimensional interface branch
+where \(n=n(x)\) at fixed \(T\).
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Symbol & Type & Role in Section II.A \\
+\midrule
+\(n\) & scalar density & number density \\
+\(T\) & scalar & temperature \\
+\(v_0\) & volume parameter & molecular volume \\
+\(\epsilon\) & energy parameter & attractive-interaction scale \\
+\(k_B\) & constant & Boltzmann constant \\
+\(m\) & mass parameter & particle mass \\
+\(d\) & integer parameter & space dimension \\
+\(\lambda_{\rm th}(T)\) & length & thermal de Broglie wavelength \\
+\(f(n,T)\) & energy density & Helmholtz free-energy density \\
+\(e(n,T)\) & energy density & internal-energy density \\
+\(s(n,T)\) & entropy per particle & source entropy variable \\
+\(p(n,T)\) & pressure & bulk thermodynamic pressure \\
+\(\mu(n,T)\) & energy per particle & chemical potential \((\partial f/\partial n)_T\) \\
+\(T_s(n)\) & temperature & spinodal temperature function \\
+\(c\) & speed & adiabatic sound speed \\
+\(\gamma_s\) & dimensionless & specific-heat ratio \(C_p/C_V\) \\
+\(M(n)\) & coefficient & equilibrium square-gradient free-energy coefficient \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The local thermodynamic derivatives in this section are classical partial
+derivatives.  When a derivative is taken at fixed entropy per particle, the
+constraint is written explicitly.  The one-dimensional interface calculation
+assumes enough smoothness for \(n_x\) and \(n_{xx}\) to exist and decay or match
+the coexisting bulk states at the ends of the interface.
+
+\subsection{Bulk Free Energy and Derived State Functions}
+
+The Helmholtz density in \eqsrc{2.1} has the form
+\begin{equation}
+  f(n,T)=k_BTn\left[\log\left(\lambda_{\rm th}^d n\right)-1-
+  \log(1-v_0n)\right]-\epsilon v_0 n^2.\sourceeqbadge{2.1}
+  \label{eq:iia-free-energy}
+\end{equation}
+The companion treats \(\lambda_{\rm th}^d\) as a temperature-dependent factor
+proportional to \(T^{-d/2}\).  At fixed \(T\) it is constant with respect to
+\(n\).  The two derivative operations used below are deliberately kept
+separate:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Operation & Held fixed & Differentiation rule \\
+\midrule
+\(\partial_n\) & \(T\) & \(\partial_n\log(\lambda_{\rm th}^d n)=1/n\) \\
+\(\partial_n\) & \(T\) & \(\partial_n[-\log(1-v_0n)]=v_0/(1-v_0n)\) \\
+\(\partial_T\) & \(n\) & \(\partial_T\log(\lambda_{\rm th}^d)=-d/(2T)\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+No spatial derivative is being taken in this bulk subsection.  The symbol
+\(n\) is an independent thermodynamic coordinate, not yet a field \(n(x)\).
+For the derivative with respect to \(n\), set
+\[
+  L(n,T)=\log\left(\frac{\lambda_{\rm th}^d n}{1-v_0n}\right).
+\]
+Then
+\begin{align}
+  \left(\frac{\partial}{\partial n}n[L(n,T)-1]\right)_T
+  &=L-1+n\left(\frac{1}{n}+\frac{v_0}{1-v_0n}\right) \\
+  &=L+\frac{v_0n}{1-v_0n}.
+  \label{eq:iia-chemical-potential-log-step}
+\end{align}
+This is a companion derivation step, not an additional source equation.  It
+makes the fixed-temperature derivative in the chemical potential explicit:
+\begin{equation}
+  \mu=\left(\frac{\partial f}{\partial n}\right)_T
+  =k_BT\left[\log\left(\frac{\lambda_{\rm th}^d n}{1-v_0n}\right)
+  +\frac{v_0n}{1-v_0n}\right]-2\epsilon v_0n .
+  \label{eq:iia-chemical-potential}
+\end{equation}
+The pressure follows from the Euler relation for the Helmholtz density,
+\begin{equation}
+  p=n\mu-f.
+  \label{eq:iia-pressure-euler}
+\end{equation}
+The step-by-step calculation is a cancellation ledger.  First multiply
+\(\mu\) by \(n\), then subtract the entire Helmholtz density; only after this
+subtraction should the attractive term be simplified.  Written in three groups,
+\[
+  n\mu-f
+  =\underbrace{k_BTnL-k_BTn(L-1)}_{\text{ideal logarithmic part}}
+  +\underbrace{k_BTn\frac{v_0n}{1-v_0n}}_{\text{excluded-volume derivative}}
+  +\underbrace{(-2\epsilon v_0n^2+\epsilon v_0n^2)}_{\text{attraction}} .
+\]
+The logarithmic terms cancel when this relation is expanded:
+\begin{align}
+  n\mu-f
+  &=k_BTn\left[L+\frac{v_0n}{1-v_0n}-(L-1)\right]
+    -\epsilon v_0n^2 \\
+  &=k_BTn\left(1+\frac{v_0n}{1-v_0n}\right)-\epsilon v_0n^2 \\
+  &=\frac{nk_BT}{1-v_0n}-\epsilon v_0n^2.
+  \label{eq:iia-pressure-cancellation-step}
+\end{align}
+Thus \eqref{eq:iia-free-energy} and \eqref{eq:iia-chemical-potential}
+give exactly the pressure formula in \eqsrc{2.4},
+\begin{equation}
+  p(n,T)=\frac{nk_BT}{1-v_0n}-\epsilon v_0n^2 .\sourceeqbadge{2.4}
+  \label{eq:iia-pressure}
+\end{equation}
+This is a thermodynamic identity for the local bulk model, not a mechanical
+stress law.
+
+For later checking it is useful to isolate the two cancellations in the bulk
+state-function chain.  First,
+\begin{align}
+  L+\frac{v_0n}{1-v_0n}-(L-1)
+  &=1+\frac{v_0n}{1-v_0n}
+    =\frac{1}{1-v_0n}, \\
+  -2\epsilon v_0n^2-(-\epsilon v_0n^2)
+  &=-\epsilon v_0n^2 .
+  \label{eq:iia-pressure-linebyline-ledger}
+\end{align}
+Second, every logarithmic term in \(e=f+Tns\) cancels before the attraction
+term is carried down unchanged.  These are companion audit lines: they explain
+why the source pressure and energy formulas follow from the Helmholtz density,
+but they are not additional source equations.
+
+The entropy per particle is recovered by differentiating \(f\) with respect to
+\(T\) at fixed \(n\):
+\begin{equation}
+  ns=-\left(\frac{\partial f}{\partial T}\right)_n .
+  \label{eq:iia-entropy-definition}
+\end{equation}
+Because \(\lambda_{\rm th}^d\propto T^{-d/2}\),
+\begin{equation}
+  \left(\frac{\partial L}{\partial T}\right)_n=-\frac{d}{2T}.
+  \label{eq:iia-thermal-wavelength-derivative}
+\end{equation}
+Therefore the fixed-density derivative is
+\begin{align}
+  \left(\frac{\partial f}{\partial T}\right)_n
+  &=k_Bn(L-1)+k_BTn\left(-\frac{d}{2T}\right) \\
+  &=k_Bn\left(L-1-\frac{d}{2}\right),
+  \label{eq:iia-entropy-temperature-derivative-step}
+\end{align}
+and \eqref{eq:iia-entropy-definition} gives the entropy formula \eqsrc{2.3},
+\begin{equation}
+  s(n,T)=-k_B\log\left(\frac{\lambda_{\rm th}^d n}{1-v_0n}\right)
+  +\frac{k_B(d+2)}{2} .\sourceeqbadge{2.3}
+  \label{eq:iia-entropy}
+\end{equation}
+The internal-energy density follows from \(e=f+Tns\).  Substituting the
+just-derived entropy makes the cancellation visible:
+\begin{align}
+  f+Tns
+  &=k_BTn(L-1)-\epsilon v_0n^2
+    +k_BTn\left(-L+1+\frac{d}{2}\right) \\
+  &=\frac{d}{2}nk_BT-\epsilon v_0n^2.
+  \label{eq:iia-internal-energy-cancellation-step}
+\end{align}
+This yields \eqsrc{2.2},
+\begin{equation}
+  e(n,T)=\frac{d}{2}nk_BT-\epsilon v_0n^2 .\sourceeqbadge{2.2}
+  \label{eq:iia-internal-energy}
+\end{equation}
+The check fixes the meaning of \(s\): it is an entropy per particle, so the
+entropy density is \(ns\).
+
+\subsection{Coexistence Constants and Profile Terminology}
+
+At fixed temperature below the critical point, the equilibrium interface branch
+uses two bulk densities, denoted here by \(n_\alpha\) and \(n_\beta\).  They
+are not chosen by the gradient calculation alone.  They are the bulk endpoints
+of the coexistence construction: the chemical potential and pressure take the
+same constant values in both bulk phases,
+\begin{equation}
+  \mu(n_\alpha,T)=\mu(n_\beta,T)=\mu_{\rm cx}(T),\qquad
+  p(n_\alpha,T)=p(n_\beta,T)=p_{\rm cx}(T).
+  \label{eq:iia-coexistence-bulk-conditions}
+\end{equation}
+Equation \eqref{eq:iia-coexistence-bulk-conditions} is the companion's
+notation for the coexistence branch used by source Eqs.~(2.9)--(2.11).  It is a
+bulk thermodynamic condition, not a dynamic boundary condition and not a
+numerical prescription.
+
+The one-dimensional object used below is an equilibrium density profile,
+\(n_*(x)\), connecting the two bulk limits through a diffuse interface,
+\begin{equation}
+  \lim_{x\to-\infty}n_*(x)=n_\alpha,\qquad
+  \lim_{x\to+\infty}n_*(x)=n_\beta,\qquad
+  \lim_{|x|\to\infty}\partial_x n_*(x)=0 .
+  \label{eq:iia-equilibrium-profile-limits}
+\end{equation}
+The word ``profile'' is used in this restricted sense: it is a spatial
+stationary field at fixed \(T\), not a time trajectory and not a sharp-interface
+jump condition.  These endpoint statements explain how the integration
+constants in the pressure and surface-tension formulas are fixed.
+
+
+\begin{figure}[htbp]
+\centering
+\resizebox{0.82\linewidth}{!}{\input{figures/tikz/coexistence_profile_navigation}}
+\caption{Navigation diagram for the one-dimensional equilibrium density
+profile used in the Section II.A interface calculation.  The curve represents a
+diffuse stationary profile joining two bulk coexistence limits; it is not a
+sharp-interface jump condition and not a time trajectory.}
+\label{fig:coexistence-profile-navigation}
+\end{figure}
+
+
+\subsection{Spinodal Temperature, Sound Speed, and Heat-Capacity Ratio}
+
+Differentiate \eqref{eq:iia-pressure} at fixed \(T\):
+\begin{equation}
+  \left(\frac{\partial p}{\partial n}\right)_T
+  =\frac{k_BT}{(1-v_0n)^2}-2\epsilon v_0 n .
+  \label{eq:iia-isothermal-pressure-derivative}
+\end{equation}
+The spinodal temperature recorded in \eqsrc{2.7} is the value of \(T\) for
+which this isothermal derivative vanishes,
+\begin{equation}
+  T_s(n)=\frac{2\epsilon v_0n(1-v_0n)^2}{k_B} .\sourceeqbadge{2.7}
+  \label{eq:iia-spinodal-temperature}
+\end{equation}
+Thus
+\begin{equation}
+  \left(\frac{\partial p}{\partial n}\right)_T
+  =\frac{k_B(T-T_s)}{(1-v_0n)^2} .
+  \label{eq:iia-isothermal-derivative-spinodal-form}
+\end{equation}
+To locate the maximum, write \(u=v_0n\).  Apart from the positive constant
+\(2\epsilon/k_B\), the spinodal function is \(u(1-u)^2\), and
+\[
+  \frac{\dd}{\dd u}u(1-u)^2=(1-u)(1-3u).
+\]
+The nontrivial maximum in the physical interval therefore occurs at
+\(u=1/3\), or \(n=1/(3v_0)\), giving the familiar critical values recorded
+after \eqsrc{2.7},
+\begin{equation}
+  n_c=\frac{1}{3v_0},\qquad T_c=\frac{8\epsilon}{27k_B}.
+  \label{eq:iia-critical-values}
+\end{equation}
+
+For the adiabatic derivative, impose \(\dd s=0\).  The calculation uses
+the chain rule along the curve \(T=T(n)\) on which the entropy per particle is
+constant:
+\[
+  \left(\frac{\dd p}{\dd n}\right)_{s}
+  =\left(\frac{\partial p}{\partial n}\right)_{T}
+  +\left(\frac{\partial p}{\partial T}\right)_{n}
+   \left(\frac{\partial T}{\partial n}\right)_{s}.
+\]
+The three factors on the right have different types: the first two are local
+thermodynamic partial derivatives, while the last is the slope of the
+constant-entropy curve in the \((n,T)\) plane.  From
+\eqref{eq:iia-entropy},
+\begin{equation}
+  \left(\frac{\partial s}{\partial n}\right)_T
+  =-\frac{k_B}{n(1-v_0n)},\qquad
+  \left(\frac{\partial s}{\partial T}\right)_n=\frac{dk_B}{2T}.
+  \label{eq:iia-entropy-partials}
+\end{equation}
+The fixed-entropy differential is
+\[
+  0=\dd s=\left(\frac{\partial s}{\partial n}\right)_T\dd n
+  +\left(\frac{\partial s}{\partial T}\right)_n\dd T,
+\]
+so the derivative is obtained by solving the scalar linear equation
+\begin{equation}
+  \left(\frac{\partial s}{\partial T}\right)_n
+  \left(\frac{\partial T}{\partial n}\right)_s
+  =-\left(\frac{\partial s}{\partial n}\right)_T .
+  \label{eq:iia-fixed-entropy-linear-solve}
+\end{equation}
+Thus
+\begin{equation}
+  \left(\frac{\partial T}{\partial n}\right)_s
+  =-\frac{(\partial s/\partial n)_T}{(\partial s/\partial T)_n}
+  =\frac{2T}{dn(1-v_0n)} .
+  \label{eq:iia-adiabatic-temperature-derivative}
+\end{equation}
+Using \((\partial p/\partial T)_n=nk_B/(1-v_0n)\), the adiabatic pressure
+derivative is
+\begin{align}
+  \left(\frac{\partial p}{\partial n}\right)_s
+  &=\left(\frac{\partial p}{\partial n}\right)_T
+    +\left(\frac{\partial p}{\partial T}\right)_n
+     \left(\frac{\partial T}{\partial n}\right)_s \\
+  &=\frac{k_BT}{(1-v_0n)^2}
+    \left(1+\frac{2}{d}-\frac{T_s}{T}\right).
+  \label{eq:iia-adiabatic-pressure-derivative}
+\end{align}
+Dividing by the particle mass \(m\) gives the derivative-based sound-speed
+formula
+\begin{equation}
+  c_{\rm der}=\frac{1}{1-v_0n}\left(\frac{k_BT}{m}\right)^{1/2}
+    \left(1+\frac{2}{d}-\frac{T_s}{T}\right)^{1/2} .
+    \companionbranchbadge{derived 2.5 branch}
+  \label{eq:iia-sound-speed}
+\end{equation}
+The badge identifies this as the companion's derivative-consistent branch,
+not as a transcription of the printed formula.  The page image for printed
+source Eq.~(2.5) displays the same square-root factor
+but without the prefactor \((1-v_0n)^{-1}\).  The denominator is forced by
+\eqref{eq:iia-adiabatic-pressure-derivative} and is also present in the
+Section III scaled coefficient, source Eq.~(3.9).  This companion therefore
+keeps the derivative-consistent expression in \eqref{eq:iia-sound-speed} and
+records the printed source Eq.~(2.5) line as a source-fidelity discrepancy, not
+as a formal erratum and not as a change to any simulation branch.
+The heat-capacity ratio is the ratio of the adiabatic and isothermal pressure
+responses,
+\begin{equation}
+  \gamma_s=\frac{C_p}{C_V}
+  =\frac{(\partial p/\partial n)_s}{(\partial p/\partial n)_T}
+  =1+\frac{2}{d(1-T_s/T)} .\sourceeqbadge{2.6}
+  \label{eq:iia-heat-capacity-ratio}
+\end{equation}
+Equation \eqref{eq:iia-heat-capacity-ratio} writes \eqsrc{2.6} in an
+unambiguous fraction form.
+
+\subsection{Equilibrium Gradient Free Energy}
+
+The equilibrium capillarity branch begins with the square-gradient density in
+\eqsrc{2.8},
+\begin{equation}
+  f_{\rm gra}=\frac{1}{2}M(n)|\grad n|^2 .\sourceeqbadge{2.8}
+  \label{eq:iia-gradient-free-energy}
+\end{equation}
+For a planar interface, take \(n=n(x)\) and fixed \(T\).  Vary the
+one-dimensional functional
+\begin{equation}
+  F_{1d}[n]=\int \left[f(n,T)+\frac{1}{2}M(n)n_x^2\right]\dd x
+  \label{eq:iia-one-dimensional-functional}
+\end{equation}
+by \(n_\varepsilon=n+\varepsilon\eta\), where \(\eta\) is a smooth test
+variation.  The first-order term is
+\begin{align}
+  \left.\frac{\dd}{\dd\varepsilon}F_{1d}[n_\varepsilon]\right|_{\varepsilon=0}
+  &=\int \left[\mu\eta+\frac{1}{2}M_n n_x^2\eta
+    +M n_x\eta_x\right]\dd x \\
+  &=\int \left[\mu-Mn_{xx}-\frac{1}{2}M_n n_x^2\right]\eta\,\dd x
+    +\left[M n_x\eta\right]_{\partial}.
+  \label{eq:iia-gradient-variation-step}
+\end{align}
+The integration-by-parts sign in the second line comes from the one-dimensional
+product rule
+\begin{equation}
+  \frac{\dd}{\dd x}(M n_x\eta)
+  =M n_x\eta_x+(M n_{xx}+M_n n_x^2)\eta .
+  \label{eq:iia-gradient-product-rule-linebyline}
+\end{equation}
+Hence
+\begin{equation}
+  \int M n_x\eta_x\,\dd x
+  =[M n_x\eta]_{\partial}
+  -\int (M n_{xx}+M_n n_x^2)\eta\,\dd x .
+  \label{eq:iia-gradient-ibp-linebyline}
+\end{equation}
+Here \(M_n=(\partial M/\partial n)_T\) is a thermodynamic partial derivative,
+not a spatial derivative.  The boundary term should be read before any
+endpoint assumption is imposed:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Branch & Assumption on \(\eta\) & Consequence for \([Mn_x\eta]_{\partial}\) \\
+\midrule
+fixed endpoints & \(\eta=0\) at both ends & term vanishes \\
+free endpoint & \(\eta\) arbitrary & natural boundary data are required \\
+coexisting bulk limit & \(n_x\to0\) at infinity & term vanishes if the decay is strong enough \\
+\bottomrule
+\end{tabular}
+\end{center}
+With endpoint variations fixed, the boundary term
+vanishes and the Euler--Lagrange derivative is
+\begin{equation}
+  \frac{\delta F_{1d}}{\delta n}
+  =\mu(n,T)-M n_{xx}-\frac{1}{2}M_n n_x^2,
+  \qquad M_n=\left(\frac{\partial M}{\partial n}\right)_T .
+  \label{eq:iia-gradient-euler-lagrange}
+\end{equation}
+The coexistence chemical potential \(\mu_{\rm cx}(T)\) is the constant value in
+\eqref{eq:iia-coexistence-bulk-conditions}.  A stationary profile has the same
+Euler--Lagrange derivative at every \(x\), so rearranging gives the
+chemical-potential interface relation in \eqsrc{2.9}, in component notation,
+\begin{equation}
+  \mu-\mu_{\rm cx}=M n_{xx}+\frac{1}{2}M_n n_x^2
+  =\frac{M}{2}n_{xx}+\frac{\dd}{\dd x}\left(\frac{M}{2}n_x\right).\sourceeqbadge{2.9}
+  \label{eq:iia-interface-chemical-potential}
+\end{equation}
+The second equality is often the safest way to read the source notation when
+\(M=M(n)\).
+
+\subsection{Fixed-Temperature Route to the Interface Pressure Relation}
+
+The source next uses the fixed-temperature thermodynamic identity
+\(\dd p=n\,\dd\mu\) to obtain \eqsrc{2.10}.  This is a local
+one-dimensional calculation along the equilibrium profile, not a dynamic stress
+balance.  Let
+\begin{equation}
+  A=M n_{xx}+\frac{1}{2}M_x n_x
+   =\frac{M}{2}n_{xx}+\frac{\dd}{\dd x}\left(\frac{M}{2}n_x\right),
+  \label{eq:iia-interface-force-abbrev}
+\end{equation}
+so that \eqref{eq:iia-interface-chemical-potential} says
+\(\mu-\mu_{\rm cx}=A\).  Because the temperature is fixed and
+\(\mu_{\rm cx}\) is constant along the profile,
+\begin{equation}
+  \frac{\dd}{\dd x}(p-p_{\rm cx})
+  =n\frac{\dd}{\dd x}(\mu-\mu_{\rm cx})
+  =nA_x .
+  \label{eq:iia-dp-ndmu-route}
+\end{equation}
+Now define the candidate pressure excess
+\begin{equation}
+  P=nA-\frac{1}{2}M n_x^2 .
+  \label{eq:iia-pressure-candidate}
+\end{equation}
+Its derivative is
+\begin{align}
+  P_x
+  &=n_xA+nA_x-\frac{1}{2}M_xn_x^2-Mn_xn_{xx} \\
+  &=nA_x+
+    \underbrace{n_x\left(Mn_{xx}+\frac{1}{2}M_xn_x\right)
+    -\frac{1}{2}M_xn_x^2-Mn_xn_{xx}}_{0} \\
+  &=nA_x .
+  \label{eq:iia-pressure-candidate-derivative}
+\end{align}
+Thus \(P\) and \(p-p_{\rm cx}\) have the same derivative.  Their integration
+constant is fixed by the coexistence endpoint conditions
+\eqref{eq:iia-coexistence-bulk-conditions}--\eqref{eq:iia-equilibrium-profile-limits}:
+in the two bulk limits \(n_x=n_{xx}=0\) and \(p=p_{\rm cx}\), so
+\(P=p-p_{\rm cx}\).  Rewriting \(P\) in the compact source form gives
+\begin{equation}
+  p-p_{\rm cx}
+  =\frac{M}{2}n n_{xx}
+   +\frac{\dd}{\dd x}\left(\frac{M}{2}n n_x\right)
+   -M n_x^2 .\sourceeqbadge{2.10}
+  \label{eq:iia-interface-pressure-relation}
+\end{equation}
+Expanding the total derivative in \eqref{eq:iia-interface-pressure-relation}
+recovers the equivalent form \(Mn n_{xx}+\frac{1}{2}nM_xn_x-\frac{1}{2}Mn_x^2\).
+This expression is the equilibrium pressure bridge to the Section II.D pressure
+tensor; it is not a decision about the Appendix-B printed/scaled branch.
+
+The surface-tension formula in \eqsrc{2.11} is the positive interfacial contribution.
+Its provenance is the same square-gradient equilibrium branch, not a separate
+dynamic law.  Let
+\(\omega(n,T)=f(n,T)-\mu_{\rm cx}(T)n\) be the bulk grand-potential density at
+the coexistence chemical potential.  Along the stationary profile,
+\begin{equation}
+  \frac{\dd}{\dd x}\bigl(\omega-\omega_{\rm cx}\bigr)
+  =\bigl(\mu-\mu_{\rm cx}\bigr)n_x
+  =\frac{\dd}{\dd x}\left(\frac{1}{2}M n_x^2\right),
+  \label{eq:iia-grand-potential-first-integral}
+\end{equation}
+where the last equality uses \eqref{eq:iia-interface-chemical-potential} times
+\(n_x\).  The endpoint limits in \eqref{eq:iia-equilibrium-profile-limits}
+make both sides vanish in the bulk phases, so
+\begin{equation}
+  \omega-\omega_{\rm cx}=\frac{1}{2}M n_x^2 .
+  \label{eq:iia-grand-potential-excess}
+\end{equation}
+The interfacial excess of bulk grand potential plus square-gradient energy is
+therefore
+\begin{equation}
+  \gamma(T)=\int_{-\infty}^{\infty}\left[
+    \omega-\omega_{\rm cx}+\frac{1}{2}M(n(x))n_x^2
+  \right]\dd x
+  =\int_{-\infty}^{\infty}M(n(x))n_x^2\dd x .\sourceeqbadge{2.11}
+  \label{eq:iia-surface-tension}
+\end{equation}
+For a monotone profile oriented so that \(n_x>0\), use
+\(\dd n=n_x\dd x\).  The first integral
+\eqref{eq:iia-grand-potential-excess} gives
+\(n_x=[2(\omega-\omega_{\rm cx})/M]^{1/2}\), and hence
+\begin{align}
+  \gamma(T)
+  &=\int_{n_\alpha}^{n_\beta}M n_x\,\dd n \nonumber\\
+  &=\int_{n_\alpha}^{n_\beta}
+    \left[2M(n,T)\bigl(\omega(n,T)-\omega_{\rm cx}(T)\bigr)\right]^{1/2}
+    \dd n .
+  \label{eq:iia-surface-tension-density-change}
+\end{align}
+If the profile orientation is reversed, the integration limits reverse with
+it; the physical surface tension remains positive.  This change of variables
+therefore belongs to the monotone equilibrium branch and is not available for
+an arbitrary nonmonotone field.
+This derivation records the square-gradient first-integral route to the source
+formula.  The source notes that Eqs.~(2.9)--(2.11) still apply when \(M\)
+depends on \(n\).  In this companion, all such statements remain equilibrium
+one-dimensional statements until Section II.D introduces the dynamic pressure
+tensor.
+
+\subsection{Connection to Later Sections}
+
+Section~\ref{sec:gradient-entropy-energy} replaces the equilibrium coefficient
+\(M\) by the nonequilibrium combination \(M=CT+K\).  Appendix~\ref{app:reversible-stress-derivation}
+and Section~\ref{sec:hydrodynamic-equations} then use the same capillary
+coefficient inside the reversible stress tensor.  Appendix~\ref{app:scaled-equations-plan}
+uses the simulation branch \(K=0\), constant \(C\), and \(M=CT\) when rescaling
+Appendix-B equations.
+
+The inspected Korteweg 1901 source provides historical and mechanical-stress
+context, but it does not replace Onuki as the authority for the equilibrium
+free-energy formulas in this section.  Appendix~
+\ref{app:korteweg-primary-crosswalk} records the source distinction and the
+restricted tensor map separately.
+
+\subsection{Verification Checklist}
+
+The finite verification layer for this section checks:
+
+\begin{itemize}
+\item \(p=n\mu-f\) gives \eqref{eq:iia-pressure};
+\item \(s=-(1/n)(\partial f/\partial T)_n\) gives \eqref{eq:iia-entropy};
+\item \(e=f+Tns\) gives \eqref{eq:iia-internal-energy};
+\item \((\partial p/\partial n)_T\) factors through \(T_s\);
+\item the adiabatic derivative gives the derivative-consistent sound-speed
+  expression, including the excluded-volume denominator flagged above;
+\item \(\gamma_s\) equals the ratio of adiabatic to isothermal pressure
+  derivatives;
+\item the one-dimensional gradient Euler--Lagrange derivative gives
+  \eqref{eq:iia-interface-chemical-potential};
+\item the monotone change of variables in
+  \eqref{eq:iia-surface-tension-density-change} follows from the same first
+  integral and introduces no independent surface-tension law;
+\item the fixed-temperature route \(\dd p=n\,\dd\mu\) gives
+  \eqref{eq:iia-interface-pressure-relation};
+\item the surface-tension integrand derivative is consistent with the
+  equilibrium first-integral bookkeeping.
+\end{itemize}
+
+These checks are algebraic and differential identities.  They do not prove the
+physical equation of state, the second law, the dynamic model, numerical
+results, or PDE well-posedness.
+
+The executable mirrors for the displayed Section II.A calculations are:
+\begin{center}
+\small
+\begin{tabular}{@{}l@{}}
+\texttt{scripts/python/section\_iia\_vdw\_baseline\_sympy.py}\\
+\texttt{scripts/wolfram/section\_iia\_vdw\_baseline\_checks.wls}\\
+\texttt{tests/test\_section\_iia\_vdw\_baseline.py}
+\end{tabular}
+\end{center}
+In particular, the fixed-temperature pressure route in
+\eqref{eq:iia-dp-ndmu-route}--\eqref{eq:iia-interface-pressure-relation} is
+checked as a finite one-dimensional identity, not as a dynamic stress law.
+
+\subsection*{Tagged verification complement}
+
+\OnukiLinkIIA{The tagged Section II.A verification complement} gives the hand
+route, executable commands, negative control, and finite scope for this local
+thermodynamic calculation.
+
+\subsection{Open Issues Carried Forward}
+
+\begin{itemize}
+\item The pressure expression in \eqsrc{2.10} is now derived here as the
+  fixed-temperature pressure bridge, but it should still be read together with
+  the Section II.D pressure tensor before it is used in Appendix-B branch analysis.
+\item Appendix-B printed-B3 versus dimensional-source scaling remains separate
+  from this equilibrium baseline.
+\item The unpublished simulation-code branch remains unresolved.
+\end{itemize}

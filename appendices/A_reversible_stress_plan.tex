@@ -1,0 +1,487 @@
+\section{Appendix A: Reversible Stress from Virtual Displacement}
+\label{app:reversible-stress-derivation}
+
+\sourceeqrange{Appendix A Eqs. (A1)--(A4), with Eqs. (2.35), (2.40), (2.47), and (2.48)}
+
+\subsection{Purpose and Scope}
+
+This appendix reconstructs the reversible-stress calculation that the source
+places after the main hydrodynamic discussion.  The source Appendix A is short;
+the companion expands the typed bookkeeping so that a reader can see which
+objects are densities, variations, tensors, and boundary terms.
+
+The scope is narrow.  We derive the virtual-displacement route to the
+reversible stress tensor and record its sign convention.  We do not derive the
+full hydrodynamic balance laws, do not nondimensionalize Appendix B, and do not
+choose between the printed-B3 and dimensional-source branches.
+
+\subsection{Typed Objects and Assumptions}
+
+Let \(\Omega\subset\mathbb{R}^d\) be a smooth container and let
+\(x=(x_1,\ldots,x_d)\) be Eulerian coordinates.  The fields used here are
+classical and smooth enough for the index manipulations below.  Boundary terms
+are displayed before any cancellation assumption is imposed.
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Symbol & Type & Role in this appendix \\
+\midrule
+\(u:\Omega\to\mathbb{R}^d\) & vector field & virtual displacement \\
+\(n:\Omega\to\mathbb{R}_{>0}\) & scalar field & number density \\
+\(\delta n\) & scalar variation & density change induced by \(u\) \\
+\(\hat e\) & scalar density & gradient-augmented internal-energy density \\
+\(\hat S\) & scalar density & gradient-augmented entropy density \\
+\(\hat\mu\) & scalar field & generalized chemical potential \\
+\(M=M(n,T)\) & coefficient field & square-gradient free-energy coefficient \\
+\(\Pi=(\Pi_{ij})\) & tensor field & reversible stress or pressure tensor \\
+\(p_1\) & scalar field & diagonal gradient pressure contribution \\
+\(\nu\) & boundary vector field & outward unit normal \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Repeated indices are summed.  The companion writes
+\[
+  n_i=\partial_i n,\qquad
+  u_{i,j}=\partial_j u_i .
+\]
+All formulas are first-order in \(u\); terms quadratic in the virtual
+displacement gradient are omitted.
+
+\subsection{Virtual Displacement and Density Variation}
+
+A virtual displacement sends a material point from \(x\) to
+\[
+  x'=x+u(x).
+\]
+The deformation gradient is \(F_{ij}=\partial x_i'/\partial x_j
+=\delta_{ij}+\partial_j u_i\).  For a first-order determinant, use
+\(\det(I+A)=1+\operatorname{tr}A+O(|A|^2)\).  With
+\(A_{ij}=\partial_j u_i\),
+\[
+  \operatorname{tr}A=A_{ii}=\partial_i u_i=\grad\cdot u,
+  \qquad
+  \det F=1+\partial_i u_i+O(|\grad u|^2).
+\]
+so the Jacobian is
+\[
+  \dd x'=(1+\grad\cdot u)\dd x+O(|\grad u|^2).
+\]
+For a material volume element, particle conservation \(n'\dd x'=n\dd x\)
+gives
+\[
+  n'=n(1-\grad\cdot u)+O(|\grad u|^2),
+\]
+and hence the local volume change and material density change recorded in
+\eqsrc{A1}:
+\begin{equation}
+  \delta V=V\,\grad\cdot u,
+  \qquad
+  \delta_{\mathrm{mat}}n=-n\,\grad\cdot u .\sourceeqbadge{A1}
+  \label{eq:app-a-material-density-variation}
+\end{equation}
+When the same calculation is written over the fixed Eulerian domain, the
+induced density variation is
+\begin{equation}
+  \delta_E n
+  =
+  -\grad\cdot(nu)
+  =
+  -u\cdot\grad n-n\,\grad\cdot u .
+  \label{eq:app-a-eulerian-density-variation}
+\end{equation}
+The first equality is the conservation form; the second is the product-rule
+form.  It includes both the material compression term \(-n\grad\cdot u\)
+and the Eulerian relabeling term \(-u\cdot\grad n\).  The verification
+scripts check this identity in components.
+
+\subsection{Coordinate Derivatives and the Gradient Term}
+
+The inverse map has \(x_j=x'_j-u_j(x')+O(|u|^2)\), so the inverse
+Jacobian is
+\[
+  \frac{\partial x_j}{\partial x'_i}
+  =\delta_{ij}-\partial_i u_j+O(|\grad u|^2).
+\]
+The chain rule then gives the operator identity
+\[
+  \partial_i'=(\partial x_j/\partial x_i')\partial_j.
+\]
+The coordinate derivative in the deformed coordinate frame therefore has the
+first-order form stated in \eqsrc{A3}:
+\begin{equation}
+  \frac{\partial}{\partial x_i'}
+  =
+  \frac{\partial}{\partial x_i}
+  -
+  \frac{\partial u_j}{\partial x_i}
+  \frac{\partial}{\partial x_j}
+  +O(|\grad u|^2).\sourceeqbadge{A3}
+  \label{eq:app-a-derivative-transform}
+\end{equation}
+Thus the square-gradient density has two kinds of first-order change.  First,
+the field changes by \(\delta n\).  Second, the derivative operator changes
+with the coordinates.  To first order,
+\[
+  \partial_i' n'
+  =\partial_i n+\partial_i\delta n-(\partial_i u_j)\partial_j n .
+\]
+Writing out the squared-gradient derivative before contraction gives
+\begin{align}
+  \frac{1}{2}\delta(\partial_i n\,\partial_i n)
+  &=\partial_i n\,\delta(\partial_i n) \\
+  &=\partial_i n\left[\partial_i\delta n-(\partial_i u_j)\partial_j n\right].
+  \label{eq:app-a-gradient-change-linebyline}
+\end{align}
+Therefore the derivative of \(|\grad n|^2/2\) is
+\begin{equation}
+  \delta\!\left(\frac{1}{2}|\grad n|^2\right)
+  =
+  \grad n\cdot\grad\delta n
+  -
+  (\partial_i n)(\partial_j n)\,\partial_i u_j .
+  \label{eq:app-a-gradient-change}
+\end{equation}
+Equation \eqref{eq:app-a-gradient-change} is the component mechanism that
+later produces the dyadic term \(M\grad n\otimes\grad n\) in the stress
+tensor.  The first term is an Euler--Lagrange or boundary-term contribution;
+the second term already has the shape of a stress-power contribution.
+
+For the material variation in source Eq. (A1), write
+\(\theta_u=\partial_k u_k\) and substitute
+\(\delta_{\mathrm{mat}}n=-n\theta_u\).  Its spatial derivative is
+\begin{equation}
+  \partial_i(\delta_{\mathrm{mat}}n)
+  =-(\partial_i n)\theta_u-n\partial_i\theta_u .
+  \label{eq:app-a-material-density-gradient}
+\end{equation}
+The gradient-density variation therefore becomes
+\begin{equation}
+  \delta\!\left(\frac12|\grad n|^2\right)
+  =
+  -|\grad n|^2\theta_u
+  -n(\partial_i n)\partial_i\theta_u
+  -(\partial_i n)(\partial_j n)\partial_i u_j .
+  \label{eq:app-a-material-gradient-variation}
+\end{equation}
+The combination of the entropy and energy gradient coefficients is
+\(TC+K=M\).  Hence this contribution to \(T\delta S\) is
+\(-M\delta(|\grad n|^2/2)\).  Before any boundary choice, its middle term
+satisfies
+\begin{align}
+  \int_\Omega Mn(\partial_i n)\partial_i\theta_u\,\dd x
+  &=-\int_\Omega
+    \theta_u\,\partial_i\!\left(Mn\partial_i n\right)\dd x
+  \nonumber\\
+  &\quad+
+  \int_{\partial\Omega}
+    Mn(\nu\cdot\grad n)\theta_u\,\dd a .
+  \label{eq:app-a-material-gradient-ibp}
+\end{align}
+Thus the scalar bulk pieces generated by the gradient variation are
+\begin{equation}
+  \left[
+    M|\grad n|^2-\partial_i(Mn\partial_i n)
+  \right]\theta_u,
+  \label{eq:app-a-material-gradient-scalar-bulk}
+\end{equation}
+while the anisotropic piece is
+\(M(\partial_i n)(\partial_j n)\partial_i u_j\).  The local and coefficient
+variations derived in Section II.B, especially
+\eqref{eq:iib-muhat} and \eqref{eq:iib-M-relation}, collect the scalar pieces
+into the generalized-chemical-potential term used below.  For the interior
+stress identification we take \(u\in C_c^2(\Omega;\mathbb{R}^d)\), so the
+boundary integral in \eqref{eq:app-a-material-gradient-ibp} vanishes.  For a
+wall-touching displacement it must instead be retained and combined with a
+specified wall functional; this appendix does not manufacture that global
+branch.
+
+\subsection{Energy Variation and Stress Power}
+
+The source uses a nondissipative virtual motion in Appendix A.  In that branch
+the internal-energy change of a material element is paired with reversible
+mechanical work.  In companion notation, the stress-power convention is
+\begin{equation}
+  \delta\hat e
+  =
+  -(\hat e\,\delta_{ij}+\Pi_{ij})\,\partial_i u_j .\sourceeqbadge{A2}
+  \label{eq:app-a-energy-work-convention}
+\end{equation}
+This is the sign convention consistent with the internal-energy balance
+\eqsrc{2.40}, where the reversible stress contributes as
+\(-\Pi_{ij}\partial_i v_j\).  Because the reversible stress obtained below is
+symmetric, the contractions \(\Pi_{ij}\partial_i v_j\) and
+\(\Pi_{ij}\partial_j v_i\) are equivalent after dummy-index relabeling.
+
+A useful sign audit is obtained by replacing the virtual displacement gradient
+\(\partial_i u_j\) by a velocity gradient \(\partial_i v_j\).  With the convention
+above, the reversible contribution to the internal-energy balance is the scalar
+\begin{equation}
+  -\Pi_{ij}\partial_i v_j,
+  \label{eq:app-a-stress-power-sign-audit}
+\end{equation}
+which has the same sign as the source internal-energy branch used later in
+Section~\ref{sec:hydrodynamic-equations}.  The sign convention also fixes the
+force-density convention used later in the momentum equation \eqsrc{2.36}:
+\begin{equation}
+  f_i^{\mathrm{rev}}
+  =
+  -\partial_j\Pi_{ij}.
+  \label{eq:app-a-force-convention}
+\end{equation}
+The companion records this convention here, but the full momentum equation is
+deferred to Section II.D.
+
+\subsection{Entropy Variation and Identification of the Tensor}
+
+Use the local differential from Section II.B in the variables
+\((n,\hat e)\),
+\[
+  \delta\hat S
+  =
+  \frac{1}{T}\delta\hat e
+  -
+  \frac{\hat\mu}{T}\delta n
+  +\hbox{gradient-coordinate terms}.
+\]
+Insert the material density variation from \eqsrc{A1}, the work convention
+\eqref{eq:app-a-energy-work-convention}, and the square-gradient coordinate
+change \eqref{eq:app-a-gradient-change}.  The coefficient collection can be
+read term by term:
+\begin{align}
+  \frac{T\delta S}{V}
+  &=T\hat S\,\partial_k u_k
+    -\hat e\,\partial_k u_k
+    -\Pi_{ij}\partial_i u_j
+    +n\hat\mu\,\partial_k u_k
+    +M(\partial_i n)(\partial_j n)\partial_i u_j .
+  \label{eq:app-a-entropy-variation-uncollected}
+\end{align}
+The first term is the entropy-density volume contribution, the second and
+third terms come from the reversible work convention, the fourth term comes
+from the density variation, and the final term comes from the transformed
+gradient operator.  The term origins can be checked as follows:
+\begin{center}
+\begin{tabular}{@{}p{0.35\linewidth}p{0.52\linewidth}@{}}
+\toprule
+Term & Origin \\
+\midrule
+\(T\hat S\partial_k u_k\) & volume change of entropy density \\
+\(-\hat e\partial_k u_k-\Pi_{ij}\partial_i u_j\) & reversible work convention \\
+\(n\hat\mu\partial_k u_k\) & density variation under material compression \\
+\(M n_i n_j\partial_i u_j\) & transformed gradient operator \\
+\bottomrule
+\end{tabular}
+\end{center}
+To see the index collection, rewrite every divergence contribution as a
+coefficient of \(\partial_i u_j\):
+\begin{align}
+  T\hat S\partial_k u_k&=T\hat S\delta_{ij}\partial_i u_j, \\
+  -\hat e\partial_k u_k&=-\hat e\delta_{ij}\partial_i u_j, \\
+  n\hat\mu\partial_k u_k&=n\hat\mu\delta_{ij}\partial_i u_j .
+  \label{eq:app-a-divergence-to-tensor-ledger}
+\end{align}
+The dyadic gradient term is already a coefficient of \(\partial_i u_j\).  Thus,
+collecting the coefficient of \(\partial_i u_j\), the reversible nondissipative
+branch gives
+\begin{equation}
+  \frac{T\,\delta S}{V}
+  =
+  \left[
+    (T\hat S-\hat e+n\hat\mu)\delta_{ij}
+    -
+    \Pi_{ij}
+    +
+    M(\partial_i n)(\partial_j n)
+  \right]\partial_i u_j .\sourceeqbadge{A4}
+  \label{eq:app-a-entropy-variation-collected}
+\end{equation}
+For arbitrary virtual displacement gradients in the reversible branch,
+\(\delta S=0\).  This means the coefficient of each independent
+\(\partial_i u_j\) vanishes.  The independence is local: at an interior point,
+a compactly supported virtual displacement can prescribe the first-order
+matrix \(\partial_i u_j\) without changing boundary data.  Therefore the
+bracketed tensor vanishes, and
+\begin{equation}
+  \Pi_{ij}
+  =
+  (T\hat S-\hat e+n\hat\mu)\delta_{ij}
+  +
+  M(\partial_i n)(\partial_j n).
+  \label{eq:app-a-stress-from-entropy}
+\end{equation}
+This is the companion's derived form of the reversible stress.  It is a local
+component identity in the nondissipative virtual-displacement branch; it is
+not a proof of the dissipative hydrodynamic system or of any numerical result.
+
+\subsection{Relation to the Section II.D Pressure Tensor}
+
+Section II.D writes the same tensor as a pressure tensor with a diagonal
+gradient correction:
+\begin{equation}
+  \Pi_{ij}
+  =
+  (p+p_1)\delta_{ij}
+  +
+  M(\partial_i n)(\partial_j n).\sourceeqbadge{2.47}
+  \label{eq:app-a-pi-pressure-form}
+\end{equation}
+Comparing \eqref{eq:app-a-stress-from-entropy} with
+\eqref{eq:app-a-pi-pressure-form} gives the scalar identification
+\begin{equation}
+  p_1
+  =
+  n\hat\mu-\hat e+T\hat S-p,\sourceeqbadge{2.48}
+  \label{eq:app-a-p1-thermo-form}
+\end{equation}
+which is the thermodynamic form of the diagonal contribution in source Eq. (2.48).  The
+first form of \(p_1\), containing derivatives of \(M\), \(T\), and \(n\), is
+part of the Section II.D pressure-tensor branch and is not rescaled here.
+
+\subsection{Diagonal and Off-Diagonal Pieces}
+
+The dyadic gradient term has a simple component split.  For \(i\ne j\),
+\begin{equation}
+  \Pi_{ij}
+  =
+  M(\partial_i n)(\partial_j n).
+  \label{eq:app-a-off-diagonal}
+\end{equation}
+For diagonal components,
+\begin{equation}
+  \Pi_{ii}
+  =
+  p+p_1+M(\partial_i n)^2
+  \qquad\hbox{(no sum over \(i\)).}
+  \label{eq:app-a-diagonal}
+\end{equation}
+The off-diagonal part is symmetric because
+\[
+  M(\partial_i n)(\partial_j n)
+  =
+  M(\partial_j n)(\partial_i n).
+\]
+The diagonal/off-diagonal split used by the verification scripts is therefore
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Component & Diagonal scalar part & Gradient dyad part \\
+\midrule
+\(i=j\) & \(p+p_1\) & \(M(\partial_i n)^2\) \\
+\(i\ne j\) & \(0\) & \(M(\partial_i n)(\partial_j n)\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+The verification scripts include an expected nonzero residual when the
+off-diagonal gradient term is artificially omitted.  That residual is a
+bookkeeping test, not a source branch.
+
+\subsection{Boundary Handling}
+
+Several integrations by parts are available after
+\eqref{eq:app-a-eulerian-density-variation}.  For example,
+\[
+  \int_\Omega \phi\,\grad\cdot(nu)\,\dd x
+  =-
+  \int_\Omega n u\cdot\grad\phi\,\dd x
+  +
+  \int_{\partial\Omega}\phi n(u\cdot\nu)\,\dd a .
+\]
+This appendix does not cancel such terms silently.  Boundary terms vanish only
+under an explicit branch such as compactly supported \(u\), fixed boundary
+displacement, no-normal displacement, or a separately supplied wall functional.
+Section II.C supplied the equilibrium wall density condition; the dynamic wall
+and global entropy transfer terms remain later issues.
+
+\subsection{Type Checks and Regularity Assumptions}
+
+\begin{itemize}
+\item \(\Pi_{ij}\) and \(p+p_1\) are stress or pressure-density objects.
+\item \(M(\partial_i n)(\partial_j n)\) has the same tensor type as a stress
+  contribution.
+\item \(\Pi_{ij}\partial_i v_j\) is a power density.
+\item \(-\partial_j\Pi_{ij}\) is a force density.
+\item Boundary traces of \(u\), \(n\), and \(\grad n\) must exist before a
+  global virtual-work identity is asserted.
+\end{itemize}
+
+\subsection{Verification Checklist}
+
+The companion verification layer for this appendix checks only finite
+component identities:
+
+\begin{itemize}
+\item the Eulerian density variation
+  \(\delta_E n=-\grad\cdot(nu)\);
+\item the product-rule expansion of \(\grad\cdot(nu)\);
+\item a one-dimensional integration-by-parts sanity check for a gradient
+  functional;
+\item the component stress-power contraction for
+  \((p+p_1)\delta_{ij}+M n_i n_j\);
+\item symmetry of the off-diagonal stress term;
+\item the expected nonzero residual when the off-diagonal gradient term is
+  omitted;
+\item a regression row that Appendix-B B3 remains deferred.
+\end{itemize}
+
+These checks do not prove thermodynamic consistency, the second law, PDE
+well-posedness, the numerical simulations, or any Onuki--Fukagawa global
+equivalence claim.
+
+The executable mirrors for the Appendix A derivation are:
+\begin{center}
+\small
+\begin{tabular}{@{}l@{}}
+\texttt{scripts/python/appendix\_a\_reversible\_stress\_sympy.py}\\
+\texttt{scripts/wolfram/appendix\_a\_reversible\_stress\_checks.wls}\\
+\texttt{tests/test\_appendix\_a\_reversible\_stress.py}
+\end{tabular}
+\end{center}
+They check the Eulerian density-variation product rule, the first-order
+coordinate derivative transform, the component stress-power contraction, the
+off-diagonal symmetry, and the expected nonzero residual when the gradient
+dyad is removed.  These finite checks support the local virtual-displacement
+calculation only; they do not decide Appendix-B scaling or dynamic boundary
+transfer.
+
+
+\subsection{Source-Procedure Closure for Appendix A}
+
+The completion audit checks Appendix A by source procedure rather than by the
+shortness of the printed appendix.  The companion now spells out the kinematic,
+coordinate-chain-rule, energy-work, entropy-variation, and tensor-identification
+steps before relating the result to the Section II.D pressure tensor.
+
+\begin{center}
+\begin{tabular}{@{}p{0.16\linewidth}p{0.30\linewidth}p{0.40\linewidth}@{}}
+\toprule
+Source item & Procedure type & Companion coverage \\
+\midrule
+\eqsrc{A1} & displacement kinematics & determinant expansion and Eulerian density variation are displayed \\
+\eqsrc{A2} & nondissipative work convention & internal-energy/stress-power sign convention is recorded \\
+\eqsrc{A3} and following text & coordinate chain rule and gradient variation & inverse-Jacobian derivative transform and \(|\grad n|^2/2\) variation are expanded \\
+\eqsrc{A4} & entropy condition and stress identification & coefficient of \(\partial_i u_j\) is collected and set to zero in the reversible branch \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+This closes the local Appendix A derivation scaffold.  It does not decide any
+Appendix-B scaling branch and does not close dynamic boundary-transfer terms.
+
+\subsection*{Tagged verification complement}
+
+\OnukiLinkAppendixA{The tagged Appendix A complement} gives the expanded hand
+calculation, finite component checks, and stress-power negative control. It does
+not claim a continuum stress derivation or a global boundary map.
+
+\subsection{Open Issues Carried Forward}
+
+\begin{itemize}
+\item Appendix-B B3 printed/scaled branch remains unresolved here.
+\item Section II.D still has to derive the full hydrodynamic balance-law
+  sequence.
+\item Wall/global entropy transfer is not closed by the virtual-displacement
+  calculation.
+\item The unpublished simulation-code branch is not inferred.
+\end{itemize}

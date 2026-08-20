@@ -1,0 +1,26 @@
+\begin{tikzpicture}[
+  font=\small,
+  node distance=8mm and 10mm,
+  box/.style={draw=black, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=34mm, minimum height=11mm, fill=gray!8},
+  branch/.style={draw=black, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=38mm, minimum height=13mm, fill=gray!14},
+  open/.style={draw=black, dashed, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=40mm, minimum height=12mm, fill=white},
+  arrow/.style={-{Latex[length=2.2mm]}, line width=0.5pt},
+  darrow/.style={-{Latex[length=2.2mm]}, dashed, line width=0.5pt}
+]
+\node[box] (source) {Dimensional pressure tensor\\Eqs. (2.47)--(2.48)};
+\node[box, right=of source] (scale) {Appendix-B scaling\\\(K=0,\ C\) constant};
+\node[branch, below left=of scale] (dim) {Dimensional-source branch\\\(-2\Theta\phi\Delta\phi\)};
+\node[branch, below right=of scale] (print) {Printed B3 branch\\\(-2\Theta\Delta\phi\)};
+\node[box, below=of scale] (resid) {Branch residual\\\(2\Theta(\phi-1)\Delta\phi\,\delta_{ij}\)};
+\node[open, below=of resid] (code) {Unpublished simulation-code branch\\not inferred};
+
+\draw[arrow] (source) -- (scale);
+\draw[arrow] (scale) -- (dim);
+\draw[arrow] (scale) -- (print);
+\draw[arrow] (dim) -- (resid);
+\draw[arrow] (print) -- (resid);
+\draw[darrow] (resid) -- (code);
+\end{tikzpicture}

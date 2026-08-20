@@ -1,0 +1,65 @@
+\section{Source Section III.G: Wetting Dynamics}
+\label{sec:wetting-dynamics}
+
+\sourceeqrange{Eq. (3.2), figures 14--15}
+
+\subsection*{Purpose}
+
+This subsection connects the wetting examples back to the wall functional and
+density boundary condition already derived in Section II.C and scaled in
+Appendix B.
+
+\subsection*{Reading Guide}
+
+The source initializes a wall-attached liquid region and then compares boundary
+temperature branches.  The wall density condition is the same liquid-wetting
+condition used throughout Section III.  The bottom heat-flux diagnostic from
+Eq. (3.18) is relevant when reading the contact-region heat absorption figure.
+
+\subsection*{Boundary Interpretation}
+
+The companion treats wall attraction, evaporation, condensation, and heat-flux
+localization as source-stated simulation phenomena.  It does not introduce a
+new contact-angle law or an independent wall-free-energy parameter beyond the
+ones already recorded for Eqs. (2.33)--(2.34) and Eq. (3.2).
+
+The useful finite objects for this scenario are boundary objects:
+\[
+\begin{array}{c|c|c}
+\text{source anchor} & \text{object} & \text{interpretive role} \\
+\hline
+\text{Eq. (3.2)} & \text{scaled density wall condition}
+  & \text{liquid-wetting branch inherited from II.C} \\
+\text{Eq. (3.18)} & Q_b(x)
+  & \text{bottom heat-flux diagnostic where }v=0 \\
+\text{figures 14--15} & \text{wetting response}
+  & \text{source simulation output, not derived here}
+\end{array}
+\]
+Thus the section explains which boundary formulas to keep in view while reading
+the figures.  The wall condition controls the density-gradient branch, while
+\(Q_b(x)\) is a heat-flux diagnostic on the bottom wall.  These are different
+boundary objects, and neither one supplies a dynamic contact-line model, an
+evaporation rate law, or the unpublished pressure-tensor branch.
+The finite wall-condition and bottom-heat-flux checks are covered by the
+Section III mirror pair listed in Section~\ref{sec:numerical-results-overview}.
+They do not reproduce wetting dynamics.
+
+
+The heat-flux scale used when reading the wetting heat-absorption figure is
+\begin{equation}
+  Q_0=\frac{\epsilon\ell}{v_0t_0}.
+  \label{eq:iii-wetting-heat-flux-normalization}
+\end{equation}
+The type check is
+\begin{equation}
+  \frac{\epsilon}{v_0}\frac{\ell}{t_0}
+  =\text{energy density}\times\text{velocity},
+\end{equation}
+which has heat-flux units, energy per area per time.  This normalization is a
+plot-reading scale; it is not a new boundary law.
+
+\subsection*{Limitations}
+
+No spreading law or evaporation rate is derived here.  A later numerical study
+would need explicit authorization and a separate reproducibility protocol.

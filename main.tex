@@ -1,0 +1,56 @@
+\documentclass[11pt]{article}
+
+\input{preamble}
+\input{macros}
+\input{generated/manuscript_verification_links}
+
+\title{Guided Derivation Companion to Onuki 2007}
+\author{Fermin Franco-Medrano}
+\date{Technical review draft, \today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This is an original guided companion for studying Onuki's 2007 dynamic van der
+Waals paper. It follows the source section and equation order for navigation,
+while keeping the original paper as the source authority. This version derives
+the Section II.A equilibrium baseline, Sections II.B through II.D local
+identities, Appendix A reversible stress bookkeeping, and Appendix B scaled
+equations, and it provides a source-bounded Section III simulation reading guide
+without numerical reproduction. Appendix E reconstructs a separate,
+conditional local-stress crosswalk from an inspected Korteweg 1901 source; it
+does not supply Onuki's entropy, energy, wall, or full PDE model.
+\end{abstract}
+
+\tableofcontents
+
+\input{sections/00_companion_scope}
+\input{sections/01_introduction_navigation}
+\input{sections/02_theory_overview}
+\input{sections/02a_vdw_baseline}
+\input{sections/02b_gradient_entropy_energy}
+\input{sections/02c_equilibrium_conditions}
+\input{sections/02d_hydrodynamic_equations}
+\input{sections/03_numerical_results_overview}
+\input{sections/03a_method_scaled_equations}
+\input{sections/03b_adiabatic_expansion}
+\input{sections/03c_piston_effect}
+\input{sections/03d_heat_flow_two_phase}
+\input{sections/03e_steady_heat_conduction}
+\input{sections/03f_boiling_gravity}
+\input{sections/03g_wetting_dynamics}
+\input{sections/04_summary_navigation}
+
+\appendix
+\input{appendices/A_reversible_stress_plan}
+\input{appendices/B_scaled_equations_plan}
+\input{appendices/C_verification_plan}
+\input{appendices/D_crosswalk_open_issues}
+\input{appendices/E_korteweg_primary_source_crosswalk}
+
+\bibliographystyle{plainnat}
+\bibliography{references/onuki2007_companion}
+
+\end{document}

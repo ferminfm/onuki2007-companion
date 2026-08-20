@@ -1,0 +1,131 @@
+\section{Navigation for Source Section III}
+\label{sec:numerical-results-overview}
+
+\sourceeqrange{Eqs. (3.1)--(3.20) and source figures 1--15}
+
+\subsection*{Purpose}
+
+Source Section III is a simulation section.  The companion treats it as a
+reading guide: it identifies the nondimensional variables, boundary branches,
+scenario assumptions, and scalar estimates needed to read the published figures.
+It does not reconstruct the simulation code, regenerate the figures, or infer
+which unpublished simulation-code branch was used for the Appendix-B pressure
+tensor.  It does not validate the numerical results.
+Here ``scenario'' means a source-described numerical example, not a reproduced
+run in this repository.
+
+\subsection*{Common Method Branch}
+
+All scenarios in this section inherit the Section III.A specialization
+\(K=0\) with constant \(C\), the length scale \(\ell\) in Eq. (3.1), the wall
+density condition in Eq. (3.2), density-proportional transport coefficients in
+Eqs. (3.3)--(3.4), and the time scale \(t_0=\ell^2/\nu_0\) in Eq. (3.5).  The
+velocity is no-slip on the computational walls, so the mean number density is a
+conserved simulation input.  Thermal boundary data vary by scenario: some runs
+use one wall temperature on all boundaries, while heat-flow runs prescribe
+bottom and top temperatures and insulating side walls.
+
+
+\subsection*{How to Read a Scenario}
+
+The companion uses the same four-step reading pattern for every source
+scenario.  First identify the method branch inherited from Section III.A:
+scaled variables, transport coefficients, no-slip velocity, density-wall data,
+and thermal boundary data.  Second identify which local balance law from
+Section II.D is being used as background.  Third read any scalar estimate, such
+as \(\sigma\), \(g^*\), \(v_c\), \(\lambda_{\rm eff}\), or \(Nu\), as a typed
+scale or diagnostic.  Fourth treat the published figures as source simulation
+outputs.  The fourth step is intentionally not reproduced here.
+
+\subsection*{Scenario Map}
+
+\begin{description}[leftmargin=0.19\linewidth,style=nextline]
+\item[III.A, method]
+Eqs. (3.1)--(3.11) and Appendix B provide scales, wall conditions, and estimate
+variables.
+\item[III.B, adiabatic expansion]
+Eq. (3.12) and figures 1--2 are read as a boundary-cooling scenario; no time
+trace is reproduced.
+\item[III.C, piston effect]
+Eqs. (3.13)--(3.16) and figures 3--4 organize pressure, temperature, and
+latent-heat estimates.
+\item[III.D, two-phase heat flow]
+Eq. (3.16) and figures 5--7 connect droplet heat-flow interpretation to the
+latent-heat velocity scale.
+\item[III.E, steady heat conduction]
+Eqs. (3.17)--(3.19) and figures 8--10 define effective conductivity and a
+Nusselt-style ratio.
+\item[III.F, boiling in gravity]
+Eq. (3.20) and figures 11--13 record the gravity branch and the adiabatic
+bulk-temperature-gradient estimate.
+\item[III.G, wetting dynamics]
+Eq. (3.2), Eq. (3.18), and figures 14--15 connect wetting dynamics to the wall
+condition and bottom heat-flux diagnostic.
+\end{description}
+
+\begin{figure}[htbp]
+\centering
+\resizebox{0.92\linewidth}{!}{\input{figures/tikz/section_iii_scenario_navigation}}
+\caption{Section III scenario-navigation map.  The companion checks finite
+scales and units used to read the source scenarios; it does not reproduce
+figures, regenerate time traces, or infer unpublished implementation details.}
+\label{fig:section-iii-scenario-navigation}
+\end{figure}
+
+\subsection*{What This Companion Verifies}
+
+The verification layer checks only finite formulas: equivalence of the two
+forms of \(\sigma\), the density-proportional transport ratio, dimensionlessness
+of \(g^*\), consistency of the Eq. (3.9) sound-scale denominator, the acoustic
+traversal scale, the capillary-wave estimate, the inverse-compressibility
+identity, the piston-effect scalar estimates, units of the latent-heat velocity
+estimate, units of the effective conductivity definition, the one-phase Nusselt
+estimate, the gravity-gradient order scale, the heat-flux normalization, and
+the scaled wall-density condition.  These checks do not validate the numerical
+results, interface dynamics, boiling transition, or wetting kinetics.
+They are companion estimate checks attached to source equation labels, not
+simulation benchmarks.
+
+The executable mirrors for the Section III finite-estimate checks are:
+\begin{center}
+\small
+\begin{tabular}{@{}l@{}}
+\texttt{scripts/python/section\_iii\_simulation\_estimates.py}\\
+\texttt{scripts/wolfram/section\_iii\_simulation\_estimates\_checks.wls}\\
+\texttt{tests/test\_section\_iii\_simulation\_guide.py}
+\end{tabular}
+\end{center}
+Those files check scalar units, ratios, and scale identities only; they do not
+rerun or validate the source simulations.
+
+\subsection*{Source-Procedure Completion Status}
+
+The Section III rows assigned to this completion task are covered as
+source-reading derivations, not as numerical reruns:
+\begin{itemize}
+\item Section III.A supplies the shared \(K=0\), constant-\(C\) branch,
+  density-wall condition, transport closures, and finite scales
+  \(\ell,t_0,\sigma,g^*,c,A_s,\omega_q\).
+\item Sections III.B--III.G record typed scalar estimates and diagnostics:
+  inverse compressibility, piston-effect pressure and temperature estimates,
+  latent-heat velocity, effective conductivity, bottom heat flux, Nusselt
+  ratio, and gravity/adiabatic-gradient estimates.
+\item Published figures, time traces, boiling transitions, droplet paths, and
+  wetting dynamics remain source outputs.  The companion does not reproduce or
+  validate them.
+\end{itemize}
+The unresolved Appendix-B simulation-code branch and the global wall-transfer
+map remain outside these finite estimate checks.
+
+\subsection*{Tagged verification complement}
+
+\OnukiLinkSectionIII{The tagged Section III complement} collects the reading
+route, executable scalar checks, and negative controls. It does not provide a
+numerical reproduction or validation of the source simulations.
+
+\subsection*{Open Issues Carried Forward}
+
+The unpublished simulation code remains unavailable.  The dimensional-source
+and printed-B3 pressure-tensor branches therefore remain separate from the
+simulation-code branch.  Global wall and surface-energy transfers are still
+model-specific boundary data, not consequences of the scalar checks below.

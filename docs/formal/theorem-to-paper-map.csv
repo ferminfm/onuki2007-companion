@@ -1,0 +1,9 @@
+theorem_name,module,companion_anchor,hypotheses,finite_scope_limit
+dyadic_gradient_stress_symmetric,Korteweg1901.TensorKernels,Appendix E,"finite index type and real components","No continuum-field symmetry theorem."
+finite_stress_contraction_two_dim,Korteweg1901.TensorKernels,Appendix C,"six real component values","No integral stress-power theorem."
+capillary_divergence_collection_kernel,Korteweg1901.TensorKernels,"Appendices C and E","real scalar placeholders after hand-supplied product rules","No field differentiation or mixed-derivative theorem."
+density_gradient_coefficient_map,Korteweg1901.TensorKernels,Appendix C,"real coefficient, constant mass scale, finite components","No density-field change-of-variables theorem."
+density_hessian_coefficient_map,Korteweg1901.TensorKernels,Appendix C,"real coefficient, constant mass scale, finite Hessian component","No weak-Hessian or regularity theorem."
+pressure_to_cauchy_force_bridge,Korteweg1901.TensorKernels,"Appendices C and E","explicit hypothesis divSigma=-divP","No constitutive or balance-law derivation."
+divergence_match_not_literal_tensor_match,Korteweg1901.TensorKernels,"Appendices C and E","explicit divergence equality and failed literal equality","Logical guardrail only; no gauge construction."
+dyadic_quadratic_nonnegative,Korteweg1901.TensorKernels,Appendix C,"nonnegative real coefficient and two real components","No entropy-production or constitutive-admissibility proof."

@@ -1,0 +1,101 @@
+\section{Source Section III.C: Piston-Effect Scenario}
+\label{sec:piston-effect}
+
+\sourceeqrange{Eqs. (3.13)--(3.16) and figures 3--4}
+
+\subsection*{Purpose}
+
+This subsection tracks the analytical estimates used to read the bubble-in-liquid
+piston-effect example.  It separates pressure and temperature estimates from the
+computed flow field.
+
+\subsection*{Reading Guide}
+
+The scenario uses the bottom/top temperature branch under zero gravity.  The
+bubble radius, wall temperature change, pressure increment, and adiabatic
+coefficient are source inputs for Eqs. (3.13)--(3.15).  Equation (3.16) then
+introduces a latent-heat velocity scale, which is useful for reading interface
+mass transfer and flow magnitudes.  These formulas organize interpretation; they
+are not a reduced simulation model.
+
+\subsection*{Finite Estimate}
+
+The checkable scalar relations are the pressure estimate proportional to the
+wall-temperature change, the phase-temperature difference proportional to the
+phase difference in adiabatic coefficients, and the units of the latent-heat
+velocity \(v_c=Q/(n_gT\Delta s)\).  The companion does not calculate the
+reported time traces or velocity field.
+
+The adiabatic coefficient is defined by
+\begin{equation}
+  A_s=\left(\frac{\partial T}{\partial p}\right)_s.
+  \sourceeqbadge{3.14}
+\end{equation}
+At fixed entropy per particle, the Section II.A thermodynamic derivatives give
+\begin{equation}
+  \left(\frac{\partial T}{\partial n}\right)_s
+  =\frac{2T}{dn(1-v_0n)},
+  \qquad
+  \left(\frac{\partial p}{\partial n}\right)_s
+  =\frac{k_BT}{(1-v_0n)^2}
+    \left(1+\frac2d-\frac{T_s}{T}\right).
+\end{equation}
+Thus
+\begin{align}
+  A_s
+  &=\frac{(\partial T/\partial n)_s}{(\partial p/\partial n)_s} \\
+  &=\frac{2(1-v_0n)}{d n k_B(1+2/d-T_s/T)}.
+\end{align}
+For the two-dimensional simulations, \(d=2\), so
+\begin{equation}
+  A_s=\frac{1/n-v_0}{k_B(2-T_s/T)}.
+  \sourceeqbadge{3.14}
+  \label{eq:iii-piston-As-derived}
+\end{equation}
+This connects the piston-effect estimate back to the same Section II.A
+thermodynamic branch used for Eq. (3.9).
+
+For a small adiabatic pressure perturbation, \(\delta T\approx A_s\delta p\).
+Using the liquid value for the surrounding phase gives the source pressure
+scale
+\begin{equation}
+  \delta p\sim A_{s\ell}^{-1}\delta T_b.
+  \sourceeqbadge{3.13}
+\end{equation}
+If a common pressure perturbation is read in the two phases, then
+\begin{equation}
+  \delta T_g=A_{sg}\delta p,
+  \qquad
+  \delta T_\ell=A_{s\ell}\delta p,
+\end{equation}
+and subtraction gives
+\begin{equation}
+  (\Delta T)_{g\ell}=(A_{sg}-A_{s\ell})\delta p.
+  \sourceeqbadge{3.15}
+\end{equation}
+
+Finally, Eq. (3.16) balances heat flux against latent heat per unit volume.  If
+\(\Delta s=s_g-s_\ell\), the latent heat per particle is \(T\Delta s\), and a
+normal particle flux \(n_gv_c\) carries heat flux \(n_gv_cT\Delta s\).  Solving
+gives
+\begin{equation}
+  v_c=\frac{Q}{n_gT\Delta s}
+  =-\frac{\lambda_\ell T'_\infty}{n_gT\Delta s}.
+  \sourceeqbadge{3.16}
+  \label{eq:iii-latent-heat-velocity-derived}
+\end{equation}
+The second equality is the far-field heat-flux branch
+\(Q=-\lambda_\ell T'_\infty\).
+Here \(Q\) is an energy flux, while \(n_gT\Delta s\) has energy per volume;
+therefore the quotient has units of velocity.  This confirms the scale used to
+read the source figures, not the flow field itself.
+The finite pressure/temperature-estimate and latent-velocity checks are
+covered by the Section III mirror pair listed in
+Section~\ref{sec:numerical-results-overview}; they do not compute the source
+velocity field.
+
+\subsection*{Limitations}
+
+The local/global energy map, boundary heat transfer, and wall surface terms stay
+external to this scenario guide.  No conclusion about full continuum-model
+equivalence follows from these scalar estimates.

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "checks": [
+    {
+      "check_id": "IIA_VDW_BASELINE",
+      "expected_status": "zero_residual_or_documented_negative_control",
+      "scope_limit": "finite symbolic identity"
+    },
+    {
+      "check_id": "APPENDIX_B_B3",
+      "expected_status": "source_branch_residual_documented",
+      "scope_limit": "no official erratum or implementation conclusion"
+    },
+    {
+      "check_id": "KORTEWEG_TENSOR_KERNEL",
+      "expected_status": "finite_kernel_build",
+      "scope_limit": "no full Korteweg--Onuki equivalence"
+    }
+  ]
+}

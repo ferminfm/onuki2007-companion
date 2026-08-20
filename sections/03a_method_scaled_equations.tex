@@ -1,0 +1,227 @@
+\section{Source Section III.A: Method and Scaled Equations}
+\label{sec:method-scaled-equations}
+
+\sourceeqrange{Eqs. (3.1)--(3.11), Appendix B Eqs. (B1)--(B6)}
+
+\subsection*{Purpose}
+
+This subsection collects the method assumptions that every later scenario uses.
+The role of the companion is to make those assumptions explicit before the
+reader interprets any published figure.
+
+\subsection*{Typed Simulation Objects}
+
+The independent variables are planar coordinates \((x,y)\in[0,L]^2\) and time
+\(t\).  The fields are number density \(n\), velocity \(v\), temperature \(T\),
+and total energy density \(e_T\).  The scaled variables introduced in Appendix B
+are \(\phi=v_0 n\), \(\Theta=k_B T/\epsilon\), \(V=t_0v/\ell\), and
+\(E_T=e_Tv_0/\epsilon\).  Section III.A specializes the square-gradient
+coefficients to \(K=0\) and constant \(C\), so \(M=CT\) in the Section II
+notation.  This specialization is a source-stated simulation branch, not a
+statement about the full theory.
+
+\subsection*{Boundary Data}
+
+The velocity boundary condition is no-slip.  The density boundary condition is
+Eq. (3.2), whose scaled form is Eq. (B6).  For temperature, the companion keeps
+two branches separate: a common wall temperature branch used for the adiabatic
+cooling setup, and a bottom/top temperature branch with insulating side walls
+used for heat-flow scenarios.  None of these boundary branches supplies the
+unpublished pressure-tensor implementation.
+
+\subsection*{Finite Estimate Variables}
+
+Equations (3.5)--(3.11) introduce a time scale, the dimensionless group
+\(\sigma\), the gravity parameter \(g^*\), the sound speed scale, a small-wave
+frequency estimate, and a capillary-wave estimate.  In this guide they are
+reading aids.  The checks verify their algebraic and dimensional consistency;
+they do not reproduce acoustic oscillations or capillary-wave dynamics.
+
+For example, the two source forms of \(\sigma\) agree once the time scale is
+substituted:
+\begin{equation}
+  t_0=\frac{\ell^2}{\nu_0}
+  \quad\Longrightarrow\quad
+  \frac{\nu_0^2m}{\epsilon\ell^2}
+  =\frac{(\ell^2/t_0)^2m}{\epsilon\ell^2}
+  =\frac{m\ell^2}{\epsilon t_0^2}.
+  \sourceeqbadge{3.5--3.6}
+\end{equation}
+Thus Eq. (3.5) defines the viscous diffusion time on the interface length, and
+Eq. (3.6) compares the kinetic scale \(m\ell^2/t_0^2\) with the molecular energy
+scale \(\epsilon\).  Likewise \(g^*=mg\ell/\epsilon\) is a molecular
+potential-energy change over one \(\ell\), divided by \(\epsilon\).  These are
+scalar checks for navigation, not validations of the computed acoustic response.
+
+\subsection*{Transport Ratio from Density-Proportional Coefficients}
+
+Equations (3.3)--(3.4) are source modeling choices for the numerical examples:
+\begin{equation}
+  \eta=\zeta=\nu_0mn,
+  \qquad
+  \lambda=k_B\nu_0n.
+  \sourceeqbadge{3.3--3.4}
+\end{equation}
+They are not derived here from kinetic theory.  Their immediate finite
+consequence is that liquid/gas transport ratios follow density ratios.  With
+the coexistence values stated in Section III.A,
+\begin{equation}
+  \frac{\eta_\ell}{\eta_g}
+  =\frac{\zeta_\ell}{\zeta_g}
+  =\frac{\lambda_\ell}{\lambda_g}
+  =\frac{n_\ell}{n_g}
+  =\frac{1.70}{0.27}\simeq 6.3.
+  \sourceeqbadge{3.3--3.4}
+  \label{eq:iii-transport-density-ratio}
+\end{equation}
+This is a branch-specific estimate for reading the source figures.  It is not a
+measurement of transport coefficients outside the printed model branch.
+
+\subsection*{Sound Scale, Eq. (3.9), and the Eq. (2.5) Denominator}
+
+Equation (3.8) can be solved for \(A_s\):
+\begin{equation}
+  c=A_s\sigma^{-1/2}\frac{\ell}{t_0}
+  \quad\Longleftrightarrow\quad
+  A_s=\frac{t_0c}{\ell}\sigma^{1/2}.
+  \sourceeqbadge{3.8}
+\end{equation}
+Using \(\sigma=m\ell^2/(\epsilon t_0^2)\),
+\begin{equation}
+  A_s=\frac{t_0c}{\ell}\frac{\sqrt m\,\ell}{\sqrt\epsilon\,t_0}
+  =c\sqrt{\frac{m}{\epsilon}}.
+  \label{eq:iii-As-from-sound-speed}
+\end{equation}
+For \(d=2\), the derivative-consistent sound-speed branch recorded in
+Section~\ref{sec:vdw-baseline} is
+\begin{equation}
+  c=\frac{1}{1-v_0n}
+    \left(\frac{k_B(2T-T_s)}{m}\right)^{1/2}.
+\end{equation}
+Substituting this into Eq.~\eqref{eq:iii-As-from-sound-speed} gives
+\begin{equation}
+  A_s=
+  \frac{\left[k_B(2T-T_s)/\epsilon\right]^{1/2}}{1-v_0n}.
+  \sourceeqbadge{3.9}
+  \label{eq:iii-As-eq39-denominator-check}
+\end{equation}
+This substitution shows that the Section II.A derivative-consistent branch
+reproduces the formula printed as source Eq. (3.9).  The printed Eq. (3.9) is
+source-page evidence that the denominator appears in the later scaled
+coefficient, but it is not an independent derivation of the denominator.  This
+is a source-page and algebra consistency check, not a statement about the
+unpublished numerical code.
+
+\subsection*{Acoustic Traversal and Damping Estimates}
+
+With \(Q=\ell q\), a homogeneous plane-wave estimate
+\(\Omega_q=\pm icq-\Gamma_s q^2/2\) scales as
+\begin{equation}
+  t_0\Omega_q
+  =\pm i\frac{t_0c}{\ell}Q
+   -\frac{\Gamma_s t_0}{2\ell^2}Q^2
+  =\pm iA_s\sigma^{-1/2}Q
+   -\frac{\Gamma_s}{2\nu_0}Q^2,
+  \sourceeqbadge{3.10}
+\end{equation}
+where the last step uses \(t_0=\ell^2/\nu_0\).  The source prints the damping
+coefficient as \(2-1/\gamma_s\).  The finite mirror checks the scalar reduction
+under the source attenuation convention; the companion does not independently
+rederive the full linearized hydrodynamic dispersion relation.
+
+The same sound-speed scale gives the acoustic traversal estimate.  From
+Eq. (3.8),
+\begin{equation}
+  \frac{L}{c}
+  =\frac{L}{\ell}\,t_0\,\frac{\sigma^{1/2}}{A_s}.
+  \label{eq:iii-acoustic-traversal-scale}
+\end{equation}
+The source statement that this is of order ten \(t_0\) for the chosen cell and
+state is scenario data; the checkable part is the algebraic scale relation.
+
+\subsection*{Capillary-Wave Frequency Estimate}
+
+The capillary-wave estimate begins from the dimensional scale
+\begin{equation}
+  \omega_q\sim
+  \left(\frac{\gamma q^3}{mn_\ell}\right)^{1/2}.
+\end{equation}
+Using the near-critical scaling
+\(\gamma\sim(\epsilon\ell/v_0)(1-T/T_c)^{3/2}\), the liquid-density estimate
+\(n_\ell\sim1/v_0\), and \(q=Q/\ell\),
+\begin{align}
+  t_0\omega_q
+  &\sim t_0
+    \left(\frac{\epsilon\ell}{m}\right)^{1/2}
+    \left(1-\frac{T}{T_c}\right)^{3/4}
+    \left(\frac{Q}{\ell}\right)^{3/2} \\
+  &=\left(1-\frac{T}{T_c}\right)^{3/4}
+    Q^{3/2}
+    \left(\frac{\epsilon t_0^2}{m\ell^2}\right)^{1/2}
+   =\left(1-\frac{T}{T_c}\right)^{3/4}
+    \sigma^{-1/2}Q^{3/2}.
+  \sourceeqbadge{3.11}
+  \label{eq:iii-capillary-wave-scale}
+\end{align}
+This is an order estimate for reading the capillary-wave time scale; it is not
+a reproduction of any interface trajectory.
+
+\subsection*{Estimate Ledger}
+
+The method estimates used later in Section III have the following typed roles.
+Each row is a finite source-defined scale, not a reproduced solution.
+\[
+\begin{array}{c|c|c|c}
+\text{source anchor} & \text{object} & \text{typed content}
+  & \text{use in this guide} \\
+\hline
+\text{Eq. (3.5)} & t_0 & \ell^2/\nu_0
+  & \text{common time unit} \\
+\text{Eq. (3.6)} & \sigma &
+  \nu_0^2m/(\epsilon\ell^2)=m\ell^2/(\epsilon t_0^2)
+  & \text{inertial scale check} \\
+\text{Eq. (3.7)} & g^* & mg\ell/\epsilon
+  & \text{dimensionless gravity branch} \\
+\text{Eq. (3.8)} & c & A_s\sigma^{-1/2}\ell/t_0
+  & \text{sound-scale navigation} \\
+\text{Eq. (3.11)} & \omega_q & \text{capillary-wave estimate}
+  & \text{qualitative time-scale guide}
+\end{array}
+\]
+The source numerical choices for \(\sigma\), \(g^*\), and cell size are
+scenario data.  The companion checks that the scales are well typed; it does
+not recompute the acoustic oscillations or capillary-wave dynamics in the
+published figures.
+
+A useful scale reading is that \(\sigma\) compares the inertial scale
+\(m\ell^2/t_0^2\) with the molecular energy scale \(\epsilon\), while \(g^*\)
+compares the gravitational energy change across one interface length with
+\(\epsilon\).  Thus changing \(\sigma\) or \(g^*\) changes a scenario branch; it
+does not change the algebraic scaling identities already checked in Appendix B.
+
+\subsection*{Verification Checklist}
+
+\begin{itemize}
+\item \(\sigma=\nu_0^2m/(\epsilon\ell^2)=m\ell^2/(\epsilon t_0^2)\) after
+  substituting \(t_0=\ell^2/\nu_0\).
+\item \(g^*=mg\ell/\epsilon\) is dimensionless.
+\item Eq. (3.9) follows from Eq. (3.8), Eq. (3.6), and the
+  derivative-consistent Section II.A sound-speed branch with denominator
+  \((1-v_0n)^{-1}\).
+\item The acoustic traversal scale is
+  \(L/c=(L/\ell)t_0\sigma^{1/2}/A_s\).
+\item The density-proportional transport branch implies
+  \(\eta_\ell/\eta_g=\zeta_\ell/\zeta_g=\lambda_\ell/\lambda_g=n_\ell/n_g\).
+\item The scaled wall-density condition is dimensionless and remains a boundary
+  condition, not a bulk equation.
+\end{itemize}
+The finite estimates and wall-condition checks in this subsection are covered
+by the Section III mirror pair listed in
+Section~\ref{sec:numerical-results-overview}.  These are scalar scale checks,
+not a simulation replay.
+
+\subsection*{Open Issues}
+
+The B3 printed-source branch and dimensional-source branch remain separated in
+Appendix B.  The companion does not decide which branch was used in the
+unpublished numerical implementation.

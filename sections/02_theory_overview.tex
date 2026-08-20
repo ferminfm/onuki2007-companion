@@ -1,0 +1,43 @@
+\section{Navigation for Source Section II}
+\label{sec:theory-overview}
+
+\sourceeqrange{Eqs. (2.1)--(2.53)}
+
+\subsection*{Purpose}
+
+Use this page as the dependency map for Section II.  It groups the source
+objects by role: thermodynamic, variational, hydrodynamic, entropy production,
+and wall transfer.
+
+\subsection*{Derivation route}
+
+\begin{itemize}
+\item Separate equilibrium thermodynamics from nonequilibrium balance laws.
+\item Track where the gradient entropy and gradient energy enter.
+\item Derive the reversible stress and entropy-flux identities in components.
+\item Record exactly which statements are local and which are integrated.
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\linewidth}{!}{\input{figures/tikz/section_ii_dependency_flow}}
+\caption{Dependency flow for the Section II derivations.  The diagram separates
+local thermodynamic and hydrodynamic identities from the integrated
+wall-transfer branch, which remains source-dependent.}
+\label{fig:section-ii-dependency-flow}
+\end{figure}
+
+\subsection*{Verification route}
+
+\begin{itemize}
+\item Component residuals for gradient-force and stress-divergence identities.
+\item Dimension checks for energy density, entropy density, stress, heat flux,
+  entropy flux, and surface-energy terms.
+\item Logical guardrails: local flux equality does not imply global equality
+  without a boundary map.
+\end{itemize}
+
+\subsection*{Open issues}
+
+Full global energy/entropy closure remains unresolved until wall transfer,
+thermal boundary data, and admissible variations are source-mapped.

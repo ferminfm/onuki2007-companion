@@ -1,0 +1,144 @@
+\section{Navigation for Source Section I}
+\label{sec:introduction-navigation}
+
+\sourceeqrange{background, motivation, and roadmap; no main equation inventory}
+
+\subsection{Purpose of This Companion Section}
+
+Source Section I of \OnukiPRE{} motivates a dynamic van der Waals model for a
+one-component fluid undergoing gas--liquid transition in nonuniform temperature.
+Rather than retelling that motivation, this companion gives a reading map:
+what physical problem is being prepared, what mathematical objects the reader
+should expect in Section II, and what later scenario descriptions in Section III
+depend on.
+
+The section is navigation only.  It contains no new derivation, no symbolic
+identity, and no independent historical survey.  The original article remains
+the authority for the source narrative and for the bibliographic context.
+
+\subsection{Physical Setting Prepared by the Introduction}
+
+The source paper combines four ingredients that should be kept separate while
+reading the later equations.
+
+\begin{enumerate}[label=\arabic*.]
+\item \textbf{Bulk van der Waals thermodynamics.}  The local variables are the
+  number density, temperature, entropy, internal energy, pressure, and chemical
+  potential.  Section~\ref{sec:vdw-baseline} derives the specific formulas used
+  as the baseline.
+\item \textbf{Diffuse-interface capillarity.}  A square-gradient contribution is
+  added to describe interfaces without imposing a sharp moving boundary.
+  Sections~\ref{sec:vdw-baseline}--\ref{sec:equilibrium-conditions} explain the
+  equilibrium gradient identities and wall branch.
+\item \textbf{Hydrodynamic transport.}  Density, momentum, energy, entropy,
+  viscous stress, heat flux, and reversible capillary stress enter as local
+  balance-law objects.  Section~\ref{sec:hydrodynamic-equations} derives the
+  bookkeeping that the introduction only prepares.
+\item \textbf{Nonisothermal phase-change scenarios.}  The examples later in the
+  source involve heat flow, evaporation or condensation, and interface motion.
+  The companion treats those examples as reading guides and finite estimate
+  checks, not as reproduced simulations.
+\end{enumerate}
+
+This separation is important.  A constitutive law, a balance law, a gradient
+identity, and a numerical scenario have different logical status.  The companion
+will not turn the introductory motivation into a proof of thermodynamic
+validity, PDE well-posedness, or numerical correctness.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{\linewidth}{!}{\input{figures/tikz/source_section_navigation}}
+\caption{Source-section navigation used by the companion.  Solid arrows show
+the reading order of source-supported derivations.  Dashed arrows mark
+boundary, wall-transfer, and simulation-code issues that remain separate from
+local equation derivations.}
+\label{fig:source-section-navigation}
+\end{figure}
+
+\subsection{Reader Prerequisites and Notation Warnings}
+
+Before entering Section II, the reader should be comfortable with the following
+minimum toolkit:
+
+\begin{itemize}
+\item thermodynamic partial derivatives at fixed density, temperature, entropy,
+  or volume-like variables;
+\item variational derivatives of one-dimensional and multidimensional
+  square-gradient functionals;
+\item local conservation laws written as density-plus-divergence balances;
+\item tensor notation for stress divergence and stress power;
+\item the distinction between local differential identities and integrated
+  balances with boundary or wall terms.
+\end{itemize}
+
+The notation changes role as the article proceeds.  For example, the coefficient
+called \(M\) first appears in an equilibrium square-gradient free-energy density
+and later becomes the nonequilibrium combination \(M=CT+K\).  Likewise,
+pressure in the bulk thermodynamic identity should not be confused with the full
+reversible pressure tensor.  These changes are tracked in the notation
+crosswalk and in the section-specific symbol registries.
+
+\subsection{Roadmap from Section I to the Companion Derivations}
+
+The introduction points toward the following source-supported derivation order.
+
+\begin{itemize}
+\item \textbf{Section II.A:} establish the local van der Waals thermodynamic
+  baseline, spinodal and sound quantities, and the equilibrium gradient
+  interface formulas.
+\item \textbf{Section II.B:} replace purely isothermal gradient free energy by
+  entropy and energy functionals with gradient contributions, leading to
+  \(M=CT+K\) and the generalized chemical-potential variation.
+\item \textbf{Section II.C:} record equilibrium and wall branches, including
+  the natural density boundary condition.
+\item \textbf{Section II.D:} introduce hydrodynamic balances, total/internal
+  energy bookkeeping, entropy-production bookkeeping, reversible stress,
+  reversible entropy flux, and boundary-dependent global entropy statements.
+\item \textbf{Appendices A--B:} supply the reversible-stress derivation and the
+  scaled-equation branch analysis, including the printed-B3 versus
+  dimensional-source distinction.
+\item \textbf{Section III:} read the numerical examples as source scenarios with
+  stated scales, assumptions, and estimates.  This companion does not infer the
+  unpublished simulation code or reproduce the simulations.
+\end{itemize}
+
+This order is a study-guide order, not a claim that the introduction itself
+contains the equations.  The equations enter in the source sections listed
+above and are cited there by number.
+
+\subsection{Boundaries of the Introduction Guide}
+
+The introduction refers to broad capillarity and phase-field traditions.  This
+companion records local context sources such as Slemrod and
+Dunn--Serrin only as background for future audits
+\citep{Slemrod1983VanDerWaalsPhaseBoundaries,DunnSerrin1985}.  It does not use
+those sources as derivation authority until exact page, equation, variable, and
+boundary anchors are recorded.  The direct Korteweg 1901 source has now been
+page-image inspected, including its pressure-positive motion convention and
+four-function capillary stress in Eq.~(20) \citep{Korteweg1901}.  Appendix~
+\ref{app:korteweg-primary-crosswalk} keeps that source transcription separate
+from a modern tensor reconstruction and from the conditional comparison with
+Onuki.  This establishes neither a formula genealogy nor full model
+equivalence.
+
+The guide also keeps later source-dependent issues out of the introduction:
+
+\begin{itemize}
+\item the Appendix-B printed-B3 versus dimensional-source branch remains a later
+  scaled-equation issue;
+\item the unpublished numerical implementation branch remains
+  \status{UNRESOLVED\_SOURCE\_DEPENDENT};
+\item global entropy and energy balances remain boundary/wall-transfer
+  dependent;
+\item Section III scenarios remain reading guides unless a later human-approved
+  numerical reproduction pass is opened.
+\end{itemize}
+
+\subsection{Verification and Open Issues}
+
+No algebraic or dimensional software check is attached to this section.  The
+verification requirement is source safety: the prose must be original, must not
+replace the source introduction, and must not add unsupported historical or
+simulation claims.  The relevant project checks are the bibliography/provenance
+checks, the section-proof checklist, the PDF build, and human review of the
+rendered page.

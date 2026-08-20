@@ -1,0 +1,67 @@
+\section{Notation Crosswalk and Open Issues}
+\label{app:crosswalk-open-issues}
+
+\sourceeqrange{crosswalk across Eqs. (2.1)--(B6) and Section III estimates}
+
+\subsection*{Purpose}
+
+This appendix collects notation and source-dependent issues that should not
+interrupt the section-by-section reading.  It also records which open issues are
+mathematical branch questions and which are numerical-code questions.
+
+\subsection*{Crosswalk Entries}
+
+\begin{itemize}
+\item \(n\): number density.  Mass density appears only after multiplying by a
+  molecular mass.
+\item \(T\): local temperature; \(\Theta=k_BT/\epsilon\) is its Appendix-B scaled
+  form.
+\item \(C,K,M\): gradient coefficients with \(M=CT+K\); Section III uses the
+  special branch \(K=0\) and constant \(C\).
+\item \(\hat\mu\): generalized chemical potential derived from the gradient
+  entropy/energy functional.
+\item \(\Pi_{ij}\): pressure and stress tensor.  Its Appendix-B diagonal
+  branch is tracked in printed and dimensional-source forms.
+\item \(p_1\): diagonal gradient-pressure scalar, with \(M_n|_T\) distinguished
+  from a spatial derivative of \(M\).
+\item \(J_s^{\rm rev}\) and \(J_{\rm GA}\): local reversible entropy-flux and
+  alternative capillary energy-flux objects; their local gauge relation is not a
+  global balance by itself.
+\item \(S_s,E_s\): surface entropy and surface energy objects that enter global
+  wall/boundary transfer.
+\item \(\phi=v_0n\), \(V=t_0v/\ell\), \(E_T=e_Tv_0/\epsilon\), \(\sigma\), and
+  \(g^*\): Appendix-B and Section III scaled variables and estimate parameters.
+\end{itemize}
+
+
+\subsection*{External capillarity and interstitial-working context}
+
+The companion now catalogs local context sources on capillary fluids,
+Korteweg-type models, and interstitial working in
+\path{research_notes/CAPILLARY_INTERSTITIAL_WORKING_CONTEXT.md} and
+records preliminary page anchors in
+\path{research_notes/external_capillary_source_anchor_map.csv}.  These
+sources, including Dunn--Serrin and Slemrod
+\citep{DunnSerrin1985,Slemrod1983VanDerWaalsPhaseBoundaries}, are cited only for
+contextual comparisons; this companion does not use them to derive Onuki's
+equations.  The direct Korteweg 1901 source is now page-image
+inspected, and its Eq.~(20) capillary stress is reconstructed in Appendix~
+\ref{app:korteweg-primary-crosswalk}.  Other external formulas remain excluded
+until a dedicated audit records exact page, equation, variable, sign, and
+boundary anchors.  The Korteweg--Onuki result is limited to a conditional local
+stress embedding; no energy, entropy, wall, full-PDE, or influence map follows.
+
+\subsection*{Open Issues}
+
+\begin{itemize}
+\item B3 printed-source branch versus dimensional-source branch is a strong
+  typo candidate under the dimensional-source scaling, but remains a
+  source-branch discrepancy rather than an official erratum.
+\item The unpublished simulation-code branch remains unresolved and must not be
+  inferred from either printed branch.
+\item Wall/surface transfer in the global entropy and energy balances remains
+  explicit boundary data.
+\item Local flux-gauge identities do not imply integrated balance equalities.
+\item Section III scenario values and figures are not reproduced by this
+  companion.
+\end{itemize}

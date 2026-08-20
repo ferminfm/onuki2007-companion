@@ -1,0 +1,25 @@
+\begin{tikzpicture}[
+  font=\small,
+  node distance=8mm and 10mm,
+  source/.style={draw=black, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=39mm, minimum height=14mm, fill=gray!8},
+  map/.style={draw=black, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=43mm, minimum height=17mm, fill=gray!15},
+  limit/.style={draw=black, dashed, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=44mm, minimum height=14mm, fill=white},
+  arrow/.style={-{Latex[length=2.2mm]}, line width=0.5pt},
+  darrow/.style={-{Latex[length=2.2mm]}, dashed, line width=0.5pt}
+]
+\node[source] (k) {Korteweg Eq.~(20)\\four independent capillary coefficients\\pressure-positive convention};
+\node[map, right=of k] (schema) {Canonical local map\\\(\rho=m_0n\), \(\delta_K=0\)\\coefficient restrictions in Eq.~\eqref{eq:korteweg-onuki-map}};
+\node[source, right=of schema] (o) {Onuki Eqs.~(2.47)--(2.48)\\one coefficient \(M=CT+K\)\\pressure-positive convention};
+\node[limit, below=of schema] (restricted) {Literal local tensor equality under\\sufficient source-supported restrictions:\\isothermal field or \(K=0\)};
+\node[limit, below left=of restricted] (missing) {No Korteweg source match found for\\entropy/energy flux, wall functional,\\or global entropy balance};
+\node[limit, below right=of restricted] (b3) {Appendix-B B3 is separate:\\Onuki printed/source branch issue;\\implementation remains unknown};
+
+\draw[arrow] (k) -- (schema);
+\draw[arrow] (o) -- (schema);
+\draw[darrow] (schema) -- (restricted);
+\draw[darrow] (restricted) -- (missing);
+\draw[darrow] (restricted) -- (b3);
+\end{tikzpicture}

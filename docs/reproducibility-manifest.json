@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "canonical_source": {
+    "repository": "ferminfm/latex",
+    "subtree": "papers/edu/Onuki2007Companion",
+    "mirror_rule": "deterministic_one_way_export"
+  },
+  "portable_gates": [
+    "make verify-source-policy",
+    "make verify-open",
+    "make verify-formal",
+    "make manuscript",
+    "make verify-clean-export"
+  ],
+  "local_optional_gate": {
+    "command": "make verify-wolfram",
+    "reason": "requires a locally licensed WolframKernel and is excluded from hosted CI"
+  },
+  "scope_limit": "Passing checks validate stated finite derivations and packaging gates only; they do not establish continuum-model validity, numerical reproduction, or unrestricted model equivalence."
+}

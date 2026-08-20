@@ -1,0 +1,28 @@
+\begin{tikzpicture}[
+  font=\small,
+  node distance=10mm and 9mm,
+  box/.style={draw=black, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=31mm, minimum height=11mm, fill=gray!8},
+  note/.style={draw=black, line width=0.35pt, rounded corners=2pt,
+    align=center, text width=37mm, minimum height=10mm, fill=white},
+  arrow/.style={-{Latex[length=2.2mm]}, line width=0.5pt},
+  darrow/.style={-{Latex[length=2.2mm]}, dashed, line width=0.5pt}
+]
+\node[box] (i) {Source I\\motivation and scope};
+\node[box, right=of i] (iia) {II.A\\bulk thermodynamics};
+\node[box, right=of iia] (iib) {II.B--II.C\\gradient and wall branches};
+\node[box, right=of iib] (iid) {II.D\\hydrodynamic balances};
+\node[box, below=of iid] (app) {Appendices A--B\\stress and scaling};
+\node[box, left=of app] (iii) {Section III\\scenario estimates};
+\node[note, below=of iib] (boundary) {Global wall, boundary, and simulation-code branches remain separately recorded};
+
+\draw[arrow] (i) -- (iia);
+\draw[arrow] (iia) -- (iib);
+\draw[arrow] (iib) -- (iid);
+\draw[arrow] (iid) -- (app);
+\draw[arrow] (app) -- (iii);
+\draw[darrow] (iib) -- (boundary);
+\draw[darrow] (iid) -- (boundary);
+\draw[darrow] (app) -- (boundary);
+\draw[darrow] (iii) -- (boundary);
+\end{tikzpicture}

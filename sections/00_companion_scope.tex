@@ -1,0 +1,70 @@
+\section{Companion Scope and Reading Policy}
+\label{sec:companion-scope}
+
+\sourceeqrange{whole paper; navigation only}
+
+\subsection*{Purpose}
+
+This companion is an original derivation guide for \OnukiPRE. The source
+paper remains the authority for the published model, figures, and narrative.
+The companion cites equation numbers and records assumptions. It reconstructs the calculations independently while preserving the source context.
+
+\subsection*{Source-equation badges}
+
+Displayed equations carrying a small badge such as \sourceeqbadge{2.35}
+are direct reconstructions or notation-normalized forms of the cited Onuki
+source equation.  A badge beginning with ``Companion'' instead marks a
+companion-derived expression that is compared with a printed source equation
+but is not itself the printed formula.  Unbadged displayed
+equations are companion derivation steps, product-rule expansions, type checks,
+or diagnostic residuals unless the surrounding prose explicitly says otherwise.
+
+
+\begin{figure}[htbp]
+\centering
+\resizebox{0.96\linewidth}{!}{\input{figures/tikz/source_to_companion_provenance_map}}
+\caption{Provenance path used by the companion.  A source equation or passage is
+first anchored to the source file, then reconstructed or classified in the
+companion text, and finally linked to finite code mirrors when the relation is
+mechanically checkable.  Dashed output marks bounded gaps rather than completed
+source claims.}
+\label{fig:source-to-companion-provenance-map}
+\end{figure}
+
+
+\subsection*{Companion code and verification appendix}
+
+The directory \texttt{scripts/} contains finite symbolic and dimensional
+checks linked to the derivations in this paper, and \texttt{tests/} contains
+regression checks for ledgers and source-boundary claims.
+Appendix~\ref{app:verification-plan} summarizes what those checks cover and,
+just as importantly, what they do not prove.
+
+\subsection*{Reproducibility complement}
+
+The tag-pinned verification complement is available at (version
+\OnukiVerificationTag):
+\begin{center}
+\small \OnukiVerificationRepository
+\end{center}
+It provides hand routes and listed finite checks for each topic; it does not
+establish a continuum PDE, a constitutive law, simulation fidelity, or full
+model equivalence. \OnukiLinkVerificationIndex{The verification index} is the
+entry point, and \OnukiLinkFormalScope{the finite formal-scope note} states the
+Lean boundary.
+
+\subsection*{What the companion provides}
+
+\begin{itemize}
+\item Source-equation navigation for the main thermodynamic, variational,
+  hydrodynamic, boundary, and scaled-equation formulas.
+\item Independent derivation steps for the identities currently covered.
+\item Explicit separation of local, equilibrium, boundary, global, and
+  simulation-specialized assumptions.
+\item Verification checks for finite algebraic and dimensional claims.
+\end{itemize}
+
+\subsection*{Open issues}
+
+The B3 scaling branch, wall/surface transfer, and global entropy/energy closure
+remain source-dependent issues recorded in the research notes.

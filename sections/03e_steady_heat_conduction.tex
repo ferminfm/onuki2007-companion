@@ -1,0 +1,93 @@
+\section{Source Section III.E: Steady Two-Phase Heat Conduction}
+\label{sec:steady-heat-conduction}
+
+\sourceeqrange{Eqs. (3.17)--(3.19) and figures 8--10}
+
+\subsection*{Purpose}
+
+This subsection gives a compact definition and units guide for the steady
+heat-flow scenario.  It does not verify the reported Nusselt values.
+
+\subsection*{Reading Guide}
+
+The definitions below identify which scalar outputs the source reports and
+which finite checks the companion can safely perform.
+
+\subsection*{Effective Conductivity and Heat Flux}
+
+Equation (3.17) defines an effective thermal conductivity from the bottom-wall
+heat input and the imposed temperature difference.  Equation (3.18) defines the
+local bottom heat flux from the conductive heat flux at the wall where the
+velocity vanishes.  Equation (3.19) forms a dimensionless heat-transport ratio by
+normalizing the effective conductivity by a liquid reference conductivity.
+
+The finite bookkeeping chain is:
+\begin{align}
+  \lambda_{\rm eff}
+  &=
+  \frac{\displaystyle\int_0^L Q_b(x)\,\dd x}{T_b-T_t},
+  \sourceeqbadge{3.17}
+  \label{eq:iii-effective-conductivity-ledger}\\
+  Q_b(x)
+  &=-\left.\lambda\,\partial_yT\right|_{y=0},
+  \sourceeqbadge{3.18}
+  \label{eq:iii-bottom-heat-flux-ledger}\\
+  Nu&=\frac{\lambda_{\rm eff}}{\lambda_\ell}.
+  \sourceeqbadge{3.19}
+  \label{eq:iii-nusselt-ledger}
+\end{align}
+Equation~\eqref{eq:iii-effective-conductivity-ledger} is an integrated
+definition over the bottom boundary, not a local differential law.  The
+conductive expression in \eqref{eq:iii-bottom-heat-flux-ledger} is the
+source-stated Fourier-type wall heat-flux diagnostic, evaluated on the wall
+branch where the velocity vanishes.  The ratio
+\eqref{eq:iii-nusselt-ledger} is dimensionless by construction; reported values
+of \(Nu\) remain source simulation outputs.
+
+The useful bookkeeping point is the order of operations: compute the wall
+heat-flux diagnostic on the boundary branch, integrate it along the bottom wall,
+divide
+by the imposed temperature difference, and only then normalize by the liquid
+reference conductivity.  Reversing this order would confuse a local flux with
+the integrated effective-conductivity definition.
+
+
+The source also gives a one-phase no-convection estimate after Eq. (3.19).  In
+that branch the effective conductivity reduces to the local conductive
+coefficient.  Using Eq. (3.4),
+\begin{equation}
+  \lambda=k_B\nu_0n,
+  \qquad
+  \lambda_\ell=k_B\nu_0(1.7n_c),
+\end{equation}
+so
+\begin{equation}
+  Nu=\frac{\lambda}{\lambda_\ell}
+  =\frac{k_B\nu_0n}{k_B\nu_0(1.7n_c)}
+  =\frac{n}{1.7n_c}.
+  \sourceeqbadge{3.19}
+  \label{eq:iii-one-phase-nusselt-estimate}
+\end{equation}
+This estimate is a reference branch for reading the plotted Nusselt values; it
+is not a calculation of the two-phase convective state.
+
+\subsection*{Finite Checks}
+
+The verification layer checks that the effective-conductivity definition has the
+same dimensions as a thermal conductivity in the source's two-dimensional cell
+bookkeeping and that \(Nu=\lambda_{\rm eff}/\lambda_\ell\) is dimensionless.  It
+also records that any measured value of \(Nu\) remains a simulation output.
+
+The finite check is therefore dimensional: a ratio of like conductivities is
+dimensionless.  No steady heat-conduction solution or reported transport value
+is recomputed here.
+The effective-conductivity, bottom-heat-flux, and Nusselt-ratio checks are
+covered by the Section III mirror pair listed in
+Section~\ref{sec:numerical-results-overview}.  These checks do not solve the
+steady two-phase heat-conduction problem.
+
+\subsection*{Limitations}
+
+The presence or absence of gravity changes the state being read, but the guide
+only records the branch conditions.  It does not calculate the steady state or
+validate the heat-pipe-like transport mechanism.

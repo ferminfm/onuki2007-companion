@@ -1,0 +1,518 @@
+\section{Source Section II.C: Equilibrium Conditions and Wall Terms}
+\label{sec:equilibrium-conditions}
+
+\sourceeqrange{Eqs. (2.21)--(2.34)}
+
+\subsection{Purpose and Scope}
+
+This section continues the source order after the gradient entropy and energy
+construction.  It explains the equilibrium variational branch, the
+one-dimensional interface first integral, the surface-tension change of
+variables, and the natural wall density boundary condition.  The derivation is
+written as a companion guide; the source paper remains the required reference
+for the original presentation.
+
+The scope is deliberately bounded.  The reversible stress tensor and
+hydrodynamic equations are not derived here, and Appendix-B scaling is not used
+in this section.
+
+\subsection{Typed Objects and Assumptions}
+
+Use the Section II.B fields \(n\), \(\hat e\), \(T\), \(M\), and \(\hat\mu\).
+For equilibrium, the admissible states are time-independent fields on a
+container \(\Omega\), with \(n>0\), \(T>0\), and enough smoothness for the
+Euler--Lagrange and boundary calculations below.
+
+Additional objects introduced in Eqs.~(2.21)--(2.34) are:
+
+\begin{description}
+\item[\(N=\int_\Omega n\dd x\)] scalar functional for the total particle
+  number constraint.
+\item[\(W\)] auxiliary constrained entropy functional.
+\item[\(\beta\)] scalar energy-constraint multiplier.
+\item[\(\lambda_N\)] scalar particle-number multiplier in companion notation.
+\item[\(F\)] bulk Helmholtz free-energy functional after \(T\) is homogeneous.
+\item[\(f(n,T)\)] local Helmholtz free-energy density without the gradient
+  term.
+\item[\(g_{\mathrm{gp}}(n,T)\)] grand-potential density for a planar interface.
+\item[\(\gamma(T)\)] surface tension for the planar branch.
+\item[\(S_s,E_s\)] boundary functionals for wall entropy and wall energy.
+\item[\(\sigma_s,e_s\)] surface entropy and surface energy densities.
+\item[\(f_s=e_s-T\sigma_s\)] wall Helmholtz free-energy density.
+\item[\(a_s,b_s,n_c\)] wall parameters in the quadratic wall model.
+\end{description}
+
+The source symbol for the particle-number multiplier is close to the normal
+symbol.  The companion writes this multiplier as \(\lambda_N\) to avoid
+confusing it with the outward unit normal \(\nu\).
+
+\paragraph{Equilibrium and wall status.}
+The Section II.C objects are equilibrium objects unless the text says
+otherwise.  This ledger records which statements are source-stated model choices
+and which are derived within the companion.
+\begin{description}[leftmargin=2.8cm,style=nextline]
+\item[\(W,N,\beta,\lambda_N\)] source-stated constrained-equilibrium setup;
+no dynamics or transport law is introduced here.
+\item[\(T=1/(k_B\beta)\)] Derived stationarity condition for energy variations
+on the homogeneous equilibrium branch.
+\item[\(F\), \(g_{\mathrm{gp}}\), first integral] Derived free-energy and
+planar-interface relations requiring coexistence endpoints and a
+one-dimensional monotone branch.
+\item[\(S_s,E_s,\sigma_s,e_s\)] source-stated wall entropy/energy model
+objects; they are not supplied by the bulk variation.
+\item[\(f_s\), \(F_{\mathrm{tot}}\), Eq.~\eqref{eq:iic-natural-wall-condition}]
+Derived equilibrium wall free-energy branch requiring free boundary density
+variation or an equivalent natural branch.
+\item[Dynamic wall transfer] Heat, entropy, and total-energy transfer remain
+unresolved later-source data; they are not closed by the equilibrium wall
+condition.
+\end{description}
+
+
+\subsection{Section II.B Boundary Term Reused Here}
+
+Section II.B gave the entropy variation boundary contribution
+\begin{equation}
+  -\int_{\partial\Omega}
+  \frac{M}{T}(\nu\cdot\grad n)\delta n\,\dd a .
+  \label{eq:iic-iib-boundary}
+\end{equation}
+At homogeneous equilibrium temperature, the corresponding bulk free-energy
+boundary contribution is
+\begin{equation}
+  \int_{\partial\Omega}
+  M(\nu\cdot\grad n)\delta n\,\dd a .
+  \label{eq:iic-free-energy-boundary}
+\end{equation}
+This sign is the one used below for the wall boundary condition.  The passage
+from \eqref{eq:iic-iib-boundary} to \eqref{eq:iic-free-energy-boundary} is not
+a global entropy-balance statement; it is only the equilibrium free-energy
+variation branch.
+
+\subsection{Constrained Equilibrium Functional}
+
+The equilibrium problem first fixes total particle number \(N\) and bulk
+internal energy \(E_b\).  The two constraints play different roles in the
+step-by-step calculation:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Constraint & Multiplier & Variation it controls \\
+\midrule
+particle number \(N\) & \(\lambda_N\) & density variation \(\delta n\) \\
+bulk energy \(E_b\) & \(\beta\) & energy variation \(\delta e\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+In companion notation, the constrained entropy
+functional is
+\begin{equation}
+  W
+  =
+  \frac{S_b}{k_B}
+  +
+  \lambda_N N
+  -
+  \beta E_b .\sourceeqbadge{2.21}
+  \label{eq:iic-W}
+\end{equation}
+Varying \(e\) at fixed \(n\) gives the energy part of the first variation,
+\begin{equation}
+  \delta_e W
+  =
+  \int_\Omega
+  \left(\frac{1}{k_B T}-\beta\right)\delta e\,\dd x .
+  \label{eq:iic-W-energy-variation}
+\end{equation}
+Here \(1/T=n(\partial s/\partial e)_n\) is the local Section II.B
+entropy-density coefficient.  Since \(\delta e\) is arbitrary in the bulk,
+stationarity gives a spatially constant temperature,
+\begin{equation}
+  T=\frac{1}{k_B\beta}.\sourceeqbadge{2.22}
+  \label{eq:iic-homogeneous-temperature}
+\end{equation}
+
+Once \(T\) is homogeneous, \(F=E_b-TS_b\) is the bulk Helmholtz free-energy
+functional.  Substituting \(\beta=1/(k_B T)\) into \eqref{eq:iic-W} gives the
+source rewriting
+\begin{align}
+  W
+  &=\frac{S_b}{k_B}+\lambda_N N-\frac{1}{k_B T}E_b \\
+  &=\frac{T S_b-E_b}{k_B T}+\lambda_N N \\
+  &=\frac{-F+k_B T\lambda_N N}{k_B T}.\sourceeqbadge{2.23}
+  \label{eq:iic-W-helmholtz-conversion}
+\end{align}
+Thus the stationarity of \(W\) is equivalent on this branch to stationarity of
+\(F-k_B T\lambda_N N\).  Equivalently, for variations at homogeneous
+\(T\),
+\[
+  -k_BT\,\delta W
+  =\delta(E_b-TS_b)-k_BT\lambda_N\delta N
+  =\delta F-k_BT\lambda_N\delta N,
+\]
+where \(\delta T=0\) on this homogeneous-temperature equilibrium branch.  The
+bulk Helmholtz functional follows from \(F=E_b-TS_b\) and the Section II.B
+functionals:
+\begin{align}
+  F[n]
+  &=\int_\Omega\left(e+\frac{1}{2}K|\grad n|^2\right)\dd x
+    -T\int_\Omega\left(ns-\frac{1}{2}C|\grad n|^2\right)\dd x \\
+  &=\int_\Omega
+  \left(
+    f(n,T)+\frac{1}{2}(K+TC)|\grad n|^2
+  \right)\dd x \\
+  &=\int_\Omega
+  \left(
+    f(n,T)+\frac{1}{2}M(n,T)|\grad n|^2
+  \right)\dd x .\sourceeqbadge{2.24}
+  \label{eq:iic-F}
+\end{align}
+Then maximizing \(W\) with respect to \(n\) is equivalent to stationarity of
+\(F-k_B T\lambda_N N\).  The equivalence follows from multiplying the
+stationarity condition for \(W\) by the positive constant \(-k_BT\) after the
+energy variation has fixed a homogeneous temperature.  Thus the density part is
+an equilibrium free-energy variation, not a dynamic entropy-production law.
+The density variation is
+\begin{equation}
+  \delta F
+  =
+  \int_\Omega \hat\mu\,\delta n\,\dd x
+  +
+  \int_{\partial\Omega}M(\nu\cdot\grad n)\delta n\,\dd a ,
+  \label{eq:iic-delta-F}
+\end{equation}
+where the bulk coefficient is the generalized chemical potential from
+Section II.B at homogeneous \(T\).  Including the particle-number constraint,
+\begin{align}
+  \delta\left(F-k_B T\lambda_N N\right)
+  &=\int_\Omega (\hat\mu-k_B T\lambda_N)\delta n\,\dd x \\
+  &\quad+
+  \int_{\partial\Omega}M(\nu\cdot\grad n)\delta n\,\dd a .
+  \label{eq:iic-density-stationarity-expanded}
+\end{align}
+The phrase "controlled separately" has three concrete meanings used later in
+this companion:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Boundary branch & Boundary variation & Consequence \\
+\midrule
+Fixed trace & \(\delta n=0\) on \(\partial\Omega\) & no natural wall condition follows \\
+Natural wall & \(\delta n\) free & boundary coefficient must vanish \\
+Wall functional & \(\delta n\) free with \(f_s\) present & natural condition includes \((\partial f_s/\partial n)_T\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+If the boundary term is controlled by one of these branches, the bulk
+Euler--Lagrange condition is
+\begin{equation}
+  \hat\mu=k_B T\lambda_N=\mathrm{constant}.\sourceeqbadge{2.25}
+  \label{eq:iic-muhat-constant}
+\end{equation}
+This is a local stationarity condition.  It is not a hydrodynamic balance law.
+On this equilibrium branch, the generalized chemical potential is constant in
+the bulk.
+
+\subsection{One-Dimensional Interface Branch}
+
+For a planar interface, write \(n=n(x)\) and assume a homogeneous temperature.
+The companion uses
+\begin{equation}
+  g_{\mathrm{gp}}(n,T)
+  =
+  f(n,T)-\mu_{\mathrm{cx}}n+p_{\mathrm{cx}} .\sourceeqbadge{2.26}
+  \label{eq:iic-grand-potential-density}
+\end{equation}
+for the source grand-potential density.  The subscript is added only to avoid
+confusion with the gravitational acceleration used later.  At coexistence,
+\(p_{\mathrm{cx}}=\mu_{\mathrm{cx}}n-f\) for each bulk endpoint, so
+\(g_{\mathrm{gp}}(n_g,T)=g_{\mathrm{gp}}(n_l,T)=0\).
+
+The one-dimensional functional density for the planar branch is
+\[
+  L(n,n_x)
+  =
+  g_{\mathrm{gp}}(n,T)
+  +
+  \frac{1}{2}M(n,T)n_x^2 .
+\]
+Because \(L\) has no explicit \(x\)-dependence, the Beltrami identity gives a
+first integral.  One common sign convention writes \(L-n_x L_{n_x}=\text{constant}\);
+the companion uses the negative of that constant so that the far-field value is
+zero in the same orientation as the source formula.  The derivative with
+respect to the interface slope is
+\[
+  \frac{\partial L}{\partial n_x}=M n_x,
+\]
+so
+\begin{equation}
+  n_x\frac{\partial L}{\partial n_x}-L
+  =
+  M n_x^2-\left(g_{\mathrm{gp}}+\frac{1}{2}M n_x^2\right)
+  =
+  \frac{1}{2}M n_x^2-g_{\mathrm{gp}}
+  =
+  \mathrm{constant}.
+  \label{eq:iic-first-integral-raw}
+\end{equation}
+In the coexistence far fields, \(n_x\to0\) and
+\(g_{\mathrm{gp}}\to0\), so the constant is zero.  Therefore the planar
+interface branch satisfies
+\begin{equation}
+  g_{\mathrm{gp}}(n,T)
+  =
+  \frac{1}{2}M(n,T)\left(\frac{\dd n}{\dd x}\right)^2 .
+  \label{eq:iic-first-integral}
+\end{equation}
+This identity is the source's first-integral statement following Eq.~(2.26).  It belongs to the equilibrium one-dimensional branch only.
+
+\subsection{Surface-Tension Identity}
+
+The surface tension is an excess free energy per unit interfacial area.  Along
+the planar branch,
+\[
+  \gamma
+  =
+  \int_{-\infty}^{\infty}
+  \left[
+    g_{\mathrm{gp}}(n,T)
+    +
+    \frac{1}{2}M(n,T)n_x^2
+  \right]\dd x .
+\]
+Using \eqref{eq:iic-first-integral}, this becomes
+\begin{equation}
+  \gamma
+  =
+  \int_{-\infty}^{\infty}M(n,T)n_x^2\,\dd x .
+  \label{eq:iic-gamma-x}
+\end{equation}
+For a monotone interface, \(\dd n=n_x\dd x\), and
+\eqref{eq:iic-first-integral} gives
+\[
+  |n_x|=\sqrt{\frac{2g_{\mathrm{gp}}}{M}} .
+\]
+Choosing the orientation from gas density \(n_g\) to liquid density \(n_l\)
+with \(n_x>0\), the integrand transforms as
+\begin{equation}
+  M n_x^2\,\dd x
+  =M n_x\,\dd n
+  =\sqrt{2M g_{\mathrm{gp}}}\,\dd n .
+  \label{eq:iic-surface-tension-change-variable-step}
+\end{equation}
+The change of variables gives
+\begin{equation}
+  \gamma(T)
+  =
+  \int_{n_g}^{n_l}
+  \left[2M(n,T)g_{\mathrm{gp}}(n,T)\right]^{1/2}\dd n .\sourceeqbadge{2.27}
+  \label{eq:iic-gamma-n}
+\end{equation}
+This derivation uses the equilibrium first integral and monotonicity.  It is
+not a statement about a dynamic diffuse interface.
+
+\subsection{Surface Entropy and Surface Energy}
+
+The wall branch adds boundary functionals
+\begin{equation}
+  S_s[n_{\partial\Omega}]
+  =
+  \int_{\partial\Omega}\sigma_s(n)\dd a,
+  \qquad
+  E_s[n_{\partial\Omega}]
+  =
+  \int_{\partial\Omega}e_s(n)\dd a .\sourceeqbadge{2.28}
+  \label{eq:iic-surface-functionals}
+\end{equation}
+The densities \(\sigma_s\) and \(e_s\) are functions of the boundary trace of
+\(n\).  They are source-stated wall objects, not consequences of the bulk
+calculation alone.  With the source's surface-entropy convention, the total
+constrained wall functional is
+\begin{equation}
+  W_{\mathrm{tot}}
+  =
+  W+
+  \int_{\partial\Omega}\left(\sigma_s(n)-\beta e_s(n)\right)\dd a .\sourceeqbadge{2.29}
+  \label{eq:iic-Wtot}
+\end{equation}
+Here the surface term is written in the same scaled convention as source
+Eq.~(2.29); the companion does not silently replace it by a differently scaled
+surface entropy.
+
+At homogeneous equilibrium temperature, define the wall Helmholtz free-energy
+density
+\begin{equation}
+  f_s(n,T)=e_s(n)-T\sigma_s(n).\sourceeqbadge{2.31}
+  \label{eq:iic-fs}
+\end{equation}
+The total equilibrium free-energy functional for the wall branch is
+\begin{equation}
+  F_{\mathrm{tot}}
+  =
+  F
+  +
+  \int_{\partial\Omega}f_s(n,T)\dd a .\sourceeqbadge{2.32}
+  \label{eq:iic-Ftot}
+\end{equation}
+
+\subsection{Natural Wall Density Boundary Condition}
+
+Vary \(F_{\mathrm{tot}}\) with respect to the boundary trace of \(n\).  The
+bulk gradient term contributes \eqref{eq:iic-free-energy-boundary}.  The wall
+functional contributes
+\[
+  \int_{\partial\Omega}
+  \left(\frac{\partial f_s}{\partial n}\right)_T
+  \delta n\,\dd a .
+\]
+The boundary coefficient is assembled from exactly two sources:
+\[
+  \underbrace{M\nu\cdot\grad n}_{\text{bulk gradient term}}
+  +
+  \underbrace{(\partial f_s/\partial n)_T}_{\text{wall free energy}}.
+\]
+Thus the boundary part of the first variation is
+\begin{equation}
+  \delta F_{\mathrm{tot}}\big|_{\partial\Omega}
+  =
+  \int_{\partial\Omega}
+  \left[
+    M\nu\cdot\grad n
+    +
+    \left(\frac{\partial f_s}{\partial n}\right)_T
+  \right]\delta n\,\dd a .
+  \label{eq:iic-wall-boundary-variation-expanded}
+\end{equation}
+For free boundary variations, the coefficient of \(\delta n\) on
+\(\partial\Omega\) must vanish:
+\begin{equation}
+  M\nu\cdot\grad n
+  +
+  \left(\frac{\partial f_s}{\partial n}\right)_T
+  =
+  0 .\sourceeqbadge{2.30}
+  \label{eq:iic-natural-wall-condition}
+\end{equation}
+This is the natural wall density boundary condition for the equilibrium wall
+functional.  If \(\delta n\) is fixed on the boundary instead, the same
+condition is not forced by variation.
+
+For the quadratic wall model
+\begin{equation}
+  f_s(n,T)
+  =
+  -a_s(n-n_c)+\frac{1}{2}b_s(n-n_c)^2 ,
+  \sourceeqbadge{2.33}
+  \label{eq:iic-quadratic-fs}
+\end{equation}
+the derivative is a one-line ordinary derivative with the wall trace of \(n\) as
+its scalar argument:
+\begin{align}
+  \frac{\partial}{\partial n}\{-a_s(n-n_c)\}&=-a_s, \\
+  \frac{\partial}{\partial n}\left\{\frac{1}{2}b_s(n-n_c)^2\right\}&=b_s(n-n_c).
+  \label{eq:iic-quadratic-fs-derivative-ledger}
+\end{align}
+Therefore
+\[
+  \left(\frac{\partial f_s}{\partial n}\right)_T
+  =
+  -a_s+b_s(n-n_c).
+\]
+Substitution into \eqref{eq:iic-natural-wall-condition} gives
+\begin{equation}
+  M\nu\cdot\grad n-a_s+b_s(n-n_c)=0 .\sourceeqbadge{2.34}
+  \label{eq:iic-quadratic-wall-condition}
+\end{equation}
+
+\subsection{Wall Branch Versus Global Transfer}
+
+The wall condition above is an equilibrium boundary condition.  It does not by
+itself close the later dynamic global entropy or total-energy balance.  That
+later closure also needs heat-transfer data, surface-energy time variation, and
+the hydrodynamic balance laws.  The companion therefore keeps three statements
+separate:
+
+\begin{itemize}
+\item the local Section II.B variation boundary term;
+\item the equilibrium wall density condition derived from \(F_{\mathrm{tot}}\);
+\item the later dynamic global entropy and energy transfer branch.
+\end{itemize}
+
+\subsection{Verification Checklist}
+
+The finite checks for this section cover:
+
+\begin{enumerate}
+\item the one-dimensional integration-by-parts identity for the equilibrium
+  gradient term;
+\item the boundary residual
+  \(M\nu\cdot\grad n+(\partial f_s/\partial n)_T\) and its cancellation under
+  the natural wall condition;
+\item the derivative of the quadratic wall free-energy density;
+\item the algebraic consistency of the planar surface-tension integrand under
+  \(g_{\mathrm{gp}}=Mn_x^2/2\);
+\item the expected nonzero residual when the wall contribution is omitted while
+  the boundary variation is free;
+\item regression text that global entropy transfer remains unresolved here.
+\end{enumerate}
+
+These checks verify finite variational bookkeeping.  They do not prove the wall
+model, PDE well-posedness, hydrodynamic equations, or simulation results.
+
+The executable mirrors for the Section II.C calculations are:
+\begin{center}
+\small
+\begin{tabular}{@{}l@{}}
+\texttt{scripts/python/section\_iic\_equilibrium\_wall\_sympy.py}\\
+\texttt{scripts/wolfram/section\_iic\_equilibrium\_wall\_checks.wls}\\
+\texttt{tests/test\_section\_iic\_equilibrium\_wall.py}
+\end{tabular}
+\end{center}
+They check the equilibrium integration-by-parts residual, the planar
+first-integral algebra, the wall free-energy derivative, and the expected
+nonzero residual when the wall contribution is removed.  These are finite
+checks of the displayed companion steps, not a closure of the later dynamic
+global-transfer problem.
+
+
+\subsection{Source-Procedure Closure for Section II.C}
+
+The completion audit treats the Section II.C equilibrium branch as covered when
+the constrained-temperature step, planar first integral, wall functional, and
+natural boundary condition are each explicit.  This closure is equilibrium-only;
+it does not supply dynamic heat, entropy, or surface-energy transfer terms.
+
+\begin{center}
+\begin{tabular}{@{}p{0.18\linewidth}p{0.30\linewidth}p{0.38\linewidth}@{}}
+\toprule
+Source item & Procedure type & Companion coverage \\
+\midrule
+\eqsrc{2.21}--\eqsrc{2.25} & constrained entropy and free-energy stationarity & energy variation fixes homogeneous \(T\); Eq.~(2.23) rewrites \(W\); Eq.~(2.24) defines \(F\); Eq.~(2.25) gives constant \(\hat\mu\) \\
+\eqsrc{2.26}--\eqsrc{2.27} & planar first integral and surface tension & the grand-potential density is Eq.~(2.26); the Beltrami first integral is source text before Eq.~(2.27); the density integral is Eq.~(2.27) \\
+\eqsrc{2.28}--\eqsrc{2.32} & wall entropy/energy, wall constraint, and total free energy & Eq.~(2.29) is the constrained wall functional; Eq.~(2.30) is the natural boundary condition; Eq.~(2.32) is \(F_{\mathrm{tot}}\) \\
+\eqsrc{2.33}--\eqsrc{2.34} & quadratic wall branch & the source wall model is differentiated and substituted into Eq.~(2.30) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The source rows for total wall entropy and energy are therefore covered as
+static equilibrium wall functionals.  They remain separate from the later
+dynamic global entropy and total-energy balance.
+
+\subsection*{Tagged verification complement}
+
+\OnukiLinkIIC{The tagged Section II.C verification complement} gives the
+equilibrium hand route and finite boundary checks, with the dynamic wall-transfer
+gap retained explicitly.
+
+\subsection{Open Issues Carried Forward}
+
+\begin{itemize}
+\item The reversible stress tensor is deferred to the hydrodynamic-equation
+  section.
+\item The hydrodynamic balance laws are not derived in this equilibrium
+  section.
+\item Global entropy transfer and total-energy transfer are not closed by the
+  wall density condition alone.
+\item Appendix-B B3 scaling is not involved in this section.
+\end{itemize}

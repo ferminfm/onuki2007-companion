@@ -1,0 +1,85 @@
+\section{Source Section III.B: Adiabatic Expansion Scenario}
+\label{sec:adiabatic-expansion}
+
+\sourceeqrange{Scenario figures 1--2; Eq. (3.12)}
+
+\subsection*{Purpose}
+
+This subsection helps the reader locate which source assumptions govern the
+adiabatic-expansion example.  It does not reproduce snapshots, time histories,
+or stability thresholds.
+
+\subsection*{Reading Guide}
+
+The setup begins from a spatially uniform supercritical state and changes the
+wall temperature.  The important bookkeeping objects are the conserved mean
+number density, no-slip walls, the liquid-wetting density boundary condition,
+and the common wall-temperature branch.  The qualitative mechanism is read
+through the balance laws from Section II.D and the wall data from Section III.A,
+while Eq. (3.12) supplies the inverse isothermal-compressibility diagnostic.
+
+\subsection*{Finite Estimate}
+
+Equation (3.12) is a local thermodynamic estimate.  The companion records it as
+a scalar field used to read the source plot at the cell center; it is not a
+numerical reconstruction.
+
+The diagnostic is the inverse isothermal compressibility:
+\begin{equation}
+  K_T^{-1}
+  =n\left(\frac{\partial p}{\partial n}\right)_T .
+  \sourceeqbadge{3.12}
+  \label{eq:iii-adiabatic-expansion-compressibility-type}
+\end{equation}
+Using the Section II.A van der Waals pressure branch and differentiating at
+fixed \(T\),
+\begin{equation}
+  \left(\frac{\partial p}{\partial n}\right)_T
+  =\frac{k_BT}{(1-v_0n)^2}-2\epsilon v_0n.
+\end{equation}
+The spinodal-temperature definition gives
+\begin{equation}
+  T_s=\frac{2\epsilon v_0n(1-v_0n)^2}{k_B}
+  \quad\Longrightarrow\quad
+  2\epsilon v_0n=\frac{k_BT_s}{(1-v_0n)^2}.
+\end{equation}
+Therefore
+\begin{align}
+  K_T^{-1}
+  &=n\left[\frac{k_BT}{(1-v_0n)^2}
+      -\frac{k_BT_s}{(1-v_0n)^2}\right] \\
+  &=\frac{k_Bn}{(1-v_0n)^2}(T-T_s).
+  \sourceeqbadge{3.12}
+  \label{eq:iii-inverse-compressibility-derived}
+\end{align}
+As a type check, \((\partial p/\partial n)_T\) has pressure per number-density
+units, so multiplication by \(n\) gives pressure.  The sign of \(K_T^{-1}\)
+helps the reader locate stable, metastable, and spinodal portions of the source
+time trace.  It does not supply an evolution equation for the domain pattern or
+the wall-layer growth.
+
+The calculation chain is local: equation (3.12) is evaluated from the local
+thermodynamic branch, then read against the cell-center state reported by the
+source.  It is not integrated over the cell and it does not determine the
+interface pattern.
+The finite type and scale checks for this scenario are covered by the
+Section III mirror pair listed in Section~\ref{sec:numerical-results-overview};
+they do not reproduce the source time trace.
+
+The branch data are:
+\[
+\begin{array}{c|c}
+\text{input} & \text{role} \\
+\hline
+\langle n\rangle & \text{conserved mean density in the closed cell} \\
+T_{\rm wall}(t) & \text{common wall-temperature change} \\
+\text{Eq. (3.2)} & \text{liquid-wetting density boundary condition} \\
+K_T^{-1} & \text{cell-center thermodynamic diagnostic}
+\end{array}
+\]
+
+\subsection*{Limitations}
+
+The paper's figures are simulation outcomes.  This companion does not infer
+mesh-update rules, time integration, fluctuation effects, or any source-code
+choice beyond the printed equations and assumptions.

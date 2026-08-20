@@ -1,0 +1,58 @@
+\section{Source Section III.D: Two-Phase States in Heat Flow}
+\label{sec:heat-flow-two-phase}
+
+\sourceeqrange{Eq. (3.16), figures 5--7}
+
+\subsection*{Purpose}
+
+This subsection explains how to read the heat-flow droplet examples using the
+source's own scalar estimates and boundary branches.  It does not reproduce
+migration, spreading, or interface motion.
+
+\subsection*{Reading Guide}
+
+The temperature branch fixes different bottom and top temperatures with
+insulating side walls.  Equation (3.16) is the main finite estimate: it defines
+a characteristic velocity associated with latent-heat transport.  The relevant
+fields are \(T\), \(v\), \(n\), pressure, and the generalized chemical potential,
+but the companion uses them only as figure-reading labels unless a source
+equation gives a finite identity.
+
+For this scenario the latent-heat estimate is reused with the far-field heat
+flux as input:
+\begin{equation}
+  v_c=\frac{Q}{n_gT\Delta s}.
+  \sourceeqbadge{3.16}
+  \label{eq:iii-two-phase-latent-velocity-type}
+\end{equation}
+The numerator is the imposed or measured heat flux through the heat-flow
+branch; the denominator is the latent heat per unit volume associated with the
+gas phase.  Thus Eq.~\eqref{eq:iii-two-phase-latent-velocity-type} is a scale
+for reading interface transport.  It does not predict droplet migration speed
+without the full hydrodynamic solution and boundary data.
+The finite units check for this reuse of Eq.~(3.16) is covered by the
+Section III mirror pair listed in Section~\ref{sec:numerical-results-overview}.
+
+\subsection*{Boundary Branches}
+
+The density wall condition from Eq. (3.2) remains active.  Heat enters or leaves
+through top and bottom boundary data.  Side-wall heat flux is zero in this
+branch.  Those statements do not close the global entropy or energy balance by
+themselves; the Section II.D boundary-transfer terms remain necessary.
+
+\[
+\begin{array}{c|c|c}
+\text{boundary object} & \text{scenario branch} & \text{what remains open} \\
+\hline
+\text{bottom/top }T & T_b\ne T_t & \text{global heat-transfer bookkeeping} \\
+\text{side heat flux} & \text{insulating} & \text{wall entropy transfer} \\
+\text{velocity} & \text{no-slip} & \text{no independent flow reconstruction} \\
+\text{density} & \text{Eq. (3.2)} & \text{wall functional inherited from II.C}
+\end{array}
+\]
+
+\subsection*{Limitations}
+
+Droplet migration speed, contact with a wall, and subsequent spreading are
+simulation outputs.  This companion records which source formulas the reader
+should consult, but it does not infer a numerical mechanism from the figures.

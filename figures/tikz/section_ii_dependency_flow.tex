@@ -1,0 +1,28 @@
+\begin{tikzpicture}[
+  font=\small,
+  node distance=8mm and 10mm,
+  box/.style={draw=black, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=32mm, minimum height=11mm, fill=gray!8},
+  source/.style={draw=black, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=34mm, minimum height=11mm, fill=gray!16},
+  open/.style={draw=black, dashed, line width=0.45pt, rounded corners=2pt,
+    align=center, text width=38mm, minimum height=11mm, fill=white},
+  arrow/.style={-{Latex[length=2.2mm]}, line width=0.5pt},
+  darrow/.style={-{Latex[length=2.2mm]}, dashed, line width=0.5pt}
+]
+\node[source] (bulk) {II.A\\local van der Waals baseline};
+\node[box, right=of bulk] (grad) {II.B\\gradient entropy and energy};
+\node[box, right=of grad] (wall) {II.C\\equilibrium wall branch};
+\node[box, below=of grad] (coeff) {\(M=CT+K\)\\coefficient map};
+\node[box, right=of coeff] (stress) {Appendix A\\reversible stress};
+\node[box, right=of stress] (hydro) {II.D\\local balance laws};
+\node[open, below=of stress] (global) {Integrated energy/entropy requires heat, wall, and boundary transfer data};
+
+\draw[arrow] (bulk) -- (grad);
+\draw[arrow] (grad) -- (wall);
+\draw[arrow] (grad) -- (coeff);
+\draw[arrow] (coeff) -- (stress);
+\draw[arrow] (stress) -- (hydro);
+\draw[darrow] (wall) -- (global);
+\draw[darrow] (hydro) -- (global);
+\end{tikzpicture}

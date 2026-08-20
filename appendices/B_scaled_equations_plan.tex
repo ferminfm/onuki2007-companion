@@ -1,0 +1,553 @@
+\section{Appendix B Plan: Scaled Hydrodynamic Equations}
+\label{app:scaled-equations-plan}
+
+\sourceeqrange{Appendix B Eqs. (B1)--(B6)}
+
+\subsection*{Purpose and Scope}
+
+This appendix gives an original guided derivation of the scaled
+hydrodynamic equations.  The first pass derived the scale definitions and
+dimensionless variables needed for Appendix B.  The present pass adds the
+scaled continuity and momentum bookkeeping and treats the pressure tensor in
+two branches: the expression printed in Eq.~(B3), and the
+dimensional-source-consistent branch obtained by rescaling the pressure tensor
+from Eqs.~(2.47)--(2.48).  The companion keeps these branches separate and
+does not infer which branch, if either, was used in unpublished simulation
+code.
+
+\subsection*{Dimensional Objects}
+
+The dimensional fields entering the scaling are:
+\[
+  n,\quad T,\quad v,\quad x,\quad t,\quad e_T,\quad \Pi,\quad \sigma .
+\]
+Here \(n\) is number density, \(T\) is temperature, \(v\) is velocity, and
+\(e_T\), \(\Pi\), and \(\sigma\) have energy-density or stress dimensions.
+The molecular volume parameter is \(v_0\), the particle mass is \(m\), the
+van der Waals energy scale is \(\epsilon\), and \(k_B\) is Boltzmann's
+constant.
+
+\subsection*{Source Scale Choices}
+
+The Section III.A simulation specialization used before Appendix B sets
+\[
+  K=0,\qquad C=\hbox{constant},
+\]
+and introduces the interface-length scale
+\begin{equation}
+  \ell=\left(\frac{C}{2k_Bv_0}\right)^{1/2}.\sourceeqbadge{B1}
+  \label{eq:appb-ell-scale}
+\end{equation}
+The time scale is
+\begin{equation}
+  t_0=\frac{\ell^2}{\nu_0},
+  \label{eq:appb-time-scale}
+\end{equation}
+where \(\nu_0\) is the source kinematic-viscosity scale.  The resulting
+velocity scale is \(\ell/t_0\).  These are source scale choices, not derived
+simulation results.
+
+\subsection*{Scaled Variables in Eq. (B1)}
+
+Appendix B then defines the dimensionless density, temperature, and velocity
+variables
+\begin{equation}
+  \phi=v_0 n,\qquad
+  \Theta=\frac{k_B T}{\epsilon},\qquad
+  V=\frac{t_0}{\ell}v .\sourceeqbadge{B1}
+  \label{eq:appb-scaled-variables}
+\end{equation}
+The spatial and time coordinates are also read in scaled units:
+\[
+  x_{\mathrm{sc}}=x/\ell,\qquad t_{\mathrm{sc}}=t/t_0 .
+\]
+The source suppresses separate symbols for the scaled coordinates after this
+change.  The companion keeps the subscript here only to make the type change
+visible.  The differential operators follow from the chain rule:
+\begin{equation}
+  \partial_t=t_0^{-1}\partial_{t_{\rm sc}},\qquad
+  \partial_{x_i}=\ell^{-1}\partial_{i,\rm sc},\qquad
+  \nabla_x=\ell^{-1}\nabla_{\rm sc},\qquad
+  \Delta_x=\ell^{-2}\Delta_{\rm sc}.
+  \label{eq:appb-operator-scales}
+\end{equation}
+For a vector flux, the same coordinate scaling gives
+\(\nabla_x\cdot F=\ell^{-1}\nabla_{\rm sc}\cdot F\) before any field-specific
+amplitude scale is substituted.  These operator identities are the only
+source of powers of \(\ell\); they cannot create or remove a factor of
+\(\phi\).
+
+The substitution ledger used throughout Appendix B is:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Dimensional object & Scaled substitution & Derivative consequence \\
+\midrule
+\(n\) & \(\phi/v_0\) & \(\nabla_x n=(v_0\ell)^{-1}\nabla\phi\) \\
+\(T\) & \(\epsilon\Theta/k_B\) & \(\nabla_xT=\epsilon(k_B\ell)^{-1}\nabla\Theta\) \\
+\(v\) & \((\ell/t_0)V\) & \(\partial_t v=(\ell/t_0^2)\partial_tV\) \\
+\(x\) & \(\ell x_{\rm sc}\) & \(\nabla_x=\ell^{-1}\nabla_{\rm sc}\) \\
+\(M\) & \(CT=2\epsilon v_0\ell^2\Theta\) & valid only for \(K=0\), constant \(C\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection*{Stress, Energy, Gravity, and Transport Scales}
+
+The natural pressure and stress scale is energy per molecular volume:
+\[
+  \Pi_{\mathrm{scale}}=\epsilon/v_0 .
+\]
+The same scale converts total energy density to the dimensionless quantity
+used later in Appendix B:
+\[
+  E_T=\frac{v_0}{\epsilon}e_T .
+\]
+The dimensionless inertial parameter and gravity parameter are
+\begin{equation}
+  \sigma=\frac{\nu_0^2m}{\epsilon\ell^2}
+  =
+  \frac{m\ell^2}{\epsilon t_0^2},
+  \qquad
+  g^*=\frac{mg\ell}{\epsilon}.
+  \label{eq:appb-sigma-gravity}
+\end{equation}
+The equality of the two forms of \(\sigma\) follows from
+\eqref{eq:appb-time-scale}.  It is an algebraic scale identity.  The value of
+\(\sigma\) used in a simulation is a modeling choice.
+
+The source transport-coefficient branch used in Section III.A is
+\[
+  \eta=\zeta=\nu_0mn,\qquad
+  \lambda=k_B\nu_0 n .
+\]
+These relations define the branch used for the later scaled equations.  The
+momentum equation below uses this branch only for the viscous part of the
+scaled stress.
+
+\subsection*{Scaled Continuity and Momentum Bookkeeping}
+
+From the number-density balance in Eq.~(2.35), the substitutions
+\[
+  n=\phi/v_0,\qquad v=(\ell/t_0)V,\qquad
+  x=\ell x_{\mathrm{sc}},\qquad t=t_0t_{\mathrm{sc}}
+\]
+give
+\[
+  \partial_t n=\frac{1}{v_0t_0}\partial_{t_{\rm sc}}\phi,
+  \qquad
+  \nabla_x\cdot(nv)=\frac{1}{v_0t_0}\nabla_{\rm sc}\cdot(\phi V).
+\]
+Multiplying by \(v_0t_0\) gives the scaled local balance
+\begin{equation}
+  \frac{\partial\phi}{\partial t}
+  =-\nabla\cdot(\phi V),\sourceeqbadge{B2}
+  \label{eq:appb-scaled-continuity}
+\end{equation}
+where the derivatives in this appendix are with respect to the scaled
+coordinates after the change of variables.
+
+For the momentum balance, write \(\rho=mn\), scale the stress by
+\(\epsilon/v_0\), and multiply the dimensional equation by
+\(\ell v_0/\epsilon\).  A representative inertial term scales as
+\[
+  \frac{\ell v_0}{\epsilon}\partial_t(\rho v)
+  =
+  \frac{m\ell^2}{\epsilon t_0^2}\partial_{t_{\rm sc}}(\phi V),
+\]
+so the inertial coefficient becomes
+\[
+  \frac{m\ell^2}{\epsilon t_0^2}=\sigma.
+\]
+and the gravity coefficient becomes \(g^*=mg\ell/\epsilon\).  The same
+substitutions give the term-by-term ledger
+\begin{center}
+\begin{tabular}{@{}p{0.35\linewidth}p{0.50\linewidth}@{}}
+\toprule
+Dimensional term & After multiplying by \(\ell v_0/\epsilon\) \\
+\midrule
+\(\partial_t(\rho v)\) &
+\(\sigma\,\partial_{t_{\rm sc}}(\phi V)\) \\
+\(\nabla_x\cdot(\rho vv)\) &
+\(\sigma\,\nabla_{\rm sc}\cdot(\phi VV)\) \\
+\(\nabla_x\cdot\Pi\), with \(\Pi=(\epsilon/v_0)\mathsf{M}\) &
+\(\nabla_{\rm sc}\cdot\mathsf{M}\) \\
+\(\rho g e_z\) &
+\(g^*\phi e_z\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+Using \eqref{eq:appb-scaled-continuity} to write the left side in
+conservative form gives the scaled momentum pattern
+\begin{equation}
+  \sigma\left[
+  \frac{\partial}{\partial t}(\phi V)
+  +\nabla\cdot(\phi VV)\right]
+  =
+  -\nabla\cdot\mathsf{M}-g^*\phi e_z.
+  \label{eq:appb-scaled-momentum-pattern}
+\end{equation}
+This is a scaling identity for the finite objects listed above.  It does not
+by itself decide the pressure-tensor branch.
+
+\subsection*{Branchwise Scaled Pressure Tensor}
+
+Let
+\[
+  P_0(\phi,\Theta)=\frac{\Theta\phi}{1-\phi}-\phi^2 .
+\]
+Under the Appendix-B specialization \(K=0\) and constant \(C\), the coefficient
+relation \(M=CT+K\) becomes \(M=CT\).  The source length scale
+\(\ell^2=C/(2k_Bv_0)\) then converts the dimensional pressure tensor in
+Eqs.~(2.47)--(2.48) into the dimensional-source-consistent scaled branch
+\begin{equation}
+  \mathsf{M}^{\mathrm{src}}_{ij}
+  =
+  \left[
+    P_0-\Theta|\nabla\phi|^2
+    -2\Theta\phi\,\Delta\phi
+  \right]\delta_{ij}
+  +2\Theta(\partial_i\phi)(\partial_j\phi)
+  -\sigma\phi(\partial_iV_j+\partial_jV_i).
+  \companionbranchbadge{scaled from 2.47--2.48}
+  \label{eq:appb-source-consistent-b3}
+\end{equation}
+The factor \(\phi\) in the diagonal Laplacian term comes from the dimensional
+term \(M n\Delta n\) in Eq.~(2.48), after \(n=\phi/v_0\) is substituted.
+The common coefficient checks behind \eqref{eq:appb-source-consistent-b3} are
+\begin{align}
+  \frac{v_0}{\epsilon}p &= P_0,\label{eq:appb-b3-bulk-pressure-scale}\\
+  \frac{v_0}{\epsilon}
+    \left(-\frac{M}{2}|\nabla_x n|^2\right)
+    &=-\Theta|\nabla\phi|^2,\label{eq:appb-b3-grad-square-scale}\\
+  \frac{v_0}{\epsilon}(-Mn\Delta_x n)
+    &=-2\Theta\phi\Delta\phi,\label{eq:appb-b3-laplacian-scale}\\
+  \frac{v_0}{\epsilon}M(\partial_{x_i}n)(\partial_{x_j}n)
+    &=2\Theta(\partial_i\phi)(\partial_j\phi).
+    \label{eq:appb-b3-dyad-scale}
+\end{align}
+Here derivatives on \(\phi\) are scaled-coordinate derivatives.  The pressure
+scale, gradient-square scale, and dyadic scale are common to both B3 branches;
+the diagonal Laplacian row is the only row that separates the printed branch
+from the dimensional-source branch.
+
+The expression printed as Eq.~(B3) is kept as its own branch:
+\begin{equation}
+  \mathsf{M}^{\mathrm{print}}_{ij}
+  =
+  \left[
+    P_0-\Theta|\nabla\phi|^2
+    -2\Theta\,\Delta\phi
+  \right]\delta_{ij}
+  +2\Theta(\partial_i\phi)(\partial_j\phi)
+  -\sigma\phi(\partial_iV_j+\partial_jV_i).\sourceeqbadge{B3 printed branch}
+  \label{eq:appb-printed-b3-branch}
+\end{equation}
+The two branches differ only in the diagonal Laplacian factor.  The remaining
+terms are common: the local bulk pressure \(P_0\), the gradient-square diagonal
+term, the off-diagonal dyad, and the viscous scaled stress.  The branch
+difference is therefore
+\begin{equation}
+  \mathsf{M}^{\mathrm{print}}_{ij}
+  -\mathsf{M}^{\mathrm{src}}_{ij}
+  =
+  2\Theta(\phi-1)\Delta\phi\,\delta_{ij}.
+  \label{eq:appb-b3-branch-residual}
+\end{equation}
+This expected nonzero residual is a source-branch marker.  Under the
+dimensional-source derivation, the missing factor is a high-confidence
+typographical-omission candidate in the printed formula.  This is not an
+official erratum, not a silent correction of the source file, and not evidence
+about the unpublished numerical implementation.
+
+\begin{figure}[htbp]
+\centering
+\resizebox{0.88\linewidth}{!}{\input{figures/tikz/appendix_b_b3_branch_map}}
+\caption{Appendix-B B3 branch map.  The dimensional-source scaling and the
+printed Eq.~(B3) expression are kept as separate source branches.  The dashed
+arrow records that the unpublished simulation-code branch is not inferred from
+either printed branch.}
+\label{fig:appendix-b-b3-branch-map}
+\end{figure}
+
+\subsection*{Direct Check of the B3 Diagonal Laplacian Factor}
+
+The diagonal branch can be checked directly from the Appendix-B scale choices.
+Use
+\[
+  \phi=v_0n,
+  \qquad
+  \Theta=\frac{k_BT}{\epsilon},
+  \qquad
+  x=\ell x_{\rm sc},
+  \qquad
+  \ell^2=\frac{C}{2k_Bv_0},
+\]
+together with the Section III.A specialization
+\[
+  K=0,
+  \qquad C=\hbox{constant},
+  \qquad M=CT .
+\]
+Then
+\[
+  M=CT=\frac{C\epsilon}{k_B}\Theta
+    =2\epsilon v_0\ell^2\Theta,
+  \qquad
+  n=\frac{\phi}{v_0}.
+\]
+Because the derivatives in Eq.~\eqref{eq:appb-source-consistent-b3} are scaled
+derivatives after the change of variables,
+\[
+  \nabla_x n=\frac{1}{v_0\ell}\nabla_{\rm sc}\phi,
+  \qquad
+  \Delta_x n=\frac{1}{v_0\ell^2}\Delta_{\rm sc}\phi .
+\]
+Scaling the dimensional pressure tensor by \(v_0/\epsilon\) gives
+\begin{align}
+  \frac{v_0}{\epsilon}\left(-Mn\Delta_x n\right)
+  &=-\frac{M}{\epsilon v_0\ell^2}\phi\Delta_{\rm sc}\phi
+    =-2\Theta\phi\Delta_{\rm sc}\phi,\label{eq:appb-direct-lap-factor}\\
+  \frac{v_0}{\epsilon}\left(-\frac{M}{2}|\nabla_x n|^2\right)
+  &=-\Theta|\nabla_{\rm sc}\phi|^2,\label{eq:appb-direct-grad-square}\\
+  \frac{v_0}{\epsilon}M(\partial_{x_i}n)(\partial_{x_j}n)
+  &=2\Theta(\partial_i\phi)(\partial_j\phi).
+    \label{eq:appb-direct-gradient-stress}
+\end{align}
+Thus the dimensional-source branch formed from Eqs.~(2.47)--(2.48) and the
+Appendix-B scalings produces the diagonal Laplacian term
+\(-2\Theta\phi\Delta\phi\), not \(-2\Theta\Delta\phi\).  The factor
+\(\phi\) enters only through the dimensional multiplier \(n\) in
+\(n\Delta n\); coordinate scaling supplies powers of \(\ell\), and the
+pressure scale supplies \(v_0/\epsilon\), but neither supplies nor cancels a
+density factor.  The printed branch therefore differs by
+\[
+  \mathsf{M}^{\rm print}_{ij}-\mathsf{M}^{\rm src}_{ij}
+  =2\Theta(\phi-1)\Delta\phi\,\delta_{ij}.
+\]
+The corresponding scalar diagonal contribution to the momentum equation is
+\[
+  -\partial_j\left(\mathsf{M}^{\rm print}_{ij}
+       -\mathsf{M}^{\rm src}_{ij}\right)
+  =-\partial_i\left[2\Theta(\phi-1)\Delta\phi\right],
+\]
+which is generically nonzero.  For example, with constant \(\Theta\) and the
+one-dimensional test field \(\phi(x)=1+x^2\), this force residual is
+\(-8\Theta x\).
+
+This direct scaling check rules out the common algebraic escape routes: the
+coordinate scaling, stress scale, definition \(\phi=v_0n\), and the
+\(K=0\), constant-\(C\) specialization all retain the factor \(\phi\).
+Removing the factor would require replacing the dimensional source term
+\(n\Delta n\) by \(\Delta n\), which is not the dimensional pressure-tensor term
+being scaled.  The result makes the missing factor a high-confidence
+typographical-omission candidate in the printed Eq.~(B3) branch under the
+dimensional-source derivation.  It is still not an official erratum, not a
+statement of author intent, and not evidence about the unpublished
+simulation-code branch.
+
+\subsection*{Scaled Total-Energy Density}
+
+Under the same \(K=0\), constant-\(C\) Appendix-B specialization, the source
+scaled total-energy density in Eq.~(B4) is
+\begin{equation}
+  E_T=\phi\Theta-\phi^2+\frac{\sigma}{2}\phi |V|^2 .\sourceeqbadge{B4}
+  \label{eq:appb-scaled-energy-density}
+\end{equation}
+The first two terms are the local van der Waals internal-energy branch after
+multiplication by \(v_0/\epsilon\).  The kinetic term follows from
+\[
+  \frac{v_0}{\epsilon}\frac{mn}{2}|v|^2
+  =
+  \frac{1}{2}\frac{m\ell^2}{\epsilon t_0^2}\phi |V|^2
+  =
+  \frac{\sigma}{2}\phi |V|^2 .
+\]
+This is a local density scaling.  It is not a global energy theorem and does
+not include a decision about wall heat or surface-energy transfer.
+
+\subsection*{Scaled Total-Energy Balance}
+
+Scaling the local total-energy balance in Eq.~(2.39) by
+\(v_0t_0/\epsilon\), using \(t_0=\ell^2/\nu_0\), and substituting the
+transport branch \(\lambda=k_B\nu_0n\), gives the Appendix-B energy-balance
+pattern.  The heat term is the cleanest coefficient check.  First scale the heat flux
+inside the divergence:
+\[
+  \lambda\nabla_xT
+  =k_B\nu_0\frac{\phi}{v_0}
+    \frac{\epsilon}{k_B\ell}\nabla_{\rm sc}\Theta
+  =\frac{\epsilon\nu_0}{v_0\ell}\phi\nabla_{\rm sc}\Theta .
+\]
+Then include the divergence scale and the balance prefactor:
+\begin{align}
+  \frac{v_0t_0}{\epsilon}\nabla_x\cdot(\lambda\nabla_xT)
+  &=\frac{v_0t_0}{\epsilon\ell^2}
+    \nabla_{\rm sc}\cdot\left(k_B\nu_0\frac{\phi}{v_0}
+    \frac{\epsilon}{k_B}\nabla_{\rm sc}\Theta\right) \\
+  &=\frac{t_0\nu_0}{\ell^2}\nabla_{\rm sc}\cdot(\phi\nabla_{\rm sc}\Theta)
+   =\nabla_{\rm sc}\cdot(\phi\nabla_{\rm sc}\Theta).
+  \label{eq:appb-heat-term-scaling-step}
+\end{align}
+The gravity-power term similarly becomes
+\[
+  \frac{v_0t_0}{\epsilon}\rho g v_z
+  =\frac{mg\ell}{\epsilon}\phi V_z
+  =g^*\phi V_z .
+\]
+Thus the scaled balance is
+\begin{equation}
+  \frac{\partial E_T}{\partial t}
+  +\nabla\cdot\left(E_T V+\mathsf{M}\cdot V\right)
+  =
+  \nabla\cdot(\phi\nabla\Theta)-g^*\phi V_z .\sourceeqbadge{B5}
+  \label{eq:appb-scaled-energy-balance}
+\end{equation}
+Here \(\mathsf{M}\) is the scaled stress tensor from the preceding branchwise
+discussion.  The scaling of \(\nabla\cdot(\lambda\nabla T)\) gives
+\(\nabla\cdot(\phi\nabla\Theta)\); the scaling of gravitational power gives
+\(-g^*\phi V_z\).  Choosing between the printed and dimensional-source B3
+branches is not needed for these scale factors, but any evaluation of
+\(\mathsf{M}\cdot V\) must state which branch is being used.
+
+\subsection*{Scaled Density Boundary Condition}
+
+The density boundary condition used for the simulations is stated before
+Appendix B in Eq.~(3.2).  Its dimensional form can be read as
+\[
+  2\sqrt{2}\,\ell\,\nu\cdot\nabla_x n=n-\frac{5}{2}n_c.
+\]
+With \(n=\phi/v_0\), scaled normal derivative
+\(\nu\cdot\nabla_{\mathrm{sc}}\phi=v_0\ell\,\nu\cdot\nabla n\), and the
+van der Waals critical density \(v_0n_c=1/3\), the two sides scale as
+\begin{align}
+  2\sqrt{2}\,\ell\,\nu\cdot\nabla_x n
+    &=\frac{2\sqrt{2}}{v_0}\,\nu\cdot\nabla_{\rm sc}\phi,\\
+  n-\frac{5}{2}n_c
+    &=\frac{1}{v_0}\left(\phi-\frac{5}{6}\right).
+\end{align}
+Multiplying by \(v_0\) gives
+\[
+  2\sqrt{2}\,\nu\cdot\nabla_{\rm sc}\phi
+  =\phi-\frac{5}{6}.
+\]
+Equivalently,
+\begin{equation}
+  \nu\cdot\nabla\phi=\frac{\phi-5/6}{2\sqrt{2}} .\sourceeqbadge{B6}
+  \label{eq:appb-scaled-density-boundary}
+\end{equation}
+This is a density wall branch.  It does not by itself specify the heat
+boundary data or the surface-energy transfer appearing in the global entropy
+statement of Eq.~(2.53).
+
+\subsection*{What Is Deferred}
+
+The following are deliberately not derived in this pass:
+
+\begin{itemize}
+\item any numerical reproduction or sensitivity study for the Section III simulations;
+\item global wall/surface-transfer closure beyond the local density boundary
+  condition;
+\item the unpublished simulation-code branch.
+\end{itemize}
+
+\subsection*{Verification Checks}
+
+The companion checks the scale definitions with finite algebra and dimensions:
+\[
+  \phi,\quad \Theta,\quad V,\quad \sigma,\quad g^*,\quad
+  \frac{v_0e_T}{\epsilon}
+\]
+are dimensionless, and
+\[
+  \frac{\nu_0^2m}{\epsilon\ell^2}
+  =
+  \frac{m\ell^2}{\epsilon t_0^2}
+\]
+after substituting \(t_0=\ell^2/\nu_0\).  These checks do not derive the
+scaled energy equation or validate any numerical run.
+
+The momentum/B3 pass additionally checks:
+\[
+  \mathsf{M}^{\mathrm{print}}_{ij}
+  -\mathsf{M}^{\mathrm{src}}_{ij}
+  =
+  2\Theta(\phi-1)\Delta\phi\,\delta_{ij},
+\]
+the inertial coefficient \(\sigma\), the viscous coefficient
+\(\sigma\phi\), direct scaling of the diagonal Laplacian factor from
+\(-Mn\Delta n\), the one-dimensional force residual, and the negative control
+that replacing \(n\Delta n\) by \(\Delta n\) is not source-grounded.  These are
+finite algebraic checks only.
+
+The energy/boundary pass checks:
+\[
+  E_T,\qquad \nabla\cdot(\phi\nabla\Theta),\qquad
+  g^*\phi V_z,\qquad
+  \nu\cdot\nabla\phi=\frac{\phi-5/6}{2\sqrt{2}} .
+\]
+It also keeps an expected nonzero marker for omitted global wall/surface
+transfer.
+
+The executable mirrors for the Appendix B derivations are:
+\begin{center}
+\small
+\begin{tabular}{@{}l@{}}
+\texttt{scripts/python/appendix\_b\_scaling\_definitions\_sympy.py}\\
+\texttt{scripts/python/appendix\_b\_momentum\_b3\_sympy.py}\\
+\texttt{scripts/python/appendix\_b\_b3\_typo\_candidate\_sympy.py}\\
+\texttt{scripts/python/appendix\_b\_energy\_boundary\_sympy.py}\\
+\texttt{scripts/wolfram/appendix\_b\_scaling\_definitions\_checks.wls}\\
+\texttt{scripts/wolfram/appendix\_b\_momentum\_b3\_checks.wls}\\
+\texttt{scripts/wolfram/appendix\_b\_b3\_typo\_candidate\_checks.wls}\\
+\texttt{scripts/wolfram/appendix\_b\_energy\_boundary\_checks.wls}\\
+\texttt{scripts/wolfram/appendix\_b\_transition\_trace.wls}\\
+\texttt{tests/test\_appendix\_b\_scaling\_definitions.py}\\
+\texttt{tests/test\_appendix\_b\_momentum\_b3.py}\\
+\texttt{tests/test\_appendix\_b\_b3\_typo\_candidate.py}\\
+\texttt{tests/test\_appendix\_b\_energy\_boundary.py}
+\end{tabular}
+\end{center}
+These scripts mirror the displayed nondimensional substitutions, branch
+residuals, dimensional checks, and boundary-condition scaling.  They do not
+infer unpublished implementation behavior or reproduce the Section III
+simulations.
+The transition trace records the source object, substitution, intermediate
+expression, expected scaled expression, and residual for Eqs.~(B1)--(B6).  Its
+negative controls deliberately omit the coordinate factor, density factor, or
+source gravity sign, or mix dimensional and scaled velocity symbols.
+
+\subsection*{Source-Procedure Completion Status}
+
+The Appendix-B rows in the exhaustive inventory are now covered branchwise:
+\begin{itemize}
+\item Row (B1) and the surrounding scaled-coordinate convention are
+  handled by the substitution ledger and operator-scale identities.
+\item The unnumbered scaled continuity equation and row (B2) follow from
+  source rows (2.35)--(2.36) by the displayed
+  nondimensionalization.
+\item Row (B3) is closed only as a branchwise source-printing analysis:
+  the dimensional-source scaling gives the \(-2\Theta\phi\Delta\phi\) term,
+  while the printed expression lacks \(\phi\).  The companion classifies this
+  as a high-confidence typographical-omission candidate under the
+  dimensional-source derivation, not as an official erratum, author-intent
+  claim, or simulation-code inference.
+\item Rows (B4)--(B6) are covered by the total-energy density,
+  total-energy balance, heat-flux scaling, gravity-power scaling, and density
+  boundary-condition substitutions above.
+\end{itemize}
+No unpublished numerical implementation branch is inferred from these
+calculations.
+
+\subsection*{Tagged verification complement}
+
+\OnukiLinkAppendixB{The tagged Appendix B complement} presents the
+dimensional-to-scaled hand calculation, traces, and printed-branch negative
+control. It does not state an official erratum or identify unpublished code.
+
+\subsection*{Open issues}
+
+The companion must not silently correct the printed source and must not infer
+which branch was used by unpublished simulation code.  The Section III guide
+will discuss the simulation scenarios as source reading, not as numerical
+reproduction.

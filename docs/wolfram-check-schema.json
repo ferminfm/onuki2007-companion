@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "required_fields": [
+    "suite_id", "trace_ids", "anchors", "premises", "assumptions",
+    "inputs", "transformations", "expected_residual", "negative_control",
+    "scope_limit", "generator_provenance"
+  ],
+  "control_classes": ["expected_zero", "expected_nonzero"],
+  "scope_rule": "A finite trace never establishes an official erratum, author intent, unpublished implementation behavior, global closure, continuum/PDE result, physical law, full equivalence, or numerical reproduction."
+}

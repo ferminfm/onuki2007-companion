@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you cite this companion, cite the original Onuki article for its source theory and identify this repository as a derivation companion."
+title: "Onuki 2007 Guided Derivation Companion"
+type: software
+authors:
+  - name: "Fermin Franco"
+repository-code: "https://github.com/ferminfm/onuki2007-companion"
+abstract: "Original guided derivations and finite verification scaffolds for selected equations in Onuki's 2007 dynamic van der Waals theory."
+license: "NOASSERTION"

@@ -1,0 +1,20 @@
+{
+  "schema_version": 2,
+  "repository": "ferminfm/onuki2007-companion",
+  "tag": "v0.1.0",
+  "publication_state": "tag_pinned_links_are_inserted_before_T09_and_resolve_after_the_authorized_standalone_publication_gate",
+  "topics": [
+    {"topic": "iia", "macro": "OnukiLinkIIA", "source": "docs/topics/iia-local-thermodynamics.md", "article_anchor": "sec:vdw-baseline"},
+    {"topic": "iib", "macro": "OnukiLinkIIB", "source": "docs/topics/iib-gradient-variation.md", "article_anchor": "sec:gradient-entropy-energy"},
+    {"topic": "iic", "macro": "OnukiLinkIIC", "source": "docs/topics/iic-equilibrium-wall.md", "article_anchor": "sec:equilibrium-conditions"},
+    {"topic": "iid-balances", "macro": "OnukiLinkIIDBalances", "source": "docs/topics/iid-balances-entropy.md", "article_anchor": "sec:hydrodynamic-equations"},
+    {"topic": "iid-pressure", "macro": "OnukiLinkIIDPressure", "source": "docs/topics/iid-pressure-tensor.md", "article_anchor": "sec:hydrodynamic-equations"},
+    {"topic": "appendix-a", "macro": "OnukiLinkAppendixA", "source": "docs/topics/appendix-a-reversible-stress.md", "article_anchor": "app:reversible-stress-derivation"},
+    {"topic": "appendix-b", "macro": "OnukiLinkAppendixB", "source": "docs/topics/appendix-b-scaled-branches.md", "article_anchor": "app:scaled-equations-plan"},
+    {"topic": "section-iii", "macro": "OnukiLinkSectionIII", "source": "docs/topics/section-iii-finite-estimates.md", "article_anchor": "sec:numerical-results-overview"},
+    {"topic": "appendix-e", "macro": "OnukiLinkAppendixE", "source": "docs/topics/appendix-e-korteweg-crosswalk.md", "article_anchor": "app:korteweg-primary-crosswalk"},
+    {"topic": "verification-index", "macro": "OnukiLinkVerificationIndex", "source": "docs/verification-index.md", "article_anchor": "sec:companion-scope"},
+    {"topic": "bounded-limitations", "macro": "OnukiLinkBoundedLimitations", "source": "docs/bounded-limitations.md", "article_anchor": "sec:summary-navigation"},
+    {"topic": "formal-scope", "macro": "OnukiLinkFormalScope", "source": "docs/formal-scope.md", "article_anchor": "app:verification-plan"}
+  ]
+}

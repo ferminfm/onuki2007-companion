@@ -1,0 +1,1106 @@
+\section{Source Section II.D: Generalized Hydrodynamic Equations}
+\label{sec:hydrodynamic-equations}
+
+\sourceeqrange{Eqs. (2.35)--(2.53)}
+
+\subsection{Purpose and Scope}
+
+This section begins the dynamic part of the companion.  It reconstructs, in
+typed form, the balance-law bookkeeping behind the first part of source
+Section II.D: number density, momentum, total energy, internal energy, entropy
+production, and the local role of the reversible stress tensor and reversible
+entropy flux.
+
+The scope is deliberately local.  We derive differential balance identities
+and finite algebraic checks.  We do not derive Appendix-B scaling, do not
+resolve the printed-B3 branch, do not infer unpublished simulation-code
+choices, and do not convert the local entropy-flux identity into a global
+boundary statement.  The integrated entropy balance in \eqsrc{2.53} is kept as
+a boundary- and wall-transfer issue.
+
+\subsection{Typed Objects and Assumptions}
+
+Let \(\Omega\subset\mathbb{R}^d\) be a fixed smooth container with outward
+unit normal \(\nu\).  The source first states the boundary setting before the
+hydrodynamic equations: controllable boundary temperatures and vanishing
+velocity on the container wall.  In this section we work locally in the bulk
+and record boundary requirements only when an integrated statement would need
+them.
+
+The fields are assumed smooth enough for the product rules below.  A weak
+formulation would require function spaces and trace data; that is outside this
+companion pass.
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Symbol & Type & Role in Section II.D \\
+\midrule
+\(n:\Omega\times I\to\mathbb{R}_{>0}\) & scalar field & number density \\
+\(\rho=mn\) & scalar density & mass density, with particle mass \(m\) \\
+\(v:\Omega\times I\to\mathbb{R}^d\) & vector field & velocity \\
+\(T:\Omega\times I\to\mathbb{R}_{>0}\) & scalar field & local temperature \\
+\(\hat e\) & scalar density & gradient-augmented internal energy \\
+\(e_T\) & scalar density & total energy without wall surface energy \\
+\(\hat S\) & scalar density & gradient-augmented entropy density \\
+\(\Pi=(\Pi_{ij})\) & tensor field & reversible stress or pressure tensor \\
+\(\sigma=(\sigma_{ij})\) & tensor field & dissipative viscous stress \\
+\(\lambda\) & coefficient field & thermal conductivity \\
+\(g e_z\) & vector & downward gravity convention in the source \\
+\(M=M(n,T)\) & coefficient field & square-gradient free-energy coefficient \\
+\(p_1\) & scalar field & diagonal gradient pressure contribution \\
+\(J_s^{\mathrm{rev}}\) & vector flux & reversible entropy-flux contribution \\
+\(J_{\mathrm{GA}}\) & vector flux & alternative capillary energy-flux object \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Repeated indices are summed.  We write
+\[
+  \partial_i=\frac{\partial}{\partial x_i},
+  \qquad
+  (\grad v)_{ij}=\partial_i v_j,
+  \qquad
+  A:B=A_{ij}B_{ij}.
+\]
+The source stress convention from Appendix~\ref{app:reversible-stress-derivation}
+is
+\[
+  f_i^{\mathrm{rev}}=-\partial_j\Pi_{ij},
+  \qquad
+  \hbox{reversible stress power}=-\Pi_{ij}\partial_i v_j .
+\]
+Because the reversible tensor used below is symmetric, switching the dummy
+order in the stress-power contraction does not change the scalar value.
+
+\subsection{Balance-Law, Closure, and Local/Global Status Ledger}
+
+The formulas in this section play different logical roles.  The following
+ledger is a reader-facing provenance guide; it prevents a balance law, a
+constitutive law, and a local algebraic identity from being read as the same
+kind of statement.
+\begin{description}
+\item[Balance-law inputs.]  Source Eqs. (2.35), (2.36), and (2.39) state
+  the local bulk number, momentum, and total-energy balances.  They are not
+  derived from the Newtonian viscous closure.
+\item[Constitutive closures.]  The viscous stress \eqsrc{2.37}, thermal
+  conductivity branch in \eqsrc{2.39}--\eqsrc{2.45}, and sign assumptions
+  \(\eta\ge0\), \(\zeta\ge0\), \(\lambda\ge0\), \(T>0\) are physical model
+  inputs.  The algebra below checks their consequences but does not derive the
+  closures.
+\item[Bookkeeping identities.]  The mass-balance reduction, stress-flux
+  product rule, and total-minus-kinetic subtraction are local algebraic steps.
+  They lead to the internal-energy balance \eqsrc{2.40} once the source
+  balance laws and stress signs are fixed.
+\item[Reversible residual choice.]  The pressure tensor and reversible entropy
+  flux are chosen so the nondissipative residual in \eqsrc{2.43} vanishes
+  through \eqsrc{2.44}.  This is local entropy-production bookkeeping, not a
+  proof of a global entropy theorem.
+\item[Integrated statements.]  The global entropy relation \eqsrc{2.53} also
+  needs boundary heat and wall surface-energy transfer.  Local flux-gauge
+  identities are therefore kept separate from integrated energy or entropy
+  closure.
+\end{description}
+
+\subsection{Number-Density Balance}
+
+The number-density balance \eqsrc{2.35} is a conservation law:
+\begin{equation}
+  \partial_t n+\grad\cdot(nv)=0 .\sourceeqbadge{2.35}
+  \label{eq:iid-number-balance}
+\end{equation}
+Multiplying by the constant particle mass \(m\) gives the mass balance
+\begin{equation}
+  \partial_t\rho+\grad\cdot(\rho v)=0 .
+  \label{eq:iid-mass-balance}
+\end{equation}
+Equivalently, after expanding \(\grad\cdot(nv)=v\cdot\grad n+n\grad\cdot v\),
+the material-derivative forms are
+\begin{equation}
+  D_t n+n\grad\cdot v=0,
+  \qquad
+  D_t\rho+\rho\grad\cdot v=0,
+  \qquad
+  D_t=\partial_t+v\cdot\grad .
+  \label{eq:iid-material-density-balance}
+\end{equation}
+No constitutive assumption is used here.  Equation
+\eqref{eq:iid-mass-balance} is the bookkeeping identity needed when the
+kinetic-energy equation is extracted from the momentum equation.
+
+\subsection{Momentum Balance and Stress-Divergence Convention}
+
+Source Eq. (2.36), the momentum balance, can be written in component form as
+\begin{equation}
+  \partial_t(\rho v_i)+\partial_j(\rho v_i v_j)
+  =
+  -\partial_j\Pi_{ij}
+  +\partial_j\sigma_{ij}
+  -\rho g\,\delta_{iz}.\sourceeqbadge{2.36}
+  \label{eq:iid-momentum-components}
+\end{equation}
+This equation has three different logical ingredients:
+\begin{itemize}
+\item the left-hand side is conservative momentum transport;
+\item the reversible force density is \(-\partial_j\Pi_{ij}\);
+\item the dissipative and body-force terms are \(+\partial_j\sigma_{ij}\) and
+  \(-\rho g\,\delta_{iz}\).
+\end{itemize}
+The sign of the reversible force density is the same sign recorded in
+Appendix~\ref{app:reversible-stress-derivation}.  This is why the reversible
+stress contributes as \(-\Pi:\grad v\) in the internal-energy balance.
+
+\subsection{Dissipative Stress as a Constitutive Law}
+
+Source Eq. (2.37) supplies the Newtonian viscous closure
+\begin{equation}
+  \sigma_{ij}
+  =
+  \eta(\partial_i v_j+\partial_j v_i)
+  +
+  \left(\zeta-\frac{2\eta}{d}\right)\delta_{ij}\,\grad\cdot v .\sourceeqbadge{2.37}
+  \label{eq:iid-dissipative-stress}
+\end{equation}
+This is not derived from the conservation laws.  It is a constitutive law with
+viscosities \(\eta\) and \(\zeta\).  Under the standard sign hypotheses
+\(\eta\ge0\) and \(\zeta\ge0\), the source writes the corresponding viscous
+production as a nonnegative quadratic form:
+\begin{equation}
+  \dot\epsilon_v=\sigma_{ij}\partial_i v_j\ge0 .
+  \label{eq:iid-viscous-production}
+\end{equation}
+The finite verification layer checks a simplified quadratic proxy for this
+statement.  That proxy is a compatibility check on the algebraic form, not a
+software proof of the second law.
+
+\subsection{Viscous Heat Production}
+
+The source then rewrites \eqref{eq:iid-dissipative-stress} into the heat
+production formula \eqsrc{2.41}.  Define
+\[
+  \theta=\grad\cdot v=\partial_kv_k,
+  \qquad
+  S_{ij}=\partial_i v_j+\partial_j v_i-\frac{2}{d}\delta_{ij}\theta .
+\]
+The tensor \(S_{ij}\) is symmetric and traceless.  Therefore
+\[
+  \sigma_{ij}
+  =
+  \eta S_{ij}+\zeta\delta_{ij}\theta,
+\]
+because substituting the definition of \(S_{ij}\) recovers
+\eqref{eq:iid-dissipative-stress}.  Split the velocity gradient into
+symmetric and antisymmetric parts,
+\[
+  \partial_i v_j=D_{ij}+\Omega_{ij},
+  \quad
+  D_{ij}=\frac12(\partial_i v_j+\partial_j v_i),
+  \quad
+  \Omega_{ij}=\frac12(\partial_i v_j-\partial_j v_i).
+\]
+Since \(S_{ij}\Omega_{ij}=0\), \(S_{ij}\delta_{ij}=0\), and
+\[
+  D_{ij}=\frac12 S_{ij}+\frac1d\delta_{ij}\theta,
+\]
+the contraction becomes
+\begin{align}
+  \dot\epsilon_v
+  &=\sigma_{ij}\partial_i v_j
+  =
+  (\eta S_{ij}+\zeta\delta_{ij}\theta)(D_{ij}+\Omega_{ij})
+  \nonumber\\
+  &=
+  \frac{\eta}{2}S_{ij}S_{ij}+\zeta\theta^2
+  \nonumber\\
+  &=
+  \sum_{ij}\frac{\eta}{2}
+  \left(
+    \partial_i v_j+\partial_j v_i-\frac{2}{d}\delta_{ij}\grad\cdot v
+  \right)^2
+  +\zeta(\grad\cdot v)^2
+  \ge0 .\sourceeqbadge{2.41}
+  \label{eq:iid-viscous-production-expanded}
+\end{align}
+The inequality uses the constitutive sign assumptions \(\eta\ge0\) and
+\(\zeta\ge0\).  The verification scripts check the two-dimensional component
+decomposition; they do not derive Newtonian viscosity from the rest of the
+model.
+
+\subsection{Total Energy Density and Type Check}
+
+The total energy density in \eqsrc{2.38} is
+\begin{equation}
+  e_T=\hat e+\frac{1}{2}\rho |v|^2 .\sourceeqbadge{2.38}
+  \label{eq:iid-total-energy-density}
+\end{equation}
+Both summands are energy densities.  The first term already contains the
+square-gradient internal-energy contribution from Section II.B; the second is
+kinetic energy per volume.  Wall surface energy is not included in
+\eqref{eq:iid-total-energy-density}; it reappears in the later integrated
+entropy statement.
+
+\subsection{Total Energy Balance and Flux Terms}
+
+With the source stress convention, the total-energy balance \eqsrc{2.39} is
+\begin{equation}
+  \partial_t e_T
+  =
+  -\grad\cdot
+  \left[
+    e_T v+(\Pi-\sigma)\cdot v
+  \right]
+  +
+  \grad\cdot(\lambda\grad T)
+  -
+  \rho g v_z .\sourceeqbadge{2.39}
+  \label{eq:iid-total-energy-balance}
+\end{equation}
+Here \((\Pi-\sigma)\cdot v\) is the mechanical energy flux associated with the
+stress tensor convention in \eqref{eq:iid-momentum-components}, while
+\(\grad\cdot(\lambda\grad T)\) is the heat-conduction contribution in the
+source sign convention.  The coefficient \(\lambda\) and the Fourier-type
+conductive branch are source-stated model inputs in \eqsrc{2.39}; the companion
+checks the subsequent product-rule bookkeeping but does not derive the
+conductive law from the other balances.
+
+Equation \eqref{eq:iid-total-energy-balance} is local.  It does not by itself
+state a complete global energy balance for a container with wall surface
+energy, boundary heat input, or prescribed wall temperature branches.
+
+\subsection{Internal Energy from Total Energy and Kinetic Bookkeeping}
+
+The internal-energy balance \eqsrc{2.40} follows by subtracting the
+kinetic-energy balance from \eqref{eq:iid-total-energy-balance}.  The algebra
+uses \eqref{eq:iid-mass-balance} and
+\eqref{eq:iid-momentum-components}.
+
+First, dot the momentum equation with \(v_i\).  The conservative part satisfies
+the exact product-rule identity
+\begin{align}
+  v_i\left[
+    \partial_t(\rho v_i)+\partial_j(\rho v_i v_j)
+  \right]
+  &=
+  \partial_t\!\left(\frac{1}{2}\rho |v|^2\right)
+  +
+  \grad\cdot\!\left(\frac{1}{2}\rho |v|^2 v\right)
+  \\
+  &\quad+
+  \frac12 |v|^2\left[
+    \partial_t\rho+\partial_j(\rho v_j)
+  \right].
+  \label{eq:iid-kinetic-left-with-residual}
+\end{align}
+The bracketed final factor is the mass-balance residual.  Therefore, when
+\eqref{eq:iid-mass-balance} holds,
+\begin{equation}
+  v_i\left[
+    \partial_t(\rho v_i)+\partial_j(\rho v_i v_j)
+  \right]
+  =
+  \partial_t\!\left(\frac{1}{2}\rho |v|^2\right)
+  +
+  \grad\cdot\!\left(\frac{1}{2}\rho |v|^2 v\right).
+  \label{eq:iid-kinetic-left}
+\end{equation}
+The finite SymPy and Wolfram checks verify both the residual factorization and
+the mass-balance-specialized identity in a representative component model.
+
+Second, use the stress-flux product rule
+\begin{equation}
+  v_i\partial_j A_{ij}
+  =
+  \partial_j(A_{ij}v_i)-A_{ij}\partial_j v_i .
+  \label{eq:iid-stress-flux-product-rule}
+\end{equation}
+This single rule explains the signs in the kinetic-energy equation:
+\begin{center}
+\begin{tabular}{@{}p{0.28\linewidth}p{0.29\linewidth}p{0.29\linewidth}@{}}
+\toprule
+Momentum force & Flux contribution & Stress-power contribution \\
+\midrule
+\(-\partial_j\Pi_{ij}\) & \(-\partial_j(\Pi_{ij}v_i)\) & \(+\Pi_{ij}\partial_j v_i\) \\
+\(+\partial_j\sigma_{ij}\) & \(+\partial_j(\sigma_{ij}v_i)\) & \(-\sigma_{ij}\partial_j v_i\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+For symmetric stresses this contraction is equivalent to
+\(A_{ij}\partial_i v_j\) after relabeling dummy indices.  Applying
+\eqref{eq:iid-stress-flux-product-rule} to the reversible and dissipative
+stress terms gives
+\begin{align}
+  \partial_t\!\left(\frac{1}{2}\rho |v|^2\right)
+  +\grad\cdot\!\left(\frac{1}{2}\rho |v|^2v\right)
+  &=
+  -\grad\cdot(\Pi\cdot v)+\Pi:\grad v
+  \nonumber\\
+  &\quad
+  +\grad\cdot(\sigma\cdot v)-\sigma:\grad v
+  -\rho g v_z .
+  \label{eq:iid-kinetic-balance}
+\end{align}
+
+The subtraction can be checked term by term:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Term in total-energy balance & Term in kinetic balance & Remainder \\
+\midrule
+\(\partial_t e_T\) & \(\partial_t(\rho |v|^2/2)\) & \(\partial_t\hat e\) \\
+\(\grad\cdot(e_Tv)\) & \(\grad\cdot(\rho |v|^2v/2)\) & \(\grad\cdot(\hat e v)\) \\
+\(\grad\cdot(\Pi\cdot v)\) & \(\grad\cdot(\Pi\cdot v)-\Pi:\grad v\) & \(-\Pi:\grad v\) \\
+\(-\grad\cdot(\sigma\cdot v)\) & \(-\grad\cdot(\sigma\cdot v)+\sigma:\grad v\) & \(+\sigma:\grad v\) \\
+\(-\rho g v_z\) & \(-\rho g v_z\) & \(0\) \\
+\bottomrule
+\end{tabular}
+\end{center}
+Subtract \eqref{eq:iid-kinetic-balance} from
+\eqref{eq:iid-total-energy-balance} and use
+\eqref{eq:iid-total-energy-density}.  The mechanical flux and gravity terms
+cancel, leaving
+\begin{equation}
+  \partial_t\hat e
+  =
+  -\grad\cdot(\hat e v)
+  -
+  \Pi:\grad v
+  +
+  \sigma:\grad v
+  +
+  \grad\cdot(\lambda\grad T).\sourceeqbadge{2.40}
+  \label{eq:iid-internal-energy-balance}
+\end{equation}
+This is the companion form of \eqsrc{2.40}, with
+\(\dot\epsilon_v=\sigma:\grad v\).  The cancellation is a balance-law
+bookkeeping identity; it is not a constitutive derivation.
+
+\subsection{Bulk Entropy Rate from the Section II.B Variation}
+
+Section II.B gave the first variation of the bulk entropy functional,
+including the boundary term.  In the dynamic setting, set
+\(\delta\hat e=(\partial_t\hat e)\,dt\) and
+\(\delta n=(\partial_t n)\,dt\), then divide by \(dt\).  This gives
+\begin{equation}
+  \frac{dS_b}{dt}
+  =
+  \int_{\Omega}
+  \left(
+    \frac{1}{T}\partial_t\hat e
+    -
+    \frac{\hat\mu}{T}\partial_t n
+  \right)dx
+  -
+  \int_{\partial\Omega}
+    \frac{M}{T}(\nu\cdot\grad n)\partial_t n\,da .
+  \sourceeqbadge{2.42}
+  \label{eq:iid-entropy-rate-from-variation}
+\end{equation}
+The boundary term is displayed because later integrated entropy statements
+depend on wall and boundary data.  It is not silently discarded.
+
+\subsection{Substitution into the Bulk Entropy Rate}
+
+The bulk integrand in \eqref{eq:iid-entropy-rate-from-variation} is
+\[
+  I=
+  \frac{1}{T}\partial_t\hat e
+  -
+  \frac{\hat\mu}{T}\partial_t n .
+\]
+Substitute \eqref{eq:iid-number-balance} and
+\eqref{eq:iid-internal-energy-balance}:
+\begin{align}
+  I
+  &=
+  \frac1T
+  \left[
+    -\grad\cdot(\hat e v)-\Pi_{ij}\partial_i v_j
+    +\dot\epsilon_v+\grad\cdot(\lambda\grad T)
+  \right]
+  +
+  \frac{\hat\mu}{T}\grad\cdot(nv).
+  \label{eq:iid-entropy-rate-local-substitution}
+\end{align}
+Apply the product rules
+\begin{align}
+  -\frac1T\grad\cdot(\hat e v)
+  &=
+  -\grad\cdot\left(\frac{\hat e v}{T}\right)
+  +\hat e\,v\cdot\grad\left(\frac1T\right),\\
+  \frac{\hat\mu}{T}\grad\cdot(nv)
+  &=
+  \grad\cdot\left(nv\frac{\hat\mu}{T}\right)
+  -nv\cdot\grad\left(\frac{\hat\mu}{T}\right),\\
+  -\frac1T\Pi_{ij}\partial_i v_j
+  &=
+  -\partial_j\left(v_i\frac{\Pi_{ij}}{T}\right)
+  +v_i\partial_j\left(\frac{\Pi_{ij}}{T}\right),
+\end{align}
+where the last line is the stress-flux product rule used with the symmetric
+reversible tensor: explicitly,
+\(-\Pi_{ij}\partial_i v_j=-\Pi_{ij}\partial_j v_i\) after exchanging the
+dummy indices and using \(\Pi_{ij}=\Pi_{ji}\).  Keeping the divergence terms
+separate, the nondissipative
+bulk residual is the coefficient of \(v_i\):
+\begin{equation}
+  R_i
+  =
+  \partial_j\left(\frac{\Pi_{ij}}{T}\right)
+  +
+  \hat e\,\partial_i\left(\frac1T\right)
+  -
+  n\,\partial_i\left(\frac{\hat\mu}{T}\right).
+  \label{eq:iid-reversible-entropy-residual}
+\end{equation}
+After integrating over the bulk and using the source wall/no-slip branch for
+the velocity divergence terms, the source writes the bulk part as
+\begin{equation}
+  \left(\frac{dS_b}{dt}\right)_{\mathrm{bulk}}
+  =
+  \int_{\Omega}
+  \left\{
+    v_iR_i
+    +
+    \frac1T\left[\grad\cdot(\lambda\grad T)+\dot\epsilon_v\right]
+  \right\}dx .
+  \sourceeqbadge{2.43}
+  \label{eq:iid-entropy-rate-bulk-243}
+\end{equation}
+This is an integrated statement under the stated boundary branch, not a claim
+that boundary heat and wall surface-energy transfer have disappeared from the
+later global entropy balance.
+
+\subsection{Reversible-Stress Residual Cancellation}
+
+For the reversible part to make no bulk entropy production for arbitrary
+bulk velocity, the residual \(R_i\) in
+\eqref{eq:iid-reversible-entropy-residual} must vanish.  Thus the source
+requires
+\begin{equation}
+  \partial_j\left(\frac{\Pi_{ij}}{T}\right)
+  =
+  -\hat e\,\partial_i\left(\frac1T\right)
+  +
+  n\,\partial_i\left(\frac{\hat\mu}{T}\right).
+  \sourceeqbadge{2.44}
+  \label{eq:iid-reversible-stress-condition}
+\end{equation}
+This is the reversible-stress condition.  It is not a dissipative
+constitutive inequality and it is not a proof of the second law.  It selects
+the reversible stress so the nondissipative bulk residual in
+\eqref{eq:iid-entropy-rate-bulk-243} is zero.
+
+\subsection{Thermal Heat Production}
+
+After \eqref{eq:iid-reversible-stress-condition}, the heat-conduction part is
+\((1/T)\grad\cdot(\lambda\grad T)\).  The product rule gives
+\begin{equation}
+  \grad\cdot\left(\frac{\lambda\grad T}{T}\right)
+  =
+  \frac1T\grad\cdot(\lambda\grad T)
+  +
+  \lambda\grad T\cdot\grad\left(\frac1T\right).
+\end{equation}
+Since \(\grad(1/T)=-\grad T/T^2\),
+\begin{equation}
+  \frac1T\grad\cdot(\lambda\grad T)
+  =
+  \grad\cdot\left(\frac{\lambda\grad T}{T}\right)
+  +
+  \lambda\frac{|\grad T|^2}{T^2}.
+  \label{eq:iid-heat-product-rule}
+\end{equation}
+The source therefore writes the thermal production contribution as
+\begin{equation}
+  \dot\epsilon_{\theta}
+  =
+  \lambda\frac{|\grad T|^2}{T}\ge0 .
+  \sourceeqbadge{2.45}
+  \label{eq:iid-thermal-production}
+\end{equation}
+The nonnegativity statement uses \(T>0\) and \(\lambda\ge0\).  This is the
+source's Fourier heat-flux convention in the limited sense used here: the sign
+and coefficient are taken from Onuki's heat-conduction branch, and the displayed
+calculation only verifies the entropy-production product rule.
+
+\subsection{Gibbs--Duhem Identity Used for the Reversible Stress}
+
+Before giving the pressure tensor, the source records the identity
+\begin{equation}
+  d(p/T)
+  =
+  -e\,d(1/T)+n\,d(\mu/T).
+  \sourceeqbadge{2.46}
+  \label{eq:iid-gibbs-duhem-246}
+\end{equation}
+Here \(e\), \(s\), \(p\), and \(\mu\) are the local nongradient
+thermodynamic fields.  The named Gibbs--Duhem status is source-anchored to
+\eqsrc{2.46}; this is the source-stated local Gibbs--Duhem differential
+unpacked below from the two local thermodynamic differentials.  No external
+thermodynamics formula is imported without this local derivation.
+Starting from
+\[
+  d\mu=-s\,dT+\frac1n\,dp,
+  \qquad
+  n\mu=e+p-Tns,
+\]
+compute
+\begin{align}
+  -e\,d(1/T)+n\,d(\mu/T)
+  &=
+  -e\,d(1/T)+\frac nT\,d\mu+n\mu\,d(1/T)
+  \nonumber\\
+  &=
+  \frac nT\,d\mu+(n\mu-e)d(1/T)
+  \nonumber\\
+  &=
+  \frac nT\,d\mu+(p-Tns)d(1/T).
+\end{align}
+Using \(d(1/T)=-dT/T^2\) and the local differential
+\(d\mu=-s\,dT+n^{-1}dp\),
+\begin{align}
+  -e\,d(1/T)+n\,d(\mu/T)
+  &=
+  \left(\frac1Tdp-\frac{ns}{T}dT\right)
+  -\frac{p}{T^2}dT+\frac{ns}{T}dT
+  \nonumber\\
+  &=
+  \frac1Tdp-\frac{p}{T^2}dT
+  =
+  d(p/T).
+  \label{eq:iid-gibbs-duhem-derivation}
+\end{align}
+The verification scripts mirror this as a coefficient check in the formal
+differentials \(dp\) and \(dT\).
+
+\subsection{Choice of Reversible Stress and Reversible Entropy Flux}
+
+The symmetric tensor satisfying the reversible cancellation condition is the
+pressure-tensor form
+\begin{equation}
+  \Pi_{ij}
+  =
+  (p+p_1)\delta_{ij}
+  +
+  M(\partial_i n)(\partial_j n).\sourceeqbadge{2.47}
+  \label{eq:iid-pressure-tensor}
+\end{equation}
+The diagonal part \(p_1\) is given in \eqsrc{2.48}.  Appendix A derives the
+equivalent thermodynamic form
+\begin{equation}
+  p_1=n\hat\mu-\hat e+T\hat S-p,\sourceeqbadge{2.48}
+  \label{eq:iid-p1-thermodynamic-form}
+\end{equation}
+and the next two subsections first check the reversible-stress condition and
+then expand this scalar field in terms of \(M\), \(n\), and their derivatives.
+Appendix~\ref{app:korteweg-primary-crosswalk} later compares only the capillary
+part of this pressure-positive tensor with Korteweg's inspected Eq.~(20).  The
+comparison is a conditional local constitutive map, not an entropy, energy,
+boundary, historical-influence, or complete-PDE equivalence.
+
+\subsection{Direct Check of the Reversible-Stress Condition}
+
+The pressure tensor \eqref{eq:iid-pressure-tensor} must satisfy the residual
+condition \eqref{eq:iid-reversible-stress-condition}.  Set
+\[
+  q=p+p_1=n\hat\mu-\hat e+T\hat S,
+  \qquad
+  \Pi_{ij}=q\delta_{ij}+M(\partial_i n)(\partial_j n).
+\]
+Then
+\begin{equation}
+  \partial_j\left(\frac{\Pi_{ij}}{T}\right)
+  =
+  \partial_i\left(\frac{q}{T}\right)
+  +
+  \partial_j\left[\frac{M}{T}(\partial_i n)(\partial_j n)\right].
+  \label{eq:iid-pressure-tensor-condition-lhs}
+\end{equation}
+The scalar factor obeys
+\[
+  \frac{q}{T}=\frac{n\hat\mu}{T}-\frac{\hat e}{T}+\hat S,
+\]
+so its derivative is
+\begin{align}
+  \partial_i\left(\frac{q}{T}\right)
+  &=
+  n\partial_i\left(\frac{\hat\mu}{T}\right)
+  +\frac{\hat\mu}{T}\partial_i n
+  -\frac1T\partial_i\hat e
+  -\hat e\partial_i\left(\frac1T\right)
+  +\partial_i\hat S .
+\end{align}
+The pointwise spatial form of the Section II.B variational identity gives
+\begin{equation}
+  \partial_i\hat S
+  =
+  \frac1T\partial_i\hat e
+  -\frac{\hat\mu}{T}\partial_i n
+  -
+  \partial_j\left[\frac{M}{T}(\partial_i n)(\partial_j n)\right].
+  \label{eq:iid-section-iib-pointwise-identity}
+\end{equation}
+Substituting \eqref{eq:iid-section-iib-pointwise-identity} into
+\eqref{eq:iid-pressure-tensor-condition-lhs} cancels the gradient-coordinate
+term and leaves
+\begin{equation}
+  \partial_j\left(\frac{\Pi_{ij}}{T}\right)
+  =
+  -\hat e\partial_i\left(\frac1T\right)
+  +
+  n\partial_i\left(\frac{\hat\mu}{T}\right),
+\end{equation}
+which is exactly \eqref{eq:iid-reversible-stress-condition}.  This is a local
+residual cancellation check.  It is not a global entropy theorem and it does
+not replace the independent virtual-displacement derivation in
+Appendix~\ref{app:reversible-stress-derivation}.
+
+\subsection{Derivative Expansion of the Diagonal Gradient Pressure
+\texorpdfstring{\(p_1\)}{p1}}
+
+The scalar \(p_1\) is a pressure-like energy density.  It is a local scalar
+field on \(\Omega\times I\), not an integrated functional.  The expansion below
+uses the Section II.B hatted densities and generalized chemical potential:
+\begin{align}
+  \hat e
+  &=
+  e+\frac{1}{2}K|\grad n|^2,
+  \label{eq:iid-p1-ehat-split}\\
+  \hat S
+  &=
+  ns-\frac{1}{2}C|\grad n|^2,
+  \label{eq:iid-p1-shat-split}\\
+  \hat\mu
+  &=
+  \mu
+  -
+  T\grad\cdot\left(\frac{M}{T}\grad n\right)
+  +
+  \frac{1}{2}M_n|_T|\grad n|^2.
+  \label{eq:iid-p1-muhat}
+\end{align}
+Here \(M_n|_T=(\partial M/\partial n)_T\) is a thermodynamic partial
+derivative at fixed temperature.  This notation is not the same as the spatial
+derivative \(\grad M\), because in the non-isothermal branch
+\[
+  \grad M
+  =
+  M_n|_T\,\grad n
+  +
+  M_T|_n\,\grad T .
+\]
+
+Insert \eqref{eq:iid-p1-ehat-split}--\eqref{eq:iid-p1-muhat} into
+\eqref{eq:iid-p1-thermodynamic-form}.  Group the result into nongradient and
+gradient pieces:
+\begin{align}
+  p_1
+  &=\underbrace{(n\mu-e+Tns-p)}_{\text{nongradient thermodynamic part}}
+  \\
+  &\quad
+  -nT\grad\cdot\left(\frac{M}{T}\grad n\right)
+  +\frac12 nM_n|_T|\grad n|^2
+  -\frac12(K+TC)|\grad n|^2.
+  \label{eq:iid-p1-substitution-ledger}
+\end{align}
+The non-gradient thermodynamic terms
+cancel by the local pressure identity
+\begin{equation}
+  p=n\mu-e+Tns .
+  \label{eq:iid-p-local-identity}
+\end{equation}
+The remaining terms are
+\begin{align}
+  p_1
+  &=
+  -nT\grad\cdot\left(\frac{M}{T}\grad n\right)
+  +
+  \frac{1}{2}\left(nM_n|_T-K-TC\right)|\grad n|^2
+  \nonumber\\
+  &=
+  -nT\grad\cdot\left(\frac{M}{T}\grad n\right)
+  +
+  \frac{1}{2}\left(nM_n|_T-M\right)|\grad n|^2,
+  \label{eq:iid-p1-pre-divergence-expanded}
+\end{align}
+where the second line uses the coefficient relation \(M=CT+K\) from
+Section II.B.
+
+Now expand the divergence term as a spatial product rule:
+\begin{equation}
+  T\grad\cdot\left(\frac{M}{T}\grad n\right)
+  =
+  M\grad^2 n
+  +
+  T\grad\left(\frac{M}{T}\right)\cdot\grad n .
+  \label{eq:iid-p1-divergence-product-rule}
+\end{equation}
+Combining \eqref{eq:iid-p1-pre-divergence-expanded} and
+\eqref{eq:iid-p1-divergence-product-rule} gives the derivative-expanded form
+\begin{equation}
+  p_1
+  =
+  \frac{1}{2}\left(nM_n|_T-M\right)|\grad n|^2
+  -
+  Mn\grad^2 n
+  -
+  Tn\,\grad n\cdot\grad\left(\frac{M}{T}\right).\sourceeqbadge{2.48}
+  \label{eq:iid-p1-derivative-expanded}
+\end{equation}
+This is the companion derivation of the first line of \eqsrc{2.48}.  The final
+term is a spatial non-isothermal term.  Replacing \(M_n|_T\) by a spatial
+quotient such as \(M_x/n_x\) would incorrectly add the temperature-gradient
+piece \(M_T|_n T_x/n_x\) in one dimension.
+
+With \eqref{eq:iid-p1-derivative-expanded}, the pressure tensor is still
+\eqref{eq:iid-pressure-tensor}.  The dyadic term
+\(M(\partial_i n)(\partial_j n)\) supplies the off-diagonal gradient stress,
+while \(p_1\) supplies the isotropic diagonal gradient contribution.  Appendix
+B later rescales this tensor; the printed-B3 versus dimensional-source branch
+is not chosen or corrected here.
+
+\subsection{Pointwise Assembly of the Entropy Flux}
+
+The local form underlying the integrated variation
+\eqref{eq:iid-entropy-rate-from-variation} retains the divergence generated by
+the gradient term:
+\begin{equation}
+  \partial_t\hat S
+  =
+  \frac1T\partial_t\hat e
+  -\frac{\hat\mu}{T}\partial_t n
+  -\partial_j\left(\frac{M}{T}\partial_t n\,\partial_j n\right).
+  \label{eq:iid-local-entropy-time-variation}
+\end{equation}
+This is the time-path specialization of the Section II.B first variation
+\eqref{eq:iib-entropy-variation-boundary}; it is not a new constitutive law.
+The product-rule calculation leading to
+\eqref{eq:iid-reversible-stress-condition}, followed by that condition, puts
+the first two terms of \eqref{eq:iid-local-entropy-time-variation} in the form
+\begin{align}
+  \frac1T\partial_t\hat e
+  -\frac{\hat\mu}{T}\partial_t n
+  &=-\partial_j\left[
+    \frac{\hat e-n\hat\mu}{T}v_j
+    +
+    \frac{v_i\Pi_{ij}}{T}
+    -\frac{\lambda}{T}\partial_jT
+  \right]
+  +\frac{\dot\epsilon_v+\dot\epsilon_\theta}{T}.
+  \label{eq:iid-entropy-flux-before-gradient-combination}
+\end{align}
+The flux inside the total divergence must still be combined with the last
+term of \eqref{eq:iid-local-entropy-time-variation}.  Let
+\(q=n\hat\mu-\hat e+T\hat S\), so that
+\(\Pi_{ij}=q\delta_{ij}+M(\partial_i n)(\partial_j n)\).  Componentwise,
+\begin{align}
+  &\frac{\hat e-n\hat\mu}{T}v_j
+  +\frac{v_i\Pi_{ij}}{T}
+  +\frac{M}{T}\partial_tn\,\partial_jn
+  \nonumber\\
+  &\quad=
+  \hat S v_j
+  +
+  \frac{M}{T}
+  \left(\partial_tn+v_i\partial_i n\right)\partial_jn
+  \nonumber\\
+  &\quad=
+  \hat S v_j
+  +
+  \frac{M}{T}(D_tn)\partial_jn
+  \nonumber\\
+  &\quad=
+  \hat S v_j
+  -\frac{M}{T}n(\grad\cdot v)\partial_jn,
+  \label{eq:iid-entropy-flux-mass-balance-combination}
+\end{align}
+where the final equality uses the material form of number conservation in
+\eqref{eq:iid-material-density-balance}.  Without that balance law, the
+remaining flux residual is
+\((M/T)[D_tn+n\grad\cdot v]\partial_jn\), so the cancellation is not an
+algebraic identity in unconstrained fields.
+
+With \eqref{eq:iid-pressure-tensor}, the local entropy balance can be written
+as
+\begin{equation}
+  \partial_t\hat S
+  =
+  -\grad\cdot
+  \left[
+    \hat S v
+    -
+    \frac{M}{T}n(\grad\cdot v)\grad n
+    -
+    \frac{\lambda}{T}\grad T
+  \right]
+  +
+  \frac{\dot\epsilon_v+\dot\epsilon_{\theta}}{T}.\sourceeqbadge{2.49}
+  \label{eq:iid-entropy-balance}
+\end{equation}
+
+\subsection{Reversible Entropy Flux}
+
+Equation \eqref{eq:iid-entropy-balance} identifies three flux contributions:
+ordinary advection of \(\hat S\), conductive entropy transport associated with
+\(\lambda\grad T\), and a reversible square-gradient flux.  The reversible
+part is the vector field
+\begin{equation}
+  J_s^{\mathrm{rev}}
+  =
+  -\frac{M}{T}n(\grad\cdot v)\grad n .\sourceeqbadge{2.49}
+  \label{eq:iid-reversible-entropy-flux}
+\end{equation}
+It has the type of entropy flux: entropy per unit area per unit time.  The
+factor \(\grad\cdot v\) makes it a local compression/expansion contribution,
+and \(\grad n\) gives its direction in density-gradient space.  This flux is
+not an additional boundary condition; it is part of the local entropy-balance
+bookkeeping after the reversible stress has been chosen.
+
+\subsection{Local Capillary Energy-Flux Gauge}
+
+The alternative capillary energy-flux object discussed around \eqsrc{2.50} is
+\begin{equation}
+  J_{\mathrm{GA}}
+  =
+  M n(\grad\cdot v)\grad n,
+  \qquad
+  J_s^{\mathrm{rev}}=-\frac{1}{T}J_{\mathrm{GA}} .\sourceeqbadge{2.50}
+  \label{eq:iid-local-flux-gauge}
+\end{equation}
+The relation in \eqref{eq:iid-local-flux-gauge} is a local algebraic
+conversion between a reversible entropy-flux contribution and an energy-flux
+object.  It is useful for comparing formulations, but it is not a global
+balance theorem.  If a domain integral is taken, the divergence theorem turns
+flux differences into boundary integrals.  Those boundary terms must be
+tracked with the wall heat and surface-energy transfer data.
+
+The integrated-balance requirements can be summarized without adding a new
+source claim:
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Local object & What integration adds & Current companion status \\
+\midrule
+\(J_s^{\mathrm{rev}}=-J_{\mathrm{GA}}/T\) & boundary flux term & local identity only \\
+\(\lambda\grad T\) & imposed wall heat branch & boundary data required \\
+\(e_s\) and \(\sigma_s\) & surface-energy/entropy rate & wall transfer required \\
+\eqsrc{2.53} & global entropy bookkeeping & unresolved unless boundary data are stated \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\subsection{One-Dimensional Gravity Equilibrium}
+
+The gravity comments following \eqsrc{2.50} are static, one-dimensional
+specializations of the already stated balance laws.  Take \(v=0\),
+\(\sigma=0\), homogeneous temperature, and fields depending only on \(z\).  The
+\(i=z\) component of the momentum balance \eqref{eq:iid-momentum-components}
+becomes
+\[
+  0=-\frac{d\Pi_{zz}}{dz}-\rho g,
+\]
+and hence
+\begin{equation}
+  \frac{d\Pi_{zz}}{dz}=-\rho g .\sourceeqbadge{2.51}
+  \label{eq:iid-static-gravity-stress}
+\end{equation}
+This is a restricted equilibrium statement, not a dynamic approximation.
+
+In the same branch, \(T\) is constant, so
+\eqref{eq:iid-reversible-stress-condition} gives
+\[
+  \frac1T\frac{d\Pi_{zz}}{dz}
+  =
+  \frac{n}{T}\frac{d\hat\mu}{dz}.
+\]
+Combining this with \eqref{eq:iid-static-gravity-stress} and \(\rho=mn\)
+yields
+\[
+  n\frac{d\hat\mu}{dz}=-mn g,
+  \qquad
+  \frac{d\hat\mu}{dz}=-mg .
+\]
+Therefore
+\begin{equation}
+  \hat\mu+mgz=\hbox{constant}.\sourceeqbadge{2.52}
+  \label{eq:iid-static-gravity-chemical-potential}
+\end{equation}
+The finite verification layer checks only this specialization and integration
+constant bookkeeping; it does not derive a new gravitational model.
+
+\subsection{Global Entropy Balance and Boundary Transfer}
+
+The global statement \eqsrc{2.53} starts from the local entropy balance
+\eqref{eq:iid-entropy-balance}, but it also uses boundary and wall data.  Write
+the local flux as
+\begin{equation}
+  J_S
+  =
+  \hat S v
+  -\frac{M}{T}n(\grad\cdot v)\grad n
+  -\frac{\lambda}{T}\grad T .
+\end{equation}
+Integrating \eqref{eq:iid-entropy-balance} over \(\Omega\) gives
+\begin{equation}
+  \frac{dS_b}{dt}
+  =
+  -\int_{\partial\Omega}\nu\cdot J_S\,da
+  +
+  \int_{\Omega}\frac{\dot\epsilon_v+\dot\epsilon_\theta}{T}\,dx .
+  \label{eq:iid-integrated-bulk-entropy-before-wall}
+\end{equation}
+The source wall branch sets the wall velocity to zero and uses the wall density
+condition from Section II.C even away from equilibrium.  Thus the boundary
+term is not discarded; its capillary density piece is combined with the wall
+surface contribution.
+
+The heat-conduction part has a fixed sign in the outward-normal convention:
+\begin{equation}
+  -\nu\cdot\left(-\frac{\lambda}{T}\grad T\right)
+  =
+  \frac{\nu\cdot\lambda\grad T}{T} .
+  \label{eq:iid-conductive-boundary-sign}
+\end{equation}
+For the wall contribution, define
+\[
+  S_s=\int_{\partial\Omega}\sigma_s(n)\,da,
+  \qquad
+  E_s=\int_{\partial\Omega}e_s(n)\,da,
+  \qquad
+  \dot e_s=\frac{\partial e_s}{\partial n}\partial_t n .
+\]
+The wall Helmholtz relation \(f_s=e_s-T\sigma_s\), together with the natural
+wall condition from Section II.C,
+\[
+  M\nu\cdot\grad n+\left(\frac{\partial f_s}{\partial n}\right)_T=0,
+\]
+converts the capillary density boundary term into the surface-energy rate
+term in the total entropy balance.  The resulting source statement is
+\begin{equation}
+  \frac{dS_{\mathrm{tot}}}{dt}
+  =
+  \int_{\Omega}
+    \frac{\dot\epsilon_v+\dot\epsilon_\theta}{T}\,dx
+  +
+  \int_{\partial\Omega}
+    \frac{\nu\cdot\lambda\grad T+\dot e_s}{T}\,da .\sourceeqbadge{2.53}
+  \label{eq:iid-global-entropy-structure}
+\end{equation}
+This formula is recorded as a source-guided global bookkeeping statement.  It
+is not obtained from the local flux identity alone.  The boundary integrand
+contains heat transfer through the wall and the time rate of wall surface
+energy.  Dropping either contribution changes the global statement unless a
+separate boundary branch makes that term vanish.
+
+Thus the companion classification has two parts:
+\begin{itemize}
+\item the local flux gauge is a finite local identity;
+\item the global entropy balance is boundary- and wall-transfer dependent.
+\end{itemize}
+Later Appendix-B and Section III guidance must preserve this separation.
+
+\subsection{Relation to Appendix A}
+
+Appendix~\ref{app:reversible-stress-derivation} derives the stress tensor
+\eqref{eq:iid-pressure-tensor} from a virtual-displacement calculation.  The
+present section uses that tensor in the dynamic entropy-production
+bookkeeping.  These are complementary local calculations:
+\begin{itemize}
+\item Appendix A identifies the reversible stress from nondissipative virtual
+  work and entropy neutrality.
+\item Section II.D shows why the same stress and the reversible entropy flux
+  remove nondissipative terms from the entropy-production balance.
+\end{itemize}
+Neither calculation resolves the Appendix-B B3 scaling branch, the
+unpublished simulation-code branch, or the global wall/surface transfer map.
+
+\subsection{Verification Checklist}
+
+The companion verification layer for this section checks finite algebraic
+statements only:
+\begin{enumerate}
+\item the kinetic-energy identity obtained by dotting momentum with velocity
+  under the mass balance;
+\item internal-energy bookkeeping as total energy minus kinetic energy;
+\item a simplified nonnegative viscous quadratic proxy under nonnegative
+  coefficients;
+\item the stress-flux product rule that produces stress power;
+\item the local entropy-flux relation \(J_s^{\mathrm{rev}}=-J_{\mathrm{GA}}/T\);
+\item the equivalent local conversion \(T J_s^{\mathrm{rev}}+J_{\mathrm{GA}}=0\);
+\item an expected nonzero residual when the reversible entropy flux is
+  omitted;
+\item an expected nonzero residual when the boundary heat and surface-energy
+  transfer term is omitted from the global entropy schematic;
+\item the derivative expansion of \(p_1\) from its thermodynamic form, including
+  the distinction between \(M_n|_T\) and a spatial derivative of \(M\);
+\item a regression that global boundary entropy transfer remains unresolved.
+\end{enumerate}
+These checks do not prove the hydrodynamic PDEs, the second law,
+well-posedness, boundary theory, or numerical simulations.
+
+The executable mirrors for the Section II.D calculations are:
+\begin{center}
+\small
+\begin{tabular}{@{}l@{}}
+\texttt{scripts/python/section\_iid\_hydrodynamic\_balance\_sympy.py}\\
+\texttt{scripts/wolfram/section\_iid\_hydrodynamic\_balance\_checks.wls}\\
+\texttt{tests/test\_section\_iid\_hydrodynamic\_balances.py}\\
+\texttt{scripts/python/section\_iid\_p1\_pressure\_expansion\_sympy.py}\\
+\texttt{scripts/wolfram/section\_iid\_p1\_pressure\_expansion\_checks.wls}\\
+\texttt{tests/test\_section\_iid\_p1\_pressure\_expansion.py}
+\end{tabular}
+\end{center}
+The first group checks the kinetic-energy subtraction, stress-flux product
+rule, local entropy-flux gauge, and boundary-transfer residuals.  The second
+group checks the derivative expansion of \(p_1\), including the distinction
+between \(M_n|_T\) and spatial differentiation of \(M(n,T)\).  Both groups
+are finite mirrors of the displayed companion bookkeeping.
+
+\subsection{Source-Procedure Completion Status}
+
+The exhaustive-inventory pass assigns the Section II.D derivation-required
+rows to local balance-law subtraction, thermodynamic pressure expansion, and
+boundary-transfer bookkeeping.  This section now gives explicit companion
+coverage for the local rows:
+\begin{itemize}
+\item Rows (2.35)--(2.40): density, momentum, total-energy, and
+  internal-energy balances are expanded with the mass-balance and
+  kinetic-energy subtraction ledgers.
+\item Rows (2.41)--(2.45): entropy production is treated as
+  bookkeeping plus constitutive sign assumptions, not as a software proof of
+  the second law.
+\item Rows (2.47)--(2.49): the pressure tensor, \(p_1\), and
+  reversible entropy flux are connected to Appendix~A, the Eq. (2.44)
+  cancellation condition, and the finite symbolic residual checks.
+\item Rows (2.50)--(2.52): the local flux-gauge identity and the
+  one-dimensional gravity specialization are displayed as restricted local
+  calculations.
+\item Row (2.53): the integrated entropy statement is separated from the local
+  flux-gauge identity and kept boundary/wall-transfer dependent.
+\end{itemize}
+Thus the local Section II.D source procedures are closed for companion
+purposes, while integrated energy/entropy closure remains boundary dependent.
+
+\subsection*{Tagged verification complement}
+
+\OnukiLinkIIDBalances{The tagged Section II.D balance complement} maps the
+local balance and entropy-bookkeeping derivation to its finite scripts and
+negative controls. \OnukiLinkIIDPressure{The tagged pressure-tensor complement}
+separates the \(p_1\) derivative convention from Appendix-B source branches.
+Neither link asserts a continuum, global-boundary, or simulation proof.
+
+\subsection{Open Issues Carried Forward}
+
+\begin{itemize}
+\item The derivative-expanded \(p_1\) formula has been derived locally in this
+  section.  Appendix~\ref{app:scaled-equations-plan} now records the separate
+  dimensional-source and printed-B3 scaling branches; this local Section II.D
+  calculation does not choose a simulation-code branch.
+\item The alternative capillary energy flux and the global boundary terms are
+  local/global bookkeeping issues; the boundary contribution is not closed in
+  this section.
+\item Appendix-B B3 scaling is not used here to derive the Section II.D local
+  balances.  It remains a separate branchwise source-printing issue.
+\item The unpublished simulation-code branch is not inferred from the printed
+  equations.
+\end{itemize}
